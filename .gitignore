@@ -1,0 +1,15 @@
+# IDE artifacts
+.vs
+*.VC.db
+*.VC.opendb
+*.vcxproj.user
+
+# Precompiled headers
+headers
+
+# Build artifacts
+x64
+Debug
+
+# Logs
+*.log

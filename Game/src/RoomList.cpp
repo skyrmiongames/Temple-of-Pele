@@ -1,0 +1,12 @@
+#include "RoomList.h"
+
+/*
+ * Created by Stuart Irwin on 4/13/2019.
+ * Manages list of rooms through update cycle
+ */
+
+RoomList::RoomList() {
+	for(int i = 0; i < SIZE; i++) {
+			rooms[i] = new Room(i);
+	}
+}

@@ -1,7 +1,7 @@
-#include <Sprite.hpp>
-#include <Vector2.hpp>
-#include <Texture.hpp>
-#include <Rect.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include "enums.h"
 
 /*

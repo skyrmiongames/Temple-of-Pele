@@ -1,4 +1,4 @@
-#include <Rect.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include "Node.h"
 #include "Room.h"
 

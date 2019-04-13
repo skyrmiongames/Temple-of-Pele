@@ -21,6 +21,9 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Entity.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6EE0F4F0-0FC6-4736-9FBC-80D8BFB59F03}</ProjectGuid>
     <RootNamespace>TempleofPele</RootNamespace>

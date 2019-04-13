@@ -27,4 +27,4 @@ public:
 	virtual void on_load();
 	virtual void update();
 	virtual void collide(CollisionLayer layer, Node object);
-}
+};

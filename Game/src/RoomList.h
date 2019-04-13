@@ -15,4 +15,4 @@ private:
 public:
 	RoomList();
 
-}
+};

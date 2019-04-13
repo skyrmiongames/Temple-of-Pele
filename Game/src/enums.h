@@ -10,10 +10,10 @@ enum CollisionLayer {
 	SWORD,
 	ENEMY,
 	SWITCH
-}
+};
 
 enum TileType {
 	SOLID,
 	GROUND,
 	EMPTY
-}
+};

@@ -17,3 +17,14 @@ enum TileType {
 	GROUND,
 	EMPTY
 };
+
+enum OrthagonalDirection {
+	North,
+	Northeast,
+	East,
+	Southeast,
+	South,
+	Southwest,
+	West,
+	Northwest
+};

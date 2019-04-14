@@ -1,6 +1,8 @@
 #pragma once
 
-class Entity {
+#include "Node.h"
+
+class Entity : public Node {
 
 public:
 	Entity(
@@ -8,7 +10,7 @@ public:
 		int _attack_power = 5,
 		bool _invulnerable = false,
 		double _speed = 1.0
-	) : health(_health), attack_power(_attack_power), invulnerable(_invulnerable), speed(_speed) {}
+	) : health(_health), attack_power(_attack_power), invulnerable(_invulnerable), speed(_speed), Node() {}
 	~Entity() {}
 
 	void modify_health(int modifier) {
@@ -20,6 +22,10 @@ public:
 	}
 
 	int get_attack() { return attack_power; }
+
+	void move(OrthagonalDirection direction) {
+
+	}
 
 private:
 	int health;

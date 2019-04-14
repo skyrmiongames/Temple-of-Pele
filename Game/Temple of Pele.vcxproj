@@ -20,9 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\RoomList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\enums.h" />
+    <ClInclude Include="src\Node.h" />
+    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\Room.h" />
+    <ClInclude Include="src\RoomList.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6EE0F4F0-0FC6-4736-9FBC-80D8BFB59F03}</ProjectGuid>

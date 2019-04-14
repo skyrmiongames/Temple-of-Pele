@@ -19,7 +19,7 @@ public:
 	//Collision and room engine
 	int get_room();
 	TileType check_tile(sf::Vector2i position);
-	bool check_collision(Node other);
+	bool check_collision(Node *other);
 
 	//Entity implementation
 	virtual void on_load();

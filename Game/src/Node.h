@@ -1,7 +1,5 @@
-#include <Sprite.hpp>
-#include <Vector2.hpp>
-#include <Texture.hpp>
-#include <Rect.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include "enums.h"
 
 /*
@@ -12,19 +10,20 @@
 class Node : public sf::Sprite {
 private:
 	CollisionLayer layer;
+	sf:Vector2i size;
 	int room;
 
 public:
-	Node(int room, sf::Vector2 position, sf::Texture texture, CollisionLayer layer);
+	Node(int room, sf::Vector2i position, CollisionLayer layer);
 
 	//Collision and room engine
 	int get_room();
-	void change_room(int room);
-	TileType check_tile(sf::Vector2 position);
-	bool check_collision(sf::IntRect rectangle, CollisionLayer layer);
+	TileType check_tile(sf::Vector2i position);
+	bool check_collision(Node other);
 
 	//Entity implementation
 	virtual void on_load();
+	virtual void on_unload();
 	virtual void update();
-	virtual void collide(CollisionLayer layer, Node object);
-}
+	virtual void collide(CollisionLayer layer, Node *object);
+};

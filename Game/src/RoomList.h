@@ -1,4 +1,3 @@
-#include <Rect.hpp>
 #include "Node.h"
 #include "Room.h"
 
@@ -10,9 +9,9 @@
 class RoomList {
 private:
 	const int SIZE = 1;
-	(Room*)[] rooms = new Room[SIZE];
+	Room rooms[];
 
 public:
 	RoomList();
-
-}
+	void update();
+};

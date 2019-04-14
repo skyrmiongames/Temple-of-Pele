@@ -6,7 +6,5 @@
  */
 
 RoomList::RoomList() {
-	for(int i = 0; i < SIZE; i++) {
-			rooms[i] = new Room(i);
-	}
+	
 }

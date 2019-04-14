@@ -23,6 +23,8 @@ public:
 
 	int get_attack() { return attack_power; }
 
+	void move(OrthagonalDirection direction) {}
+
 private:
 	int health;
 	int attack_power;

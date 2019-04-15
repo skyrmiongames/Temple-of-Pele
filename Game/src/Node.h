@@ -4,26 +4,24 @@
 
 /*
  * Created by Stuart Irwin on 4/13/2019.
- * Sprite with collision and room integration
+ * Sprite with collision
  */
 
 class Node : public sf::Sprite {
 private:
 	CollisionLayer layer;
 	sf::Vector2i size;
-	int room;
 
 public:
-	Node(int room, sf::Vector2i position, CollisionLayer layer);
+	Node(CollisionLayer layer=ENEMY, size=(new Vector2i(1, 1)));
 
-	//Collision and room engine
-	int get_room();
-	TileType check_tile(sf::Vector2i position);
+	//Collision engine
+	CollisionLayer get_layer();
+	bool on_screen();
 	bool check_collision(Node *other);
 
 	//Entity implementation
 	virtual void on_load();
-	virtual void on_unload();
 	virtual void update();
 	virtual void collide(CollisionLayer layer, Node *object);
 };

@@ -1,20 +1,23 @@
 #include <list>
-#include "TileMap.hpp"
+#include "Node.h"
 
 /*
  * Created by Stuart Irwin on 4/13/2019.
- * Stores room contents and updates
+ * Loads set of nodes together
  */
 
 class Room {
 private:
-	int index;
-	TileMap tiles;
+	std::list<Node> contents;
 
 public:
-	Room(int i);
+	//Build room contents
+	Room(std::string file);
 
-	//Setup
-	void load();
-	void enter();
+	//Add contents to game
+	void initialize() {
+		for(Node n : contents) {
+			UpdateList
+		}
+	}
 };

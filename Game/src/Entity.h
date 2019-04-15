@@ -13,12 +13,22 @@ public:
 	) : health(_health), attack_power(_attack_power), invulnerable(_invulnerable), speed(_speed), Node() {}
 	~Entity() {}
 
-	void modify_health(int modifier) {
+	int modify_health(int modifier) {
 		if (!invulnerable) health += modifier;
 
-		if (health <= 0) {
+		if (is_dead()) {
 			// Death code
 		}
+
+		return health;
+	}
+
+	int get_health() {
+		return health;
+	}
+
+	bool is_dead() {
+		return health <= 0;
 	}
 
 	int get_attack() { return attack_power; }

@@ -4,8 +4,10 @@
 
 class Player : public Entity {
 public:
-	Player(double x_velocity = 0.0,
-	double y_velocity = 0.0) :Entity(60, 0, false, 1.2) {};
+	Player(
+		double x_velocity = 0.0,
+		double y_velocity = 0.0
+	) : Entity() {};
 	~Player();
 
 	void eightWayMovement();

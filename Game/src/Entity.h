@@ -6,11 +6,12 @@ class Entity : public Node {
 
 public:
 	Entity(
-		int _health = 20,
+		int _health = 60,
 		int _attack_power = 20,
-		bool _invulnerable = false,
-		double _speed = 1.0
-	) : health(_health), attack_power(_attack_power), invulnerable(_invulnerable), speed(_speed), Node() {}
+		double _speed = 1.0,
+		bool _invulnerable = false
+	) : health(_health), max_health(_health), attack_power(_attack_power), speed(_speed), invulnerable(_invulnerable) {}
+
 	~Entity() {}
 
 	int modify_health(int modifier) {

@@ -10,7 +10,7 @@
 class Node : public sf::Sprite {
 private:
 	CollisionLayer layer;
-	sf:Vector2i size;
+	sf::Vector2i size;
 	int room;
 
 public:

@@ -14,22 +14,20 @@ public:
 	~Entity() {}
 
 	int modify_health(int modifier) {
-		if (!invulnerable) health += modifier;
+		if (!invulnerable || modifier > 0) set_health(get_health() + modifier);
 
 		if (is_dead()) {
 			// Death code
 		}
 
-		return health;
+		return get_health();
 	}
 
-	int get_health() {
-		return health;
-	}
+	void set_health(int _health) { health = _health <= max_health ? _health : max_health; }
 
-	bool is_dead() {
-		return health <= 0;
-	}
+	int get_health() { return health; }
+
+	bool is_dead() { return health <= 0; }
 
 	int get_attack() { return attack_power; }
 
@@ -39,6 +37,7 @@ public:
 
 protected:
 	int health;
+	int max_health;
 	int attack_power;
 	bool invulnerable;
 	double speed;

@@ -27,7 +27,7 @@ public:
 
 	}
 
-private:
+protected:
 	int health;
 	int attack_power;
 	bool invulnerable;

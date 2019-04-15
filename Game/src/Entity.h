@@ -7,7 +7,7 @@ class Entity : public Node {
 public:
 	Entity(
 		int _health = 20,
-		int _attack_power = 5,
+		int _attack_power = 20,
 		bool _invulnerable = false,
 		double _speed = 1.0
 	) : health(_health), attack_power(_attack_power), invulnerable(_invulnerable), speed(_speed), Node() {}

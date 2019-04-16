@@ -18,7 +18,7 @@ public:
 	//Add contents to game
 	void initialize() {
 		for(Node n : contents) {
-			UpdateList.add_node(n);
+			UpdateList::add_node(n);
 			n.on_load();
 		}
 	}

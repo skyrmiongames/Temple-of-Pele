@@ -5,6 +5,10 @@
  * Manages list of nodes through update cycle
  */
 
+//Static variables
+std::list<Node*> UpdateList::onScreen;
+std::list<Node*> UpdateList::offScreen;
+
 //Sort nodes by on screen
 void UpdateList::update_lists() {
 	//Confirm nodes on screen

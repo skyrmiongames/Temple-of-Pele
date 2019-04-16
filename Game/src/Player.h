@@ -7,7 +7,7 @@ public:
 	Player(
 		double x_velocity = 0.0,
 		double y_velocity = 0.0
-	) : Entity() {};
+	);
 	~Player();
 
 	void eightWayMovement();

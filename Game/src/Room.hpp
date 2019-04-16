@@ -1,4 +1,5 @@
 #include <list>
+#include "UpdateList.hpp"
 #include "Node.h"
 
 /*
@@ -17,7 +18,8 @@ public:
 	//Add contents to game
 	void initialize() {
 		for(Node n : contents) {
-			UpdateList
+			UpdateList.add_node(n);
+			n.on_load();
 		}
 	}
 };

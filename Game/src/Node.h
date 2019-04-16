@@ -13,7 +13,8 @@ private:
 	sf::Vector2i size;
 
 public:
-	Node(CollisionLayer layer=ENEMY, size=(new Vector2i(1, 1)));
+	Node(CollisionLayer layer=ENEMY);
+	Node(sf::Vector2i *size, CollisionLayer layer=ENEMY);
 
 	//Collision engine
 	CollisionLayer get_layer();
@@ -23,5 +24,6 @@ public:
 	//Entity implementation
 	virtual void on_load();
 	virtual void update();
-	virtual void collide(CollisionLayer layer, Node *object);
+	virtual void collide(Node *object);
+	//virtual bool operator==(const Node &object);
 };

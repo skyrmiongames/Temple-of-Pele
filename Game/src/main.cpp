@@ -1,4 +1,6 @@
+#include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+#include <string>
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(600, 400), "SFML works!");

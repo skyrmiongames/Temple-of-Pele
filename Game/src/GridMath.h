@@ -1,7 +1,7 @@
 #include "enums.h"
 
 /*
- * Created by Stuart Irwin on 4/13/2019.
+ * Created by Stuart Irwin on 4/15/2019.
  * Generates and stores main tilemap
  */
 

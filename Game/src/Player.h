@@ -2,20 +2,14 @@
 
 #include "Entity.h"
 
-class Player : public Entity {
+class Player : public Entity 
+{
 public:
 	Player(
 		double x_velocity = 0.0,
 		double y_velocity = 0.0
-	) : Entity() {
-		this->x_velocity = 0.0;
-		this->y_velocity = 0.0;
-		sf::Texture upIdlePlayer;
-		upIdlePlayer.loadFromFile("Player_IdleUp.png");
-		//this->setTexture(upIdlePlayer);
-		sf::Sprite playerSprite;
-		playerSprite.setTexture(upIdlePlayer);
-	};
+	);
+//>>>>>>> 3e25be3c7d5cb874c4ca6eeef5714157990eac69
 	~Player();
 
 	void eightWayMovement();

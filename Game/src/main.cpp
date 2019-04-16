@@ -1,12 +1,21 @@
+//SFML headers
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+
 #include <string>
+#include "GridMaker.h"
+#include "TileMap.hpp"
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(600, 400), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
 
+	//Load tile map
+	GridMaker::build_grid();
+	TileMap map;
+    if (!map.load("resources/tileset.png", sf::Vector2u(32, 32), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
+        return -1;
+
+    //Run main window
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -15,7 +24,7 @@ int main() {
 		}
 
 		window.clear();
-		window.draw(shape);
+		window.draw(map);
 		window.display();
 	}
 

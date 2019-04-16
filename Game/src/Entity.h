@@ -40,6 +40,6 @@ protected:
 	int health;
 	int max_health;
 	int attack_power;
-	bool invulnerable;
 	double speed;
+	bool invulnerable;
 };

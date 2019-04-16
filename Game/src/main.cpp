@@ -12,7 +12,7 @@ int main() {
 	//Load tile map
 	GridMaker::build_grid();
 	TileMap map;
-    if (!map.load("resources/tileset.png", sf::Vector2u(32, 32), GridMaker::index_grid(), GridMaker::SIZE, GridMaker::SIZE))
+    if (!map.load("resources/tileset.png", sf::Vector2u(32, 32), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
         return -1;
 
     //Run main window

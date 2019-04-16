@@ -6,8 +6,8 @@
  */
 
 //Static variables
-char GridMaker::tiles[SIZE][SIZE];
-int GridMaker::indexes[SIZE * SIZE];
+char GridMaker::tiles[HEIGHT][WIDTH];
+int GridMaker::indexes[HEIGHT * WIDTH];
 
 //Convert file to char[][]
 void GridMaker::build_grid() {
@@ -30,9 +30,9 @@ void GridMaker::build_grid() {
 //Convert char[][] to int[][]
 int* GridMaker::index_grid() {
 	//Loop through tiles
-	for(int y = 0; y < SIZE; y++)
-		for(int x = 0; x < SIZE; x++)
-			indexes[x + y * SIZE] = index_tile(tiles[y][x]);
+	for(int y = 0; y < HEIGHT; y++)
+		for(int x = 0; x < WIDTH; x++)
+			indexes[x + y * WIDTH] = index_tile(tiles[y][x]);
 
 	return indexes;
 }

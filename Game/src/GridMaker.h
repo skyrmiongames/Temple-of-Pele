@@ -17,7 +17,8 @@
 
 class GridMaker {
 public:
-	static const int SIZE = 21;
+	static const int WIDTH = 21;
+	static const int HEIGHT= 10;
 
 	//Build and convert grid
 	static void build_grid();
@@ -29,6 +30,6 @@ public:
 	static TileType check_tile(sf::Vector2i position);
 
 private:
-	static char tiles[SIZE][SIZE];
-	static int indexes[SIZE * SIZE];
+	static char tiles[HEIGHT][WIDTH];
+	static int indexes[HEIGHT * WIDTH];
 };

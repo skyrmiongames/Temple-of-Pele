@@ -1,5 +1,6 @@
 # IDE artifacts
 .vs
+.vscode
 *.VC.db
 *.VC.opendb
 *.vcxproj.user

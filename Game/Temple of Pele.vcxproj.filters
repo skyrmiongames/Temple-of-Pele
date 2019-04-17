@@ -66,4 +66,41 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\resources\Enemy1_BaseGif.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\resources\FireBall_BaseGif.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\resources\Health_HeartsGif.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\resources\Player_IdleDown.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\resources\Player_IdleSide.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\resources\Player_IdleUp.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\resources\Player_WalkDown.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\resources\Player_WalkSide.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\resources\Player_WalkUp.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\resources\tileset.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\resources\map.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdarg>
+#include "enums.h"
 
 /**
 Check to see if a value is in a list of values. 

@@ -19,6 +19,7 @@ private:
 	bool deleted = false;
 
 public:
+	//Node constructors
 	Node(CollisionLayer layer = ENEMY);
 	Node(sf::Vector2i *size, CollisionLayer layer = ENEMY);
 

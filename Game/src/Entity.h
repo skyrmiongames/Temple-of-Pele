@@ -36,18 +36,18 @@ public:
 	int get_attack() { return attack_power; }
 
 	void move(
-		OrthagonalDirection direction,
+		int direction,
 		bool allowVoid = true
 	) {
 
 		int xOffset // Assuming that right, 'east', is positive X
-			= oneof(direction, 3, Northeast, East, Southeast) ? 16
-			: oneof(direction, 3, Northwest, West, Southwest) ? -16
+			= oneof(direction, 3, (int)Northeast, (int)East, (int)Southeast) ? 16
+			: oneof(direction, 3, (int)Northwest, (int)West, (int)Southwest) ? -16
 			: 0;
 
 		int yOffset // Assuming that up, 'north', is negative Y
-			= oneof(direction, 3, Northwest, North, Northeast) ? 16
-			: oneof(direction, 3, Southwest, South, Southeast) ? -16
+			= oneof(direction, 3, (int)Northwest, (int)North, (int)Northeast) ? 16
+			: oneof(direction, 3, (int)Southwest, (int)South, (int)Southeast) ? -16
 			: 0;
 
 		sf::Vector2i target((int)getPosition().x + xOffset, (int)getPosition().y + yOffset);

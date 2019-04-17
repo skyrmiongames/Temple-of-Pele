@@ -1,10 +1,9 @@
 #include "Player.h"
-#include "textures.h"
 
 Player::Player() :Entity(60, 0, false, 1.2)
 {
-	this->setTexture(textures::playerIdleDown);
-	this->healthSprite.setTexture(textures::healthSpriteTexture);
+	this->setTexture(textures->playerIdleDown);
+	this->healthSprite.setTexture(textures->healthSpriteTexture);
 	this->healthSprite.setTextureRect(sf::IntRect (0, 0, 25, 7));
 }
 
@@ -17,22 +16,22 @@ void Player::eightWayMovement()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) // up
 	{
-		this->setTexture(textures::playerMoveUp);
+		this->setTexture(textures->playerMoveUp);
 		move(North);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
 	{
-		this->setTexture(textures::playerMoveDown);
+		this->setTexture(textures->playerMoveDown);
 		move(South);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left
 	{
-		this->setTexture(textures::playerMoveSide);
+		this->setTexture(textures->playerMoveSide);
 		move(West);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // right
 	{
-		this->setTexture(textures::playerMoveSide);
+		this->setTexture(textures->playerMoveSide);
 		move(East);
 	}
 }

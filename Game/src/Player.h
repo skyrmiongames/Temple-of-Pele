@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include "textures.h"
 
-class Player : public Entity , public textures
+class Player : public Entity
 {
 public:
 	Player();

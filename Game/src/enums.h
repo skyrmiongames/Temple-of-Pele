@@ -7,10 +7,10 @@
 
 enum CollisionLayer {
 	SOLID,
-	DOORWAY,
 	PLAYER,
 	SWORD,
 	ENEMY,
+	FIREBALL,
 	SWITCH
 };
 

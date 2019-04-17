@@ -3,6 +3,7 @@
 #include "Node.h"
 #include "enums.h"
 #include "Helpers.h"
+#include "GridMaker.h"
 
 class Entity : public Node {
 
@@ -34,16 +35,27 @@ public:
 
 	int get_attack() { return attack_power; }
 
-	void move(OrthagonalDirection direction) {
-		int xOffset
+	void move(
+		OrthagonalDirection direction,
+		bool allowVoid = true
+	) {
+
+		int xOffset // Assuming that right, 'east', is positive X
+			= oneof(direction, 3, Northeast, East, Southeast) ? 1
+			: oneof(direction, 3, Northwest, West, Southwest) ? -1
+			: 0;
+
+		int yOffset // Assuming that up, 'north', is positive Y
 			= oneof(direction, 3, Northwest, North, Northeast) ? 1
 			: oneof(direction, 3, Southwest, South, Southeast) ? -1
 			: 0;
 
-		int yOffset
-			= oneof(direction, 3, Northeast, East, Southeast) ? 1
-			: oneof(direction, 3, Northwest, West, Southwest) ? -1
-			: 0;
+		sf::Vector2i target((int)getPosition().x + xOffset, (int)getPosition().y + yOffset);
+		TileType targetType = GridMaker::check_tile(target);
+
+		if (targetType != WALL && !allowVoid ? targetType != EMPTY : true) {
+			setPosition(sf::Vector2f(target.x, target.y));
+		}
 	}
 
 protected:

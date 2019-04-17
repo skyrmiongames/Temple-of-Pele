@@ -17,7 +17,7 @@ bool oneof(T value_to_check, int comparison_value_count, ...) {
 
 	bool ret = false;
 
-	for (int i = 0; i < comparison_value_count && !ret; i++){
+	for (int i = 0; i < comparison_value_count && !ret; i++) {
 		ret |= value_to_check == va_arg(args, T);
 	}
 

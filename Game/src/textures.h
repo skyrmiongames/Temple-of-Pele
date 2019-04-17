@@ -4,13 +4,20 @@
 class textures
 {
   public:
-	textures();
-	~textures();
+	  static void load()
+	  {
+		  playerIdleDown.loadFromFile("resources/Player_IdleDown.png");
+		  playerIdleUp.loadFromFile("resources/Player_IdleUp.png");
+		  playerIdleSide.loadFromFile("resources/Player_IdleSide.png");
+		  playerMoveDown.loadFromFile("resources/Player_WalkDown.png");
+		  playerMoveUp.loadFromFile("resources/Player_WalkUp.png");
+		  playerMoveSide.loadFromFile("resources/Player_WalkSide.png");
+	  };
 
-	sf::Texture playerIdleDown;
-	sf::Texture playerIdleUp;
-	sf::Texture playerIdleSide;
-	sf::Texture playerMoveDown;
-	sf::Texture playerMoveUp;
-	sf::Texture playerMoveSide;
+	static sf::Texture playerIdleDown;
+	static sf::Texture playerIdleUp;
+	static sf::Texture playerIdleSide;
+	static sf::Texture playerMoveDown;
+	static sf::Texture playerMoveUp;
+	static sf::Texture playerMoveSide;
 };

@@ -27,52 +27,24 @@ void Player::eightWayMovement()
 {
 	if (sf::Keyboard::W) // up
 	{
-		if (this->getPosition().y >= 16)
-		{
-			this->setPosition(getPosition().x, getPosition().y - 16);
-			//this->setTexture();
-		}
-		else
-		{
-
-		}
+		move(North);
+		//this->setTexture();
 	}
 	else if (sf::Keyboard::S) // down
 	{
-		if (this->getPosition().y >= 384)
-		{
-			this->setPosition(getPosition().x, getPosition().y + 16);
-		}
-		else
-		{
-
-		}
+		move(South);
 	}
 	else if (sf::Keyboard::A) // left
 	{
-		if (this->getPosition().x >= 16)
-		{
-			this->setPosition(getPosition().x - 16, getPosition().y);
-		}
-		else
-		{
-
-		}
+		move(West);
 	}
 	else if (sf::Keyboard::D) // right
 	{
-		if (this->getPosition().x >= 584)
-		{
-			this->setPosition(getPosition().x + 16, getPosition().y);
-		}
-		else
-		{
-
-		}
+		move(East);
 	}
 }
 
-void Player::slowDown()
+void Player::update()
 {
-
+	player->eightWayMovement();
 }

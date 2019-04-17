@@ -20,6 +20,7 @@ void GridMaker::build_grid() {
 
 	//Read file by line
 	while(std::getline(mapFile, line)) {
+#pragma warning(suppress:4996) // TODO: fix strcpy warning
 		strcpy(tiles[i], line.c_str());
 		i++;
 

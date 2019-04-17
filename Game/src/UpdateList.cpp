@@ -38,7 +38,7 @@ bool UpdateList::moving_layer(Node *n) {
 
 //Add node to update cycle
 void UpdateList::add_node(Node *next) {
-	offScreen.push_back(next);
+	onScreen.push_back(next);
 	checking_screen = true;
 }
 

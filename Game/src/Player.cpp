@@ -5,6 +5,7 @@ Player::Player() :Entity(60, 0, false, 1.2)
 {
 	this->setTexture(textures::playerIdleDown);
 	this->healthSprite.setTexture(textures::healthSpriteTexture);
+	this->healthSprite.setTextureRect(sf::IntRect (0, 0, 25, 7));
 }
 
 Player::~Player()

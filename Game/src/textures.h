@@ -14,6 +14,8 @@ class textures
 		  playerMoveSide.loadFromFile("resources/Player_WalkSide.png");
 
 		  healthSpriteTexture.loadFromFile("resources/Health_HeartsGif.png");
+
+		  Enemy1Gif.loadFromFile("Enemy1Gif.png");
 	  };
 
 	static sf::Texture playerIdleDown;
@@ -24,4 +26,6 @@ class textures
 	static sf::Texture playerMoveSide;
 
 	static sf::Texture healthSpriteTexture;
+
+	static sf::Texture Enemy1Gif;
 };

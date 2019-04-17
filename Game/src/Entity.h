@@ -41,13 +41,13 @@ public:
 	) {
 
 		int xOffset // Assuming that right, 'east', is positive X
-			= oneof(direction, 3, Northeast, East, Southeast) ? 1
-			: oneof(direction, 3, Northwest, West, Southwest) ? -1
+			= oneof(direction, 3, Northeast, East, Southeast) ? 16
+			: oneof(direction, 3, Northwest, West, Southwest) ? -16
 			: 0;
 
-		int yOffset // Assuming that up, 'north', is positive Y
-			= oneof(direction, 3, Northwest, North, Northeast) ? 1
-			: oneof(direction, 3, Southwest, South, Southeast) ? -1
+		int yOffset // Assuming that up, 'north', is negative Y
+			= oneof(direction, 3, Northwest, North, Northeast) ? 16
+			: oneof(direction, 3, Southwest, South, Southeast) ? -16
 			: 0;
 
 		sf::Vector2i target((int)getPosition().x + xOffset, (int)getPosition().y + yOffset);

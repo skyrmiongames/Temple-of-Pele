@@ -76,6 +76,7 @@ void UpdateList::update(sf::RenderWindow &window) {
 
 		//Update each object
 		source->update();
-		window.draw(*source);
+		if(!source->get_hidden())
+			window.draw(*source);
 	}
 }

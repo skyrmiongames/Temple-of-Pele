@@ -21,10 +21,10 @@
     <ClCompile Include="src\RoomList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="src\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="textures.cpp">
+    <ClCompile Include="src\textures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,16 +38,22 @@
     <ClInclude Include="src\Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Room.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RoomList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="textures.h">
+    <ClInclude Include="src\GridMaker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Room.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\textures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TileMap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UpdateList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

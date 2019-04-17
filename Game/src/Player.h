@@ -14,7 +14,7 @@ public:
 	~Player();
 
 	void eightWayMovement();
-	void slowDown();
+	void update();
 
 private:
 	double x_velocity;

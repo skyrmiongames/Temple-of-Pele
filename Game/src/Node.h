@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "enums.h"
@@ -13,8 +15,8 @@ private:
 	sf::Vector2i size;
 
 public:
-	Node(CollisionLayer layer=ENEMY);
-	Node(sf::Vector2i *size, CollisionLayer layer=ENEMY);
+	Node(CollisionLayer layer = ENEMY);
+	Node(sf::Vector2i *size, CollisionLayer layer = ENEMY);
 
 	//Collision engine
 	CollisionLayer get_layer();

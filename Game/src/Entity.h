@@ -58,6 +58,8 @@ public:
 		}
 	}
 
+	virtual void update() {};
+
 protected:
 	int health;
 	int max_health;

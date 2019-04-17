@@ -15,7 +15,7 @@ int main() {
 	sf::Clock clock;
 
 	Textures *mainTextures = new Textures();
-	textures = mainTextures;
+	Node::textures = mainTextures;
 
 	//Load tile map
 	GridMaker::build_grid();

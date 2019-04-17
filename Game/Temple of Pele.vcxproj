@@ -23,7 +23,6 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\textures.cpp" />
     <ClCompile Include="src\UpdateList.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,9 @@
  * Sprite with collision
  */
 
+//static variable reference thing
+Textures *Node::textures;
+
 //Default constructor
 Node::Node(CollisionLayer layer) {
 	sf::Vector2i size(16, 16);

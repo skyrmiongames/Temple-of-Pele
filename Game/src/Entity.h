@@ -46,8 +46,8 @@ public:
 			: 0;
 
 		int yOffset // Assuming that up, 'north', is negative Y
-			= oneof(direction, 3, (int)Northwest, (int)North, (int)Northeast) ? 16
-			: oneof(direction, 3, (int)Southwest, (int)South, (int)Southeast) ? -16
+			= oneof(direction, 3, (int)Northwest, (int)North, (int)Northeast) ? -16
+			: oneof(direction, 3, (int)Southwest, (int)South, (int)Southeast) ? 16
 			: 0;
 
 		sf::Vector2i target((int)getPosition().x + xOffset, (int)getPosition().y + yOffset);

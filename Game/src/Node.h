@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "enums.h"
 #include "LogicComponents.h"
+#include "textures.h"
 
 /*
  * Created by Stuart Irwin on 4/13/2019.
@@ -19,6 +20,9 @@ private:
 	bool deleted = false;
 
 public:
+	//Static textures thing
+	static Textures *textures;
+
 	//Node constructors
 	Node(CollisionLayer layer = ENEMY);
 	Node(sf::Vector2i *size, CollisionLayer layer = ENEMY);

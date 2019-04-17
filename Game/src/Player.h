@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Entity.h"
-#include "textures.h"
 
 class Player : public Entity
 {

@@ -27,5 +27,3 @@ public:
 		healthSpriteTexture.loadFromFile("resources/Health_HeartsGif.png");
 	}
 };
-
-static Textures *textures;

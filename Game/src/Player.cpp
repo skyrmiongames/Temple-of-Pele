@@ -21,14 +21,14 @@ void Player::eightWayMovement(double time)
 		move(North);
 		if (time > 1.0)
 		{
-			if (this->)
-			{
+			//if ()
+			//{
 
-			}
-			else
-			{
+			//}
+			//else
+			//{
 
-			}
+			//}
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
@@ -40,8 +40,8 @@ void Player::eightWayMovement(double time)
 	{
 		this->setTexture(textures->playerMoveSide);
 		move(West);
-		this->setScale(-10,16);
-		this->setPosition(getPosition().x + 10, getPosition().y); // this flips the sprite but requires the position to be moved. 
+		this->setScale(-1,1);
+		//this->setPosition(getPosition().x - 10, getPosition().y); // this flips the sprite but requires the position to be moved. 
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // right
 	{

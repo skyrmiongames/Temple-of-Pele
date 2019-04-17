@@ -2,6 +2,7 @@
 
 #include "Node.h"
 #include "enums.h"
+#include "Helpers.h"
 
 class Entity : public Node {
 
@@ -19,7 +20,7 @@ public:
 		if (!invulnerable || modifier > 0) set_health(get_health() + modifier);
 
 		if (is_dead()) {
-			// Death code
+			// TODO: implement death code
 		}
 
 		return get_health();
@@ -34,7 +35,15 @@ public:
 	int get_attack() { return attack_power; }
 
 	void move(OrthagonalDirection direction) {
+		int xOffset
+			= oneof(direction, 3, Northwest, North, Northeast) ? 1
+			: oneof(direction, 3, Southwest, South, Southeast) ? -1
+			: 0;
 
+		int yOffset
+			= oneof(direction, 3, Northeast, East, Southeast) ? 1
+			: oneof(direction, 3, Northwest, West, Southwest) ? -1
+			: 0;
 	}
 
 protected:

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Node.h"
+#include "enums.h"
 
 class Entity : public Node {
 

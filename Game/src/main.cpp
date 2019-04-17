@@ -12,6 +12,7 @@
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(600, 400), "SFML works!");
+	textures::load();
 
 	//Load tile map
 	GridMaker::build_grid();

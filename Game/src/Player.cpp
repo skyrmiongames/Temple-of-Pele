@@ -1,21 +1,10 @@
 #include "Player.h"
+#include "textures.h"
 
-Player::Player(double x_velocity,
-	double y_velocity) //:Entity(60, 0, false, 1.2)
+Player::Player() :Entity(60, 0, false, 1.2)
 {
-	
-	this->x_velocity = 0.0;
-	this->y_velocity = 0.0;
-	
-	sf::Texture upIdlePlayer;
-	upIdlePlayer.loadFromFile("resources/Player_IdleUp.png");
-	this->setTexture(upIdlePlayer);
-	//sf::Sprite playerSprite;
-	//playerSprite.setTexture(upIdlePlayer);
-
-	sf::Texture healthSpriteTexture;
-	healthSpriteTexture.loadFromFile("resources/Health_HeartsGif.png");
-	this->healthSprite.setTexture(healthSpriteTexture);
+	this->setTexture(textures::playerIdleDown);
+	this->healthSprite.setTexture(textures::healthSpriteTexture);
 }
 
 Player::~Player()
@@ -25,26 +14,30 @@ Player::~Player()
 
 void Player::eightWayMovement()
 {
-	if (sf::Keyboard::W) // up
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) // up
 	{
+		this->setTexture(textures::playerMoveUp);
 		move(North);
-		//this->setTexture();
 	}
 	else if (sf::Keyboard::S) // down
 	{
+		this->setTexture(textures::playerMoveDown);
 		move(South);
 	}
-	else if (sf::Keyboard::A) // left
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left
 	{
+		this->setTexture(textures::playerMoveSide);
 		move(West);
 	}
-	else if (sf::Keyboard::D) // right
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // right
 	{
+		this->setTexture(textures::playerMoveSide);
 		move(East);
 	}
 }
 
 void Player::update()
 {
-
+	eightWayMovement();
+	healthSprite.setPosition(this->getPosition().x - 12.5, this->getPosition().y - 23);
 }

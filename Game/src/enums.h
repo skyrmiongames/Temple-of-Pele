@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Created by Stuart Irwin on 4/13/2019.
  * enums for tiles and collision

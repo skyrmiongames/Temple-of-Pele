@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <list>
 #include "Node.h"
@@ -28,5 +30,5 @@ public:
 	static void check_screen();
 
 	//Update all nodes in list
-	static void update();
+	static void update(sf::RenderWindow &window);
 };

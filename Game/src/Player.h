@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Entity.h"
+#include "textures.h"
 
-class Player : public Entity 
+class Player : public Entity , public textures
 {
 public:
 	Player(
@@ -18,4 +19,5 @@ public:
 private:
 	double x_velocity;
 	double y_velocity;
+	sf::Sprite healthSprite;
 };

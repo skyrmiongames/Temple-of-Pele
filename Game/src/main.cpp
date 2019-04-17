@@ -5,6 +5,7 @@
 #include <string>
 #include "GridMaker.h"
 #include "TileMap.hpp"
+#include "Player.h"
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(600, 400), "SFML works!");
@@ -26,6 +27,9 @@ int main() {
 		window.clear();
 		window.draw(map);
 		window.display();
+
+		Player player;
+		player.setPosition(300, 200);
 	}
 
 	return 0;

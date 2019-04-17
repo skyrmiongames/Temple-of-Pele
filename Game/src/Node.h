@@ -9,23 +9,26 @@
  * Sprite with collision
  */
 
-class Node : public sf::Sprite {
-private:
+class Node : public sf::Sprite
+{
+  private:
+	//Node variables
 	CollisionLayer layer;
 	sf::Vector2i size;
 
-public:
+  public:
 	Node(CollisionLayer layer = ENEMY);
 	Node(sf::Vector2i *size, CollisionLayer layer = ENEMY);
 
-	//Collision engine
-	CollisionLayer get_layer();
+	//Collision and visual engine
 	bool on_screen();
+	sf::Vector2i get_size();
+	CollisionLayer get_layer();
 	bool check_collision(Node *other);
 
 	//Entity implementation
 	virtual void on_load();
 	virtual void update();
 	virtual void collide(Node *object);
-	//virtual bool operator==(const Node &object);
+	virtual ~Node();
 };

@@ -3,6 +3,9 @@
 #include <SFML/Graphics.hpp>
 
 #include <string>
+
+//Game headers
+#include "UpdateList.h"
 #include "GridMaker.h"
 #include "TileMap.hpp"
 #include "Player.h"
@@ -16,20 +19,27 @@ int main() {
     if (!map.load("resources/tileset.png", sf::Vector2u(32, 32), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
         return -1;
 
+    //Set up player
+    Player *player = new Player();
+	player->setPosition(300, 200);
+	UpdateList::add_node(player);
+
     //Run main window
 	while (window.isOpen()) {
+		//Check event updates
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				window.close();
+			if(event.type == sf::Event::KeyPressed)
+				player->eightWayMovement();
 		}
 
+		//Run base updates
 		window.clear();
 		window.draw(map);
+		UpdateList::update(window);
 		window.display();
-
-		Player player;
-		player.setPosition(300, 200);
 	}
 
 	return 0;

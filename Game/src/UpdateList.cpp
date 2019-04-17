@@ -8,6 +8,7 @@
 //Static variables
 std::list<Node*> UpdateList::onScreen;
 std::list<Node*> UpdateList::offScreen;
+bool UpdateList::checking_screen;
 
 //Sort nodes by on screen
 void UpdateList::update_lists() {
@@ -53,7 +54,7 @@ void UpdateList::check_screen() {
 } 
 
 //Update all nodes in list
-void UpdateList::update() {
+void UpdateList::update(sf::RenderWindow &window) {
 	if(checking_screen)
 		update_lists();
 
@@ -75,5 +76,6 @@ void UpdateList::update() {
 
 		//Update each object
 		source->update();
+		window.draw(*source);
 	}
 }

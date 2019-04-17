@@ -1,4 +1,4 @@
-#include "src\textures.h"
+#include "textures.h"
 
 //textures::textures()
 //{
@@ -10,7 +10,7 @@
 //	playerMoveSide.loadFromFile("resources/Player_WalkSide.png");
 //}
 //
-//textures::~textures() 
+//textures::~textures()
 //{
 //
 //};

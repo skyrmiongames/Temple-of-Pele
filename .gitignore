@@ -12,6 +12,7 @@ headers
 x64
 Debug
 Release
+*.o
 
 # Logs
 *.log

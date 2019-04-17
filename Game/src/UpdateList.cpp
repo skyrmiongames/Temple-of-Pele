@@ -6,25 +6,25 @@
  */
 
 //Static variables
-std::list<Node*> UpdateList::onScreen;
-std::list<Node*> UpdateList::offScreen;
+std::vector<Node *> UpdateList::onScreen;
+std::vector<Node *> UpdateList::offScreen;
 bool UpdateList::checking_screen;
 
 //Sort nodes by on screen
 void UpdateList::update_lists() {
 	//Confirm nodes on screen
-	for(Node *n : onScreen) {
-		if(!n->on_screen()) {
-			offScreen.push_front(n);
-			onScreen.remove(n);
+	for(std::vector<Node*>::iterator it = onScreen.begin() ; it != onScreen.end(); ++it) {
+		if(!(*it)->on_screen()) {
+			offScreen.push_back(*it);
+			onScreen.erase(it);
 		}
 	}
 
 	//Confirm nodes off screen
-	for(Node *n : offScreen) {
-		if(n->on_screen()) {
-			onScreen.push_front(n);
-			offScreen.remove(n);
+	for(std::vector<Node*>::iterator it = offScreen.begin() ; it != offScreen.end(); ++it) {
+		if(!(*it)->on_screen()) {
+			onScreen.push_back(*it);
+			offScreen.erase(it);
 		}
 	}
 
@@ -38,14 +38,26 @@ bool UpdateList::moving_layer(Node *n) {
 
 //Add node to update cycle
 void UpdateList::add_node(Node *next) {
-	offScreen.push_front(next);
+	offScreen.push_back(next);
 	checking_screen = true;
 }
 
-//Remove node from update cycle
-void UpdateList::remove_node(Node *extra) {
-	offScreen.remove(extra);
-	onScreen.remove(extra);
+//Remove marked nodes from update cycle
+void UpdateList::remove_nodes() {
+	for(std::vector<Node*>::iterator it = onScreen.begin() ; it != onScreen.end(); ++it) {
+		if((*it)->get_delete()) {
+			onScreen.erase(it);
+			delete *it;
+			return;
+		}
+	}
+	for(std::vector<Node*>::iterator it = offScreen.begin() ; it != offScreen.end(); ++it) {
+		if((*it)->get_delete()) {
+			offScreen.erase(it);
+			delete *it;
+			return;
+		}
+	}
 }
 
 //Schedule screen list update on next cycle
@@ -55,6 +67,8 @@ void UpdateList::check_screen() {
 
 //Update all nodes in list
 void UpdateList::update(sf::RenderWindow &window) {
+	bool deleting = false;
+
 	if(checking_screen)
 		update_lists();
 
@@ -78,5 +92,12 @@ void UpdateList::update(sf::RenderWindow &window) {
 		source->update();
 		if(!source->get_hidden())
 			window.draw(*source);
+
+		//Check for deletion
+		if(source->get_delete())
+			deleting = true;
 	}
+
+	if(deleting)
+		remove_nodes();
 }

@@ -3,8 +3,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "enums.h"
-#include "UpdateList.h"
-#include "LogicComponents.hpp"
+#include "LogicComponents.h"
 
 /*
  * Created by Stuart Irwin on 4/13/2019.
@@ -17,7 +16,7 @@ private:
 	//Node variables
 	CollisionLayer layer;
 	sf::Vector2i size;
-	bool loaded = false;
+	bool deleted = false;
 
 public:
 	Node(CollisionLayer layer = ENEMY);
@@ -26,17 +25,21 @@ public:
 	//Base getters
 	sf::Vector2i get_size();
 	CollisionLayer get_layer();
+	bool is_singleton();
 	virtual bool get_hidden();
 
 	//Collision and visual engine
 	bool on_screen();
 	bool check_collision(Node *other);
-	void activate();
+
+	//Proper deletion process
+	bool get_delete();
+	void set_delete();
+	virtual ~Node();
 
 	//Entity implementation
 	virtual void on_load();
-	virtual void on_activate();
+	virtual void activate();
 	virtual void update();
 	virtual void collide(Node *object);
-	virtual ~Node();
 };

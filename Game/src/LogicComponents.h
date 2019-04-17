@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 
 /*
@@ -7,8 +9,9 @@
 
 class LogicReciever {
 public:
-	virtual void activate();
-}
+	virtual void activate() = 0;
+	virtual bool is_singleton() = 0;
+};
 
 class LogicSender {
 private:
@@ -29,6 +32,6 @@ public:
 
 	//Destroy sender
 	~LogicSender() {
-		delete channels;
+		delete &channels;
 	}
-}
+};

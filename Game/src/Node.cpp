@@ -28,7 +28,12 @@ CollisionLayer Node::get_layer() {
 	return layer;
 }
 
-//get hidden value
+//Get logic single use limit
+bool Node::is_singleton() {
+	return false;
+}
+
+//Get hidden value
 bool Node::get_hidden() {
 	return false;
 }
@@ -49,30 +54,27 @@ bool Node::check_collision(Node *other) {
 	sf::Vector2i otherSize = other->get_size();
 
 	//Check all cordinates
-	return thisPos.x =< otherPos.x + otherSize.x && 
-		thisPos.x + thisSize.x > otherPos.x &&
-		thisPos.y < otherPos.y + otherSize.y && 
-		thisPos.y + thisSize.y > otherPos.y;
+	return thisPos.x <= otherPos.x + otherSize.x && 
+		thisPos.x + thisSize.x >= otherPos.x &&
+		thisPos.y <= otherPos.y + otherSize.y && 
+		thisPos.y + thisSize.y >= otherPos.y;
 }
 
-//Activate node from logic source
-void activate() {
-	if(!loaded) {
-		//Add node to UpdateList
-		UpdateList::add_node(this);
-		on_load();
-		loaded = true;
-	} else
-		on_activate();
+//Check for deletion mark
+bool Node::get_delete() {
+	return deleted;
+}
+
+//Mark for deletion
+void Node::set_delete() {
+	deleted = true;
 }
 
 //Destroy Node correctly
-Node::~Node() {
-	UpdateList::remove_node(this);
-}
+Node::~Node() {}
 
 //Define virtual placeholders
 void Node::on_load() {}
-void Node::on_activate() {}
+void Node::activate() {}
 void Node::update() {}
 void Node::collide(Node *object) {}

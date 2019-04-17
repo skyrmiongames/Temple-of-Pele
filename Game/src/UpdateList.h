@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <list>
+#include <vector>
 #include "Node.h"
 
 /*
@@ -11,8 +11,8 @@
 
 class UpdateList {
 private:
-	static std::list<Node*> onScreen;
-	static std::list<Node*> offScreen;
+	static std::vector<Node *> onScreen;
+	static std::vector<Node *> offScreen;
 
 	//Sort nodes on screen
 	static bool checking_screen;
@@ -24,7 +24,7 @@ private:
 public:
 	//Manage node lists
 	static void add_node(Node *next);
-	static void remove_node(Node *extra);
+	static void remove_nodes();
 
 	//Schedule screen list update on next cycle
 	static void check_screen();

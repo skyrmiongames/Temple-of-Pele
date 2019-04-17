@@ -1,4 +1,4 @@
-#include "LogicComponents.hpp"
+#include "LogicComponents.h"
 #include "Node.h"
 #include "enums.h"
 
@@ -30,7 +30,7 @@ public:
 		if(object.get_layer() == detecting)
 			send();
 	}
-}
+};
 
 class PressureSwitch : public Node, public LogicSender {
 private:
@@ -65,4 +65,4 @@ public:
 				send();
 		}
 	}
-}
+};

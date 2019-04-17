@@ -39,19 +39,19 @@
     <ClInclude Include="src\UpdateList.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="src\resources\Enemy1_BaseGif.png" />
-    <Image Include="src\resources\FireBall_BaseGif.png" />
-    <Image Include="src\resources\Health_HeartsGif.png" />
-    <Image Include="src\resources\Player_IdleDown.png" />
-    <Image Include="src\resources\Player_IdleSide.png" />
-    <Image Include="src\resources\Player_IdleUp.png" />
-    <Image Include="src\resources\Player_WalkDown.png" />
-    <Image Include="src\resources\Player_WalkSide.png" />
-    <Image Include="src\resources\Player_WalkUp.png" />
-    <Image Include="src\resources\tileset.png" />
+    <Image Include="resources\Enemy1_BaseGif.png" />
+    <Image Include="resources\FireBall_BaseGif.png" />
+    <Image Include="resources\Health_HeartsGif.png" />
+    <Image Include="resources\Player_IdleDown.png" />
+    <Image Include="resources\Player_IdleSide.png" />
+    <Image Include="resources\Player_IdleUp.png" />
+    <Image Include="resources\Player_WalkDown.png" />
+    <Image Include="resources\Player_WalkSide.png" />
+    <Image Include="resources\Player_WalkUp.png" />
+    <Image Include="resources\tileset.png" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\resources\map.txt" />
+    <Text Include="resources\map.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6EE0F4F0-0FC6-4736-9FBC-80D8BFB59F03}</ProjectGuid>
@@ -104,7 +104,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -118,8 +129,10 @@
       <AdditionalDependencies>sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-graphics-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /s /i "$(ProjectDir)src\resources" "$(OutDir)resources"</Command>
-      <Message>Copy resource files...</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -134,8 +147,10 @@
       <AdditionalDependencies>sfml-window-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /s /i "$(ProjectDir)src\resources" "$(OutDir)resources"</Command>
-      <Message>Copy resource files...</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -155,8 +170,10 @@
       <AdditionalDependencies>sfml-window-s.lib;sfml-system-s.lib;sfml-graphics-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /s /i "$(ProjectDir)src\resources" "$(OutDir)resources"</Command>
-      <Message>Copy resource files...</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -175,8 +192,10 @@
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;sfml-network.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /s /i "$(ProjectDir)src\resources" "$(OutDir)resources"</Command>
-      <Message>Copy resource files...</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -19,7 +19,7 @@ void Player::eightWayMovement()
 		this->setTexture(textures::playerMoveUp);
 		move(North);
 	}
-	else if (sf::Keyboard::S) // down
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
 	{
 		this->setTexture(textures::playerMoveDown);
 		move(South);

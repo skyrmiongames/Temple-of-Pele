@@ -46,5 +46,5 @@ void Player::eightWayMovement()
 
 void Player::update()
 {
-	player->eightWayMovement();
+	eightWayMovement();
 }

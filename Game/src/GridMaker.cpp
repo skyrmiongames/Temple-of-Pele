@@ -20,7 +20,7 @@ void GridMaker::build_grid() {
 
 	//Read file by line
 	while(std::getline(mapFile, line)) {
-		std::strcpy(tiles[i], line.c_str());
+		strcpy_s(tiles[i], line.c_str());
 		i++;
 
 		std::cout << tiles[i];

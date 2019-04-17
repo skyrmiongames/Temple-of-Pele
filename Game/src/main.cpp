@@ -13,6 +13,7 @@
 int main() {
 	sf::RenderWindow window(sf::VideoMode(600, 400), "SFML works!");
 	textures::load();
+	sf::Clock clock;
 
 	//Load tile map
 	GridMaker::build_grid();
@@ -34,7 +35,7 @@ int main() {
 				window.close();
 			//if(event.type == sf::Event::KeyPressed)
 			//	player->eightWayMovement();
-			player->update();
+			player->update(clock.getElapsedTime().asSeconds());
 		}
 
 		//Run base updates

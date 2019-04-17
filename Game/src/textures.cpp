@@ -10,6 +10,8 @@ sf::Texture textures::playerMoveSide;
 
 sf::Texture textures::healthSpriteTexture;
 
+sf::Texture textures::Enemy1Gif;
+
 void textures::load()
 {
 	playerIdleDown.loadFromFile("resources/Player_IdleDown.png");
@@ -20,4 +22,6 @@ void textures::load()
 	playerMoveSide.loadFromFile("resources/Player_WalkSide.png");
 
 	healthSpriteTexture.loadFromFile("resources/Health_HeartsGif.png");
+
+	Enemy1Gif.loadFromFile("Enemy1Gif.png");
 }

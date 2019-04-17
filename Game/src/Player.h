@@ -10,8 +10,8 @@ public:
 
 	~Player();
 
-	void eightWayMovement();
-	void update();
+	void eightWayMovement(double time);
+	void update(double time);
 
 private:
 	sf::Sprite healthSprite;

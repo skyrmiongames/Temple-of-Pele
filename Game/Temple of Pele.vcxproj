@@ -19,15 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GridMaker.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\RoomList.cpp" />
     <ClCompile Include="src\textures.cpp" />
+    <ClCompile Include="src\UpdateList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\enums.h" />
     <ClInclude Include="src\GridMaker.h" />
+    <ClInclude Include="src\Helpers.h" />
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Room.hpp" />

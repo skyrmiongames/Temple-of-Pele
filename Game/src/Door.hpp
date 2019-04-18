@@ -35,6 +35,11 @@ public:
 		}
 	}
 
+	//Can delete after opening
+	bool is_singleton() {
+		return true;
+	}
+
 	//Start to open normal door
 	void activate() {
 		if(vertical_shown == 0)

@@ -32,7 +32,7 @@ public:
 			//Delete if single use 
 			if((*it)->is_singleton()) {
 				channels.erase(it);
-				delete *it;
+				//delete *it;
 			}
 		}
 	}

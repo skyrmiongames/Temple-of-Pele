@@ -27,13 +27,18 @@ public:
 
 	//Set single use
 	bool is_singleton() {
-		return true;
+		return single;
 	}
 
 	//Activate on collision
 	void collide(Node *object) {
-		if(object->get_layer() == detecting)
+		if(object->get_layer() == detecting) {
 			send();
+
+			//Delete on use
+			if(single)
+				set_delete();
+		}
 	}
 };
 

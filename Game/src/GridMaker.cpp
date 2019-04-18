@@ -42,11 +42,11 @@ int* GridMaker::index_grid() {
 int GridMaker::index_tile(char c) {
 	switch(c) {
 		case '#':
-			return 0;
+			return 2;
 		case ' ': case '\0':
 			return -1;
 		default:
-			return 1;
+			return 3;
 	}
 }
 

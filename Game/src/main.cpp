@@ -38,12 +38,14 @@ int main() {
 			//if(event.type == sf::Event::KeyPressed)
 			//	player->eightWayMovement();
 			player->update(clock.getElapsedTime().asSeconds());
+
 		}
 
 		//Run base updates
 		window.clear();
 		window.draw(map);
 		UpdateList::update(window);
+		player->drawGUI(window);
 		window.display();
 	}
 

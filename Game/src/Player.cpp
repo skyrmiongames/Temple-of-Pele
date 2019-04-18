@@ -61,3 +61,8 @@ void Player::update(double time)
 	eightWayMovement(time);
 	healthSprite.setPosition(this->getPosition().x - 12.5, this->getPosition().y - 16);
 }
+
+bool Player::getKey()
+{
+	return hasKey;
+}

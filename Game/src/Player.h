@@ -13,6 +13,8 @@ public:
 	void update(double time);
 	void drawGUI(sf::RenderWindow &window);
 
+	bool getKey();
+
 private:
 	sf::Sprite healthSprite;
 	bool hasKey;

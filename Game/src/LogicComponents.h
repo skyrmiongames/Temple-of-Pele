@@ -11,7 +11,7 @@ class LogicReciever {
 public:
 	virtual void activate() = 0;
 	virtual bool is_singleton() = 0;
-	virtual ~LogicReciever() {};
+	virtual ~LogicReciever() {}
 };
 
 class LogicSender {

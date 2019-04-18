@@ -10,6 +10,7 @@ private:
 	//Base door
 	const bool vertical;
 	const Node paired;
+	const bool locked;
 
 	//Door current state
 	int shown;
@@ -19,13 +20,14 @@ private:
 
 public:
 	//Build pair of doors
-	Door(bool vertical=false, bool closing=false) : Node(SOLID, sf::Vector2i(16, 16)) {
+	Door(bool vertical=false, bool locked=false, bool closing=false) : Node(SOLID, sf::Vector2i(16, 16)) {
 		paired = Node(SOLID, sf::Vector2i(16, 16));
 
 		//Set variables
 		this->shown = closing ? 0 : 16;
 		this->vertical = vertical;
 		this->state = closing ? 1 : 0;
+		this->locked = locked;
 
 		//Configure door positions
 		setOrigin(0, 0);
@@ -36,6 +38,19 @@ public:
 			setRotation(90);
 			paired.setRotation(90);
 		}
+
+		//Get appropriate texture
+		sf:Texture shared;
+
+		//Apply texture
+		setTexture(shared);
+		paired.setTexture(shared);
+
+		//Set mirroring
+		if(vertical)
+			paired.scale(1, -1);
+		else
+			paired.scale(-1, 1);
 	}
 
 	//Start to open door
@@ -77,17 +92,5 @@ public:
 		//Set shown amount of texture
 		setTextureRect(sf::IntRect (0, 0, shown, 16));
 		paired.setTextureRect(sf::IntRect (0, 0, shown, 16));
-	}
-
-	//Set doors shared texture
-	void set_textures(sf::Texture shared) {
-		setTexture(shared);
-		paired.setTexture(shared);
-
-		//Set mirroring
-		if(vertical)
-			paired.scale(1, -1);
-		else
-			paired.scale(-1, 1);
 	}
 }

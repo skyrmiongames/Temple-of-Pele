@@ -19,6 +19,9 @@ public:
 
 	sf::Texture Knife;
 
+	sf::Texture plainDoor;
+	sf::Texture lockedDoor;
+
 	Textures()
 	{
 		playerIdleDown.loadFromFile("resources/Player_IdleDown.png");

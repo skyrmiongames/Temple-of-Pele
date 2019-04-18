@@ -45,11 +45,11 @@ int* GridMaker::index_grid(bool animated) {
 int GridMaker::index_tile(char c) {
 	switch(c) {
 		case '#':
-			return 2;
-		case ' ': case '\0': case '~':
+			return 0;
+		case ' ': case '\0': case '~': case '+':
 			return -1;
 		default:
-			return 3;
+			return 1;
 	}
 }
 
@@ -58,7 +58,7 @@ int GridMaker::animated_index_tile(char c) {
 	switch(c) {
 		case '~':
 			return 1;
-		case 'T':
+		case '+':
 			return 0;
 		default:
 			return -1;
@@ -78,7 +78,7 @@ TileType GridMaker::check_tile(sf::Vector2f position) {
 	char c = get_tile(position);
 
 	switch(c) {
-		case '#':
+		case '#': case '+':
 			return WALL;
 		case ' ': case '\0': case '~':
 			return EMPTY;

@@ -4,12 +4,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-//Standard headers
 #include <fstream>
 #include <string>
-#include <cstring>
-#include <iostream>
-
 #include "enums.h"
 
 /*

@@ -11,6 +11,7 @@ class LogicReciever {
 public:
 	virtual void activate() = 0;
 	virtual bool is_singleton() = 0;
+	virtual ~LogicReciever() {};
 };
 
 class LogicSender {
@@ -25,8 +26,15 @@ public:
 
 	//Activate receivers
 	void send() {
-		for(LogicReciever *reciever : channels) {
-			reciever->activate();
+		for(std::vector<LogicReciever*>::iterator it = channels.begin() ; it != channels.end(); ++it) {
+			(*it)->activate();
+
+			//Delete if single use 
+			if((*it)->is_singleton()) {
+				channels.erase(it);
+				delete *it;
+				return;
+			}
 		}
 	}
 

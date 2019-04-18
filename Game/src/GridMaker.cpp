@@ -20,10 +20,11 @@ void GridMaker::build_grid() {
 
 	//Read file by line
 	while(std::getline(mapFile, line)) {
-		strcpy_s(tiles[i], line.c_str());
-		i++;
+		//Copy string
+		for(int j = 0; line[j] != '\0'; j++)
+			tiles[i][j] = line[j];
 
-		std::cout << tiles[i];
+		i++;
 	}
 }
 
@@ -41,11 +42,11 @@ int* GridMaker::index_grid() {
 int GridMaker::index_tile(char c) {
 	switch(c) {
 		case '#':
-			return 3;
+			return 0;
 		case ' ': case '\0':
 			return -1;
 		default:
-			return 0;
+			return 1;
 	}
 }
 

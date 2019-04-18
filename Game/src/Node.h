@@ -24,8 +24,7 @@ public:
 	static Textures *textures;
 
 	//Node constructors
-	Node(CollisionLayer layer = ENEMY);
-	Node(sf::Vector2i *size, CollisionLayer layer = ENEMY);
+	Node(CollisionLayer layer = ENEMY, sf::Vector2i size = sf::Vector2i(16, 16));
 
 	//Base getters
 	sf::Vector2i get_size();

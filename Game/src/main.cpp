@@ -20,12 +20,12 @@ int main() {
 	//Load tile map
 	GridMaker::build_grid();
 	TileMap map;
-    if (!map.load("resources/tileset.png", sf::Vector2u(32, 32), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
+    if (!map.load("resources/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
         return -1;
 
     //Set up player
     Player *player = new Player();
-	player->setPosition(300, 200);
+	player->setPosition(64, 64);
 	UpdateList::add_node(player);
 
     //Run main window

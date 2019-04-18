@@ -74,5 +74,5 @@ Node::~Node() {}
 //Define virtual placeholders
 void Node::on_load() {}
 void Node::activate() {}
-void Node::update() {}
+void Node::update(double time) {}
 void Node::collide(Node *object) {}

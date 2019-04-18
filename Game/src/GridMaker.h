@@ -20,8 +20,9 @@ public:
 
 	//Build and convert grid
 	static void build_grid();
-	static int* index_grid();
+	static int* index_grid(bool animated=false);
 	static int index_tile(char c);
+	static int animated_index_tile(char c);
 	
 	//Retrieve tile properties
 	static char get_tile(sf::Vector2f position);

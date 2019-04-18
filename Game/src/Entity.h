@@ -37,16 +37,16 @@ public:
 
 	void move(
 		int direction, 
-		int distance = 1,
+		float distance = 0.1,
 		bool allowVoid = true
 	) {
 
-		int xOffset // Assuming that right, 'east', is positive X
+		float xOffset // Assuming that right, 'east', is positive X
 			= oneof(direction, 3, (int)Northeast, (int)East, (int)Southeast) ? distance
 			: oneof(direction, 3, (int)Northwest, (int)West, (int)Southwest) ? -distance
 			: 0;
 
-		int yOffset // Assuming that up, 'north', is negative Y
+		float yOffset // Assuming that up, 'north', is negative Y
 			= oneof(direction, 3, (int)Northwest, (int)North, (int)Northeast) ? -distance
 			: oneof(direction, 3, (int)Southwest, (int)South, (int)Southeast) ? distance
 			: 0;

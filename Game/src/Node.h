@@ -44,6 +44,6 @@ public:
 	//Entity implementation
 	virtual void on_load();
 	virtual void activate();
-	virtual void update();
+	virtual void update(double time);
 	virtual void collide(Node *object);
 };

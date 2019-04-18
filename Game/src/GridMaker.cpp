@@ -29,11 +29,14 @@ void GridMaker::build_grid() {
 }
 
 //Convert char[][] to int[][]
-int* GridMaker::index_grid() {
+int* GridMaker::index_grid(bool animated) {
 	//Loop through tiles
 	for(int y = 0; y < HEIGHT; y++)
-		for(int x = 0; x < WIDTH; x++)
-			indexes[x + y * WIDTH] = index_tile(tiles[y][x]);
+		for(int x = 0; x < WIDTH; x++) {
+			//Get tile texture index
+			indexes[x + y * WIDTH] = animated ? 
+				animated_index_tile(tiles[y][x]) : index_tile(tiles[y][x]);
+		}
 
 	return indexes;
 }
@@ -43,10 +46,22 @@ int GridMaker::index_tile(char c) {
 	switch(c) {
 		case '#':
 			return 2;
-		case ' ': case '\0':
+		case ' ': case '\0': case '~':
 			return -1;
 		default:
 			return 3;
+	}
+}
+
+//Get animated index of tile texture
+int GridMaker::animated_index_tile(char c) {
+	switch(c) {
+		case '~':
+			return 1;
+		case 'T':
+			return 0;
+		default:
+			return -1;
 	}
 }
 
@@ -65,7 +80,7 @@ TileType GridMaker::check_tile(sf::Vector2f position) {
 	switch(c) {
 		case '#':
 			return WALL;
-		case ' ': case '\0':
+		case ' ': case '\0': case '~':
 			return EMPTY;
 		default:
 			return GROUND;

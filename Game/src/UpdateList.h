@@ -30,5 +30,5 @@ public:
 	static void check_screen();
 
 	//Update all nodes in list
-	static void update(sf::RenderWindow &window);
+	static void update(sf::RenderWindow &window, double time);
 };

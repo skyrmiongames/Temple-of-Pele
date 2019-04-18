@@ -33,7 +33,6 @@ public:
 			if((*it)->is_singleton()) {
 				channels.erase(it);
 				delete *it;
-				return;
 			}
 		}
 	}

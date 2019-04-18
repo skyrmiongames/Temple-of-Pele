@@ -5,13 +5,13 @@
  * Inserts nodes into UpdateList
  */
 
-class NodeLoader : public LogicReceiver {
+class NodeLoader : public LogicReciever {
 private:
 	std::vector<Node *> contents;
 
 public:
 	//Prepare node for adding
-	void add_node(Node *next, Vector2i position) {
+	void add_node(Node *next, sf::Vector2f position) {
 		contents.push_back(next);
 		next->setPosition(position);
 	}
@@ -26,7 +26,7 @@ public:
 	bool is_singleton() {
 		return true;
 	}
-	~LogicReciever() {
-		delete contents;
+	~NodeLoader() {
+		delete &contents;
 	}
-}
+};

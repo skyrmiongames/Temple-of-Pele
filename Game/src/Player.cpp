@@ -115,5 +115,9 @@ void Player::update(double time)
 
 bool Player::getKey()
 {
-	return hasKey;
+	if(hasKey) {
+		hasKey = false;
+		return true;
+	}
+	return false;
 }

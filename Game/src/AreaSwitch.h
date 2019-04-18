@@ -10,32 +10,37 @@
 class AreaSwitch : public Node, public LogicSender {
 private:
 	CollisionLayer detecting;
+	bool single;
 
 public:
 	//Area constructors
-	AreaSwitch(CollisionLayer detecting=PLAYER) : Node(SWITCH) {
+	AreaSwitch(bool single=true, sf::Vector2i size=sf::Vector2i(16, 16), CollisionLayer detecting=PLAYER) : Node(SWITCH, size){
 		this->detecting = detecting;
-	}
-	AreaSwitch(Vector2i *size, CollisionLayer detecting=PLAYER) : Node(SWITCH, size){
-		this->detecting = detecting;
+		this->single = single;
+		setTexture(textures->Knife);
 	}
 
 	//Hide area
 	bool get_hidden() {
+		return false;
+	}
+
+	//Set single use
+	bool is_singleton() {
 		return true;
 	}
 
 	//Activate on collision
 	void collide(Node *object) {
-		if(object.get_layer() == detecting)
+		if(object->get_layer() == detecting)
 			send();
 	}
 };
 
 class PressureSwitch : public Node, public LogicSender {
 private:
-	const CollisionLayer detecting;
 	const int MAXTIME = 10;
+	CollisionLayer detecting;
 	int timer = 0;
 
 public:
@@ -51,7 +56,7 @@ public:
 
 	//Activate on collision
 	void collide(Node *object) {
-		if(object.get_layer() == detecting) {
+		if(object->get_layer() == detecting) {
 			send();
 			timer = MAXTIME;
 		}

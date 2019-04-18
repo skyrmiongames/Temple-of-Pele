@@ -45,11 +45,11 @@ bool Node::on_screen() {
 bool Node::check_collision(Node *other) {
 	//Get self box
 	sf::Vector2f thisPos = this->getPosition();
-	sf::Vector2i thisSize = this->get_size();
+	sf::Vector2i thisSize = this->get_size() / 2;
 
 	//Get other box
 	sf::Vector2f otherPos = other->getPosition();
-	sf::Vector2i otherSize = other->get_size();
+	sf::Vector2i otherSize = other->get_size() / 2;
 
 	//Check all cordinates
 		return thisPos.x - thisSize.x <= otherPos.x + otherSize.x && 
@@ -57,6 +57,7 @@ bool Node::check_collision(Node *other) {
 		thisPos.y - thisSize.y <= otherPos.y + otherSize.y && 
 		thisPos.y + thisSize.y >= otherPos.y - otherSize.y;
 }
+
 
 //Check for deletion mark
 bool Node::get_delete() {
@@ -67,8 +68,6 @@ bool Node::get_delete() {
 void Node::set_delete() {
 	deleted = true;
 }
-
-//Destroy Node correctly
 Node::~Node() {}
 
 //Define virtual placeholders

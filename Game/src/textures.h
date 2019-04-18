@@ -19,8 +19,7 @@ public:
 
 	sf::Texture Knife;
 
-	sf::Texture plainDoor;
-	sf::Texture lockedDoor;
+	sf::Texture doors;
 
 	Textures()
 	{
@@ -38,5 +37,7 @@ public:
 		Enemy1Gif.loadFromFile("resources/Enemy1_BaseGif.png");
 
 		Knife.loadFromFile("resources/Knife_Base.png");
+
+		doors.loadFromFile("resources/Doors.png");
 	}
 };

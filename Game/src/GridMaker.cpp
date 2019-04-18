@@ -46,7 +46,9 @@ int GridMaker::index_tile(char c) {
 	switch(c) {
 		case '#':
 			return 0;
-		case ' ': case '\0': case '~': case '+':
+		case '+':
+			return 2;
+		case ' ': case '\0': case '~':
 			return -1;
 		default:
 			return 1;

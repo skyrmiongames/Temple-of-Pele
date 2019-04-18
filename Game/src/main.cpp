@@ -5,7 +5,7 @@
 #include <string>
 
 //Game headers
-#include "UpdateList.h"
+#include "StartNodes.hpp"
 #include "GridMaker.h"
 #include "AnimatedTileMap.hpp"
 #include "Player.h"
@@ -32,6 +32,9 @@ int main() {
     Player *player = new Player();
 	player->setPosition(64, 64);
 	UpdateList::add_node(player);
+
+	//Set up test room nodes
+	StartNodes::test_nodes();
 
     //Run main window
 	while (window.isOpen()) {

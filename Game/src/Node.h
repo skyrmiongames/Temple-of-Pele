@@ -24,7 +24,7 @@ public:
 	static Textures *textures;
 
 	//Node constructors
-	Node(CollisionLayer layer = ENEMY, sf::Vector2i size = sf::Vector2i(16, 16));
+	Node(CollisionLayer layer = PLAYER, sf::Vector2i size = sf::Vector2i(16, 16));
 
 	//Base getters
 	sf::Vector2i get_size();
@@ -36,7 +36,7 @@ public:
 	bool on_screen();
 	bool check_collision(Node *other);
 
-	//Proper deletion process
+	//Proper deletion procedure
 	bool get_delete();
 	void set_delete();
 	virtual ~Node();

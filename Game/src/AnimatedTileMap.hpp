@@ -25,12 +25,12 @@ public:
 		int tileCount = GridMaker::WIDTH * GridMaker::HEIGHT;
 
 		//Copy tile index list
-		int indexes[tileCount], i;
-		for(i = 0; i < tileCount; i++)
+		int* indexes = new int[tileCount];
+		for(int i = 0; i < tileCount; i++)
 			indexes[i] = tiles[i];
 
 		//Build each frame
-		for(i = 0; i < frames; i++) {
+		for(int i = 0; i < frames; i++) {
 			//Set next frame in tiles
 			for(int j = 0; j < tileCount; j++)
 				if(indexes[j] != -1)
@@ -44,6 +44,7 @@ public:
 		    //Add tilemap to list
 		    tilemaps.push_back(*map);
 		}
+		delete indexes;
 		return true;
 	}
 

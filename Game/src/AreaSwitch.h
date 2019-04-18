@@ -16,7 +16,7 @@ public:
 	AreaSwitch(CollisionLayer detecting=PLAYER) : Node(SWITCH) {
 		this->detecting = detecting;
 	}
-	AreaSwitch(Vector2i *size, CollisionLayer detecting=PLAYER) : Node(size, SWITCH){
+	AreaSwitch(Vector2i *size, CollisionLayer detecting=PLAYER) : Node(SWITCH, size){
 		this->detecting = detecting;
 	}
 

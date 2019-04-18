@@ -8,17 +8,12 @@
 //static variable reference thing
 Textures *Node::textures;
 
-//Default constructor
-Node::Node(CollisionLayer layer) {
-	sf::Vector2i size(16, 16);
-	this->size = size;
-	this->layer = layer;
-}
-
 //Base constructor
-Node::Node(sf::Vector2i *size, CollisionLayer layer) {
-	this->size = *size;
+Node::Node(CollisionLayer layer, sf::Vector2i size) {
 	this->layer = layer;
+	this->size = size;
+
+	setOrigin(size.x / 2, size.y / 2);
 }
 
 //Get collision size
@@ -57,10 +52,10 @@ bool Node::check_collision(Node *other) {
 	sf::Vector2i otherSize = other->get_size();
 
 	//Check all cordinates
-	return thisPos.x <= otherPos.x + otherSize.x && 
-		thisPos.x + thisSize.x >= otherPos.x &&
-		thisPos.y <= otherPos.y + otherSize.y && 
-		thisPos.y + thisSize.y >= otherPos.y;
+		return thisPos.x - thisSize.x <= otherPos.x + otherSize.x && 
+		thisPos.x + thisSize.x >= otherPos.x - otherSize.x &&
+		thisPos.y - thisSize.y <= otherPos.y + otherSize.y && 
+		thisPos.y + thisSize.y >= otherPos.y - otherSize.y;
 }
 
 //Check for deletion mark
@@ -79,5 +74,5 @@ Node::~Node() {}
 //Define virtual placeholders
 void Node::on_load() {}
 void Node::activate() {}
-void Node::update() {}
+void Node::update(double time) {}
 void Node::collide(Node *object) {}

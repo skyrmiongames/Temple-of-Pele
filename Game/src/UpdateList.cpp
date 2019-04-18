@@ -66,7 +66,7 @@ void UpdateList::check_screen() {
 } 
 
 //Update all nodes in list
-void UpdateList::update(sf::RenderWindow &window) {
+void UpdateList::update(sf::RenderWindow &window, double time) {
 	bool deleting = false;
 
 	if(checking_screen)
@@ -89,7 +89,7 @@ void UpdateList::update(sf::RenderWindow &window) {
 		}
 
 		//Update each object
-		source->update();
+		source->update(time);
 		if(!source->get_hidden())
 			window.draw(*source);
 

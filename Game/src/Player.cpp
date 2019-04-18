@@ -112,3 +112,8 @@ void Player::update(double time)
 	updateHealth();
 	updateKey();
 }
+
+bool Player::getKey()
+{
+	return hasKey;
+}

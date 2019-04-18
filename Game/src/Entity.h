@@ -36,24 +36,25 @@ public:
 	int get_attack() { return attack_power; }
 
 	void move(
-		int direction,
+		int direction, 
+		float distance = 0.1,
 		bool allowVoid = true
 	) {
 
 		float xOffset // Assuming that right, 'east', is positive X
-			= oneof(direction, 3, (int)Northeast, (int)East, (int)Southeast) ? 1.5
-			: oneof(direction, 3, (int)Northwest, (int)West, (int)Southwest) ? -1.5
+			= oneof(direction, 3, (int)Northeast, (int)East, (int)Southeast) ? distance
+			: oneof(direction, 3, (int)Northwest, (int)West, (int)Southwest) ? -distance
 			: 0;
 
 		float yOffset // Assuming that up, 'north', is negative Y
-			= oneof(direction, 3, (int)Northwest, (int)North, (int)Northeast) ? -1.5
-			: oneof(direction, 3, (int)Southwest, (int)South, (int)Southeast) ? 1.5
+			= oneof(direction, 3, (int)Northwest, (int)North, (int)Northeast) ? -distance
+			: oneof(direction, 3, (int)Southwest, (int)South, (int)Southeast) ? distance
 			: 0;
 
 		sf::Vector2f target(getPosition().x + xOffset, getPosition().y + yOffset);
 		TileType targetType = GridMaker::check_tile(target);
 
-		if (targetType != WALL && !allowVoid ? targetType != EMPTY : true) {
+		if (targetType != WALL && (!allowVoid ? targetType != EMPTY : true)) {
 			setPosition(sf::Vector2f(target.x, target.y));
 		}
 	}

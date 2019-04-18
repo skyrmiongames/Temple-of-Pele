@@ -7,7 +7,7 @@
 //Game headers
 #include "UpdateList.h"
 #include "GridMaker.h"
-#include "TileMap.hpp"
+#include "AnimatedTileMap.hpp"
 #include "Player.h"
 
 int main() {
@@ -20,12 +20,17 @@ int main() {
 	//Load tile map
 	GridMaker::build_grid();
 	TileMap map;
-    if (!map.load("resources/tileset.png", sf::Vector2u(32, 32), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
+    if (!map.load("resources/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
+        return -1;
+
+    //Load animated tile map
+	AnimatedTileMap aniMap;
+    if (!aniMap.load("resources/TileMap_Gif.png", sf::Vector2u(16, 16), GridMaker::index_grid(true), 12))
         return -1;
 
     //Set up player
     Player *player = new Player();
-	player->setPosition(300, 200);
+	player->setPosition(64, 64);
 	UpdateList::add_node(player);
 
     //Run main window
@@ -35,17 +40,21 @@ int main() {
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				window.close();
-			//if(event.type == sf::Event::KeyPressed)
-			//	player->eightWayMovement();
-			player->update(clock.getElapsedTime().asSeconds());
 
 		}
 
-		//Run base updates
+		//Draw base map
 		window.clear();
 		window.draw(map);
-		UpdateList::update(window);
+
+		//Draw animated map
+		aniMap.update(clock.getElapsedTime().asSeconds());
+		window.draw(aniMap);
+
+		//Draw nodes and sprites
+		UpdateList::update(window, clock.getElapsedTime().asSeconds());
 		player->drawGUI(window);
+
 		window.display();
 	}
 

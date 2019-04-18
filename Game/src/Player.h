@@ -16,6 +16,8 @@ public:
 	void updateKey();
 	void attack();
 
+	bool getKey();
+
 private:
 	sf::Sprite healthSprite;
 	bool hasKey;

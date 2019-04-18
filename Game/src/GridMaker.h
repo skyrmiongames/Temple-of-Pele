@@ -24,8 +24,8 @@ public:
 	static int index_tile(char c);
 	
 	//Retrieve tile properties
-	static char get_tile(sf::Vector2i position);
-	static TileType check_tile(sf::Vector2i position);
+	static char get_tile(sf::Vector2f position);
+	static TileType check_tile(sf::Vector2f position);
 
 private:
 	static char tiles[HEIGHT][WIDTH];

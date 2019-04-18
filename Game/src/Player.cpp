@@ -6,6 +6,7 @@ Player::Player() :Entity(60, 0, false, 1.2)
 	this->setTexture(textures->playerIdleDown);
 	this->healthSprite.setTexture(textures->healthSpriteTexture);
 	this->healthSprite.setTextureRect(sf::IntRect (0, 0, 25, 7));
+	this->hasKey = false;
 }
 
 Player::~Player()
@@ -50,8 +51,13 @@ void Player::eightWayMovement(double time)
 	}
 }
 
+void Player::drawGUI(sf::RenderWindow &window)
+{
+	window.draw(healthSprite);
+}
+
 void Player::update(double time)
 {
 	eightWayMovement(time);
-	healthSprite.setPosition(this->getPosition().x - 12.5, this->getPosition().y - 23);
+	healthSprite.setPosition(this->getPosition().x - 12.5, this->getPosition().y - 16);
 }

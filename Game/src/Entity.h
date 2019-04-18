@@ -51,7 +51,7 @@ public:
 			: oneof(direction, 3, (int)Southwest, (int)South, (int)Southeast) ? distance
 			: 0;
 
-		sf::Vector2i target((int)getPosition().x + xOffset, (int)getPosition().y + yOffset);
+		sf::Vector2f target(getPosition().x + xOffset, getPosition().y + yOffset);
 		TileType targetType = GridMaker::check_tile(target);
 
 		if (targetType != WALL && (!allowVoid ? targetType != EMPTY : true)) {

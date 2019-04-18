@@ -11,7 +11,9 @@ public:
 
 	void eightWayMovement(double time);
 	void update(double time);
+	void drawGUI(sf::RenderWindow &window);
 
 private:
 	sf::Sprite healthSprite;
+	bool hasKey;
 };

@@ -27,7 +27,10 @@ public:
 		return get_health();
 	}
 
-	void set_health(int _health) { health = _health <= max_health ? _health : max_health; }
+	void set_health(int _health, bool updateMax = false) { 
+		if (updateMax && _health > max_health) max_health = _health;
+		health = _health <= max_health ? _health : max_health; 
+	}
 
 	int get_health() { return health; }
 

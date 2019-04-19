@@ -75,7 +75,7 @@ private:
 
 public:
 	//Area constructors
-	AreaSwitch(sf::Vector2i size=sf::Vector2i(16, 16), CollisionLayer detecting=ENEMY) : Node(SWITCH, size){
+	EmptySwitch(sf::Vector2i size=sf::Vector2i(16, 16), CollisionLayer detecting=ENEMY) : Node(SWITCH, size){
 		this->detecting = detecting;
 	}
 

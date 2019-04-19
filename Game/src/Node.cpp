@@ -7,6 +7,7 @@
 
 //static variable reference thing
 Textures *Node::textures;
+sf::Vector2f Node::playerPos;
 
 //Base constructor
 Node::Node(CollisionLayer layer, sf::Vector2i size) {

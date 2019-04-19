@@ -46,6 +46,9 @@ int main() {
 
 		}
 
+		//Locate player
+		Node::playerPos = player->getPosition();
+
 		//Draw base map
 		window.clear();
 		window.draw(map);

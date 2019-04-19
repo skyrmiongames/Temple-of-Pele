@@ -22,7 +22,7 @@ void Player::eightWayMovement(double time)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) // up
 	{
 		this->setTexture(textures->playerMoveUp);
-		move(North);
+		move((3 * PI)/2);
 		this->curDirection = 1;
 		if (time > 1.0)
 		{
@@ -88,7 +88,7 @@ void Player::drawGUI(sf::RenderWindow &window)
 
 void Player::updateHealth()
 {
-	healthSprite.setPosition(this->getPosition().x, this->getPosition().y - 16);
+	healthSprite.setPosition(this->getPosition().x - 12.5, this->getPosition().y - 16);
 
 	if (this->health > 40)
 	{

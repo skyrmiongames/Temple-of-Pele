@@ -5,6 +5,9 @@
 #include "Helpers.h"
 #include "GridMaker.h"
 
+#include <math.h>
+
+
 class Entity : public Node {
 
 public:
@@ -28,7 +31,7 @@ public:
 	}
 
 	void set_health(int _health, bool updateMax = false) { 
-		if (updateMax && _health > max_health) max_health = _health;
+		if (updateMax) max_health = _health;
 		health = _health <= max_health ? _health : max_health; 
 	}
 
@@ -44,15 +47,29 @@ public:
 		bool allowVoid = true
 	) {
 
-		float xOffset // Assuming that right, 'east', is positive X
-			= oneof((int)direction, 3, (int)Northeast, (int)East, (int)Southeast) ? distance
-			: oneof((int)direction, 3, (int)Northwest, (int)West, (int)Southwest) ? -distance
+		float angle
+			= direction == North ? PI / 2
+			: direction == East ? 0
+			: direction == West ? PI
+			: direction == South ? (3 * PI) / 2
+			: direction == Northeast ? PI / 4
+			: direction == Northwest ? (3 * PI) / 4
+			: direction == Southwest ? (5 * PI) / 4
+			: direction == Southeast ? (7 * PI) / 4
 			: 0;
 
-		float yOffset // Assuming that up, 'north', is negative Y
-			= oneof((int)direction, 3, (int)Northwest, (int)North, (int)Northeast) ? -distance
-			: oneof((int)direction, 3, (int)Southwest, (int)South, (int)Southeast) ? distance
-			: 0;
+		move(angle, distance, allowVoid);
+		
+	}
+
+	void move(
+		float angle = 0.0,
+		float distance = 0.1,
+		bool allowVoid = true
+	) {
+
+		float xOffset = cos(angle) * distance;
+		float yOffset = sin(angle) * distance;
 
 		sf::Vector2f target(getPosition().x + xOffset, getPosition().y + yOffset);
 		TileType targetType = GridMaker::check_tile(target);

@@ -20,8 +20,9 @@ private:
 	bool deleted = false;
 
 public:
-	//Static textures thing
+	//Random static variables
 	static Textures *textures;
+	static sf::Vector2f playerPos;
 
 	//Node constructors
 	Node(CollisionLayer layer = PLAYER, sf::Vector2i size = sf::Vector2i(16, 16));

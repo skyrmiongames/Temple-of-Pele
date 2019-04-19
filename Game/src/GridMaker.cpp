@@ -50,7 +50,7 @@ int GridMaker::index_tile(char c) {
 			return 3;
 		case '+':
 			return 2;
-		case ' ': case '\0': case '~':
+		case ' ': case '\0': case '~': case '=':
 			return -1;
 		default:
 			return 1;
@@ -60,7 +60,7 @@ int GridMaker::index_tile(char c) {
 //Get animated index of tile texture
 int GridMaker::animated_index_tile(char c) {
 	switch(c) {
-		case '~':
+		case '~': case '=':
 			return 1;
 		case '+':
 			return 0;
@@ -84,9 +84,17 @@ TileType GridMaker::check_tile(sf::Vector2f position) {
 	switch(c) {
 		case '#': case '+':
 			return WALL;
-		case ' ': case '\0': case '~':
+		case ' ': case '\0': case '~': case '=':
 			return EMPTY;
 		default:
 			return GROUND;
 	}
+}
+
+//Set tile properties
+void GridMaker::set_tile(sf::Vector2f position, char value) {
+	int x = position.x / 16;
+	int y = position.y / 16;
+
+	tiles[y][x] = value;
 }

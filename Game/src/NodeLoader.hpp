@@ -13,7 +13,7 @@ public:
 	//Prepare node for adding
 	void add_node(Node *next, sf::Vector2f position) {
 		contents.push_back(next);
-		next->setPosition(position);
+		next->setPosition(position * 16 + sf::Vector2f(8, 8));
 	}
 
 	//Add content nodes

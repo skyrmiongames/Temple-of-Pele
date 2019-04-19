@@ -51,7 +51,7 @@ public:
 	//Update timer
 	void update(double time) {
 
-		//Every full second
+		//Every half second
 		if(time - lastTime >= 0.5) {
 			lastTime = time;
 			frame++;

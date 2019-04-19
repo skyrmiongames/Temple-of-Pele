@@ -4,53 +4,47 @@
 
 /*
  * Created by Stuart Irwin on 4/17/2019.
- * Nodes for activating other objects
+ * Nodes to detect entities within area
  */
 
 class AreaSwitch : public Node, public LogicSender {
 private:
 	CollisionLayer detecting;
-	bool single;
+	bool hidden;
 
 public:
 	//Area constructors
-	AreaSwitch(bool single=true, sf::Vector2i size=sf::Vector2i(16, 16), CollisionLayer detecting=PLAYER) : Node(SWITCH, size){
+	AreaSwitch(bool hidden=true, sf::Vector2i size=sf::Vector2i(16, 16), CollisionLayer detecting=PLAYER) : Node(SWITCH, size){
 		this->detecting = detecting;
-		this->single = single;
+		this->hidden = hidden;
 		setTexture(textures->Knife);
 	}
 
 	//Hide area
 	bool get_hidden() {
-		return false;
-	}
-
-	//Set single use
-	bool is_singleton() {
-		return single;
+		return hidden;
 	}
 
 	//Activate on collision
 	void collide(Node *object) {
 		if(object->get_layer() == detecting) {
+			//Send and delete
 			send();
-
-			//Delete on use
-			if(single)
-				set_delete();
+			set_delete();
 		}
 	}
 };
 
 class PressureSwitch : public Node, public LogicSender {
 private:
-	const int MAXTIME = 10;
+	int delay;
 	CollisionLayer detecting;
 	int timer = 0;
 
 public:
 	//Area constructors
-	PressureSwitch(CollisionLayer detecting=PLAYER) : Node(SWITCH) {
+	PressureSwitch(int delay, CollisionLayer detecting=PLAYER) : Node(SWITCH) {
+		this->delay = delay;
 		this->detecting = detecting;
 	}
 
@@ -63,16 +57,48 @@ public:
 	void collide(Node *object) {
 		if(object->get_layer() == detecting) {
 			send();
-			timer = MAXTIME;
+			timer = delay;
 		}
 	}
 
 	//Deactivate on update
-	void update() {
-		if(timer > 0) {
+	void update(double time) {
+		if(timer > 0)
 			timer--;
-			if(timer != MAXTIME)
-				send();
+	}
+};
+
+class EmptySwitch : public Node, public LogicSender {
+private:
+	CollisionLayer detecting;
+	int collisionTime;
+
+public:
+	//Area constructors
+	AreaSwitch(sf::Vector2i size=sf::Vector2i(16, 16), CollisionLayer detecting=ENEMY) : Node(SWITCH, size){
+		this->detecting = detecting;
+	}
+
+	//Hide area
+	bool get_hidden() {
+		return true;
+	}
+
+	//Reset on collision
+	void collide(Node *object) {
+		if(object->get_layer() == detecting)
+			collisionTime = 0;
+	}
+
+	//Wait for multiple updates
+	void update(double time) {
+		collisionTime++;
+
+		//Send and delete
+		if(collisionTime >= 5) {
+			send();
+			set_delete();
 		}
+
 	}
 };

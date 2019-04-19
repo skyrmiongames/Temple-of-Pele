@@ -28,6 +28,8 @@ public:
 	static char get_tile(sf::Vector2f position);
 	static TileType check_tile(sf::Vector2f position);
 
+	//Set tile properties
+	static void set_tile(sf::Vector2f position, char value);
 private:
 	static char tiles[HEIGHT][WIDTH];
 	static int indexes[HEIGHT * WIDTH];

@@ -20,29 +20,29 @@ private:
 
 public:
 	//Connect to receiver
-	void add_channel(LogicReciever *reciever) {
+	void add_channel(LogicReciever* reciever) {
 		channels.push_back(reciever);
 	}
 
 	//Activate receivers
 	void send() {
-		std::vector<LogicReciever*>::iterator it = channels.begin();
-		while (it != channels.end()) {
+		for (
+			std::vector<LogicReciever*>::iterator it = channels.begin(); // Get the iterator
+			it != channels.end(); // Stop if we're at the end
+			it != channels.end() ? it++ : it // If we're not at the end, increment the iterator, otherwise leave it alone
+			) {
 			(*it)->activate();
 
 			//Delete if single use 
-			if((*it)->is_singleton()) {
-				LogicReciever* toBeDeleted = *it;
+			if ((*it)->is_singleton()) {
+				delete* it;
 				it = channels.erase(it);
-				delete toBeDeleted;
 			}
-
-			if (it != channels.end()) it++; 
 		}
 	}
 
 	//Destroy sender
 	~LogicSender() {
-		delete &channels;
+		delete& channels;
 	}
 };

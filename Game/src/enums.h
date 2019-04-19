@@ -1,4 +1,5 @@
 #pragma once
+#define PI 3.14159265
 
 /*
  * Created by Stuart Irwin on 4/13/2019.

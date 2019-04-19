@@ -39,7 +39,7 @@ void Player::eightWayMovement(double time)
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
 	{
 		this->setTexture(textures->playerMoveDown);
-		move(South);
+		move();
 		this->curDirection = 0;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left
@@ -53,6 +53,26 @@ void Player::eightWayMovement(double time)
 		this->setTexture(textures->playerMoveRight);
 		move(East);
 		this->curDirection = 2;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // up-left
+	{
+		this->setTexture(textures->playerMoveRight);
+		move(Northwest);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // up-right
+	{
+		this->setTexture(textures->playerMoveRight);
+		move(Northeast);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // down-left
+	{
+		this->setTexture(textures->playerMoveRight);
+		move(Southwest);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // down-right
+	{
+		this->setTexture(textures->playerMoveRight);
+		move(Southeast);
 	}
 	knife->setPosition(-10, 10);
 }

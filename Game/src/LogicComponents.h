@@ -26,14 +26,18 @@ public:
 
 	//Activate receivers
 	void send() {
-		for(std::vector<LogicReciever*>::iterator it = channels.begin() ; it != channels.end(); ++it) {
+		std::vector<LogicReciever*>::iterator it = channels.begin();
+		while (it != channels.end()) {
 			(*it)->activate();
 
 			//Delete if single use 
 			if((*it)->is_singleton()) {
-				channels.erase(it);
-				//delete *it;
+				LogicReciever* toBeDeleted = *it;
+				it = channels.erase(it);
+				delete toBeDeleted;
 			}
+
+			if (it != channels.end()) it++; 
 		}
 	}
 

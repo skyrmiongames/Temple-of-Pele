@@ -7,42 +7,49 @@
  * Interfaces for general logic
  */
 
-class LogicReciever {
-public:
+class LogicReciever
+{
+  public:
 	virtual void activate() = 0;
 	virtual bool is_singleton() = 0;
 	virtual ~LogicReciever() {}
 };
 
-class LogicSender {
-private:
-	std::vector<LogicReciever*> channels;
+class LogicSender
+{
+  private:
+	std::vector<LogicReciever *> channels;
 
-public:
+  public:
 	//Connect to receiver
-	void add_channel(LogicReciever* reciever) {
+	void add_channel(LogicReciever *reciever)
+	{
 		channels.push_back(reciever);
 	}
 
 	//Activate receivers
-	void send() {
+	void send()
+	{
 		for (
-			std::vector<LogicReciever*>::iterator it = channels.begin(); // Get the iterator
-			it != channels.end(); // Stop if we're at the end
-			it != channels.end() ? it++ : it // If we're not at the end, increment the iterator, otherwise leave it alone
-			) {
+			std::vector<LogicReciever *>::iterator it = channels.begin(); // Get the iterator
+			it != channels.end();										  // Stop if we're at the end
+			it != channels.end() ? it++ : it							  // If we're not at the end, increment the iterator, otherwise leave it alone
+		)
+		{
 			(*it)->activate();
 
-			//Delete if single use 
-			if ((*it)->is_singleton()) {
-				delete* it;
+			//Delete if single use
+			if ((*it)->is_singleton())
+			{
+				delete *it;
 				it = channels.erase(it);
 			}
 		}
 	}
 
 	//Destroy sender
-	~LogicSender() {
-		delete& channels;
+	~LogicSender()
+	{
+		delete &channels;
 	}
 };

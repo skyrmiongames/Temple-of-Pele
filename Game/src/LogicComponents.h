@@ -32,9 +32,7 @@ public:
 
 			//Delete if single use 
 			if((*it)->is_singleton()) {
-				LogicReciever* toBeDeleted = *it;
 				it = channels.erase(it);
-				delete toBeDeleted;
 			}
 
 			if (it != channels.end()) it++; 

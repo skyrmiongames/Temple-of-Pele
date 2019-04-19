@@ -28,6 +28,7 @@
   <ItemGroup>
     <ClInclude Include="src\AnimatedTileMap.hpp" />
     <ClInclude Include="src\AreaSwitch.h" />
+    <ClInclude Include="src\Door.hpp" />
     <ClInclude Include="src\Doors.hpp" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\enums.h" />
@@ -38,6 +39,7 @@
     <ClInclude Include="src\NodeLoader.hpp" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Room.hpp" />
+    <ClInclude Include="src\StartNodes.hpp" />
     <ClInclude Include="src\textures.h" />
     <ClInclude Include="src\TileMap.hpp" />
     <ClInclude Include="src\UpdateList.h" />

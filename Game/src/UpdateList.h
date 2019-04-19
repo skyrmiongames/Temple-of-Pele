@@ -12,6 +12,7 @@
 class UpdateList {
 private:
 	static std::vector<Node *> screen;
+	static std::vector<Node *> adding;
 
 	//Check if node has moving collisionlayer
 	static bool moving_layer(Node *n);

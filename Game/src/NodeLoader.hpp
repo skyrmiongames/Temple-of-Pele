@@ -27,6 +27,6 @@ public:
 		return true;
 	}
 	~NodeLoader() {
-		delete &contents;
+		contents.clear();
 	}
 };

@@ -37,7 +37,7 @@ public:
 
 	//Can delete after opening
 	bool is_singleton() {
-		return true;
+		return false;
 	}
 
 	//Start to open normal door
@@ -59,17 +59,17 @@ public:
 	void update(double time) {
 		if(state == 1) {
 			//Closing
-			if(horizontal_shown < 16 && time >= nextTime) {
-				nextTime = time += .1;
-				horizontal_shown += 1;
-			} else if(horizontal_shown == 16)
+			if(horizontal_shown > 0 && time >= nextTime) {
+				nextTime = time += 0.05;
+				horizontal_shown--;
+			} else if(horizontal_shown == 0)
 				state = 0;
 		} else if(state == 2) {
 			//Opening
-			if(horizontal_shown > 0 && time >= nextTime) {
-				nextTime = time += .1;
-				horizontal_shown -= 1;
-			} else if(horizontal_shown == 0)
+			if(horizontal_shown < 16 && time >= nextTime) {
+				nextTime = time += 0.05;
+				horizontal_shown++;
+			} else if(horizontal_shown == 16)
 				set_delete();
 		}
 

@@ -7,6 +7,7 @@
 
 //Static variables
 std::vector<Node *> UpdateList::screen;
+std::vector<Node *> UpdateList::adding;
 
 //Check if node has moving collisionlayer
 bool UpdateList::moving_layer(Node *n) {
@@ -15,7 +16,7 @@ bool UpdateList::moving_layer(Node *n) {
 
 //Add node to update cycle
 void UpdateList::add_node(Node *next) {
-	screen.push_back(next);
+	adding.push_back(next);
 }
 
 //Remove marked nodes from update cycle
@@ -24,8 +25,9 @@ void UpdateList::remove_nodes() {
 	while(it != screen.end()) {
 		//Check for delete mark
 		if((*it)->get_delete()) {
-			screen.erase(it);
-			delete *it;
+			Node *deleting = *it;
+			it = screen.erase(it);
+			delete deleting;
 		}
 
 		//Move to next
@@ -44,7 +46,7 @@ void UpdateList::update(sf::RenderWindow &window, double time) {
 			if(moving_layer(source)) {
 				for(Node *object : screen) {
 					//Actually check collision box
-					if(source->check_collision(object)) {
+					if(object != source && source->check_collision(object)) {
 						source->collide(object);
 
 						//Check for double detection
@@ -65,6 +67,13 @@ void UpdateList::update(sf::RenderWindow &window, double time) {
 			deleting = true;
 	}
 
+	//Remove deleted nodes
 	if(deleting)
 		remove_nodes();
+
+	//Add new nodes
+	if (adding.size() > 0) {
+		screen.insert(screen.end(), adding.begin(), adding.end());
+		adding.clear();
+	}
 }

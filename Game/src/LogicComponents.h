@@ -50,6 +50,6 @@ class LogicSender
 	//Destroy sender
 	~LogicSender()
 	{
-		delete &channels;
+		channels.clear();
 	}
 };

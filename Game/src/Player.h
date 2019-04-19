@@ -20,6 +20,7 @@ public:
 
 private:
 	sf::Sprite healthSprite;
+	Node *knife;
 	bool hasKey;
 	int curDirection;
 };

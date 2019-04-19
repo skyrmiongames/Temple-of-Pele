@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() :Entity(40, 0, false, 1.2)
+Player::Player() :Entity(20, 0, false, 1.2)
 {
 	//sf::IntRect playerRectangle(0,0 10, 16);
 	this->setTexture(textures->playerIdleDown);
@@ -22,7 +22,7 @@ void Player::eightWayMovement(double time)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) // up
 	{
 		this->setTexture(textures->playerMoveUp);
-		move(North);
+		move((3 * PI)/2);
 		this->curDirection = 1;
 		if (time > 1.0)
 		{
@@ -39,40 +39,44 @@ void Player::eightWayMovement(double time)
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
 	{
 		this->setTexture(textures->playerMoveDown);
-		move();
+		move(PI/2);
 		this->curDirection = 0;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left
 	{
 		this->setTexture(textures->playerMoveLeft);
-		move(West);
+		move(PI);
 		this->curDirection = 3;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // right
 	{
 		this->setTexture(textures->playerMoveRight);
-		move(East);
+		move(0);
 		this->curDirection = 2;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // up-left
 	{
-		this->setTexture(textures->playerMoveRight);
-		move(Northwest);
+		this->setTexture(textures->playerMoveLeft);
+		move(PI/4);
+		this->curDirection = 3;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // up-right
 	{
 		this->setTexture(textures->playerMoveRight);
-		move(Northeast);
+		move((3 * PI) / 4);
+		this->curDirection = 2;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // down-left
 	{
-		this->setTexture(textures->playerMoveRight);
-		move(Southwest);
+		this->setTexture(textures->playerMoveLeft);
+		move((3 * PI) / 4);
+		this->curDirection = 3;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // down-right
 	{
 		this->setTexture(textures->playerMoveRight);
-		move(Southeast);
+		move((5 * PI) / 4);
+		this->curDirection = 2;
 	}
 	knife->setPosition(-10, 10);
 }
@@ -84,7 +88,7 @@ void Player::drawGUI(sf::RenderWindow &window)
 
 void Player::updateHealth()
 {
-	healthSprite.setPosition(this->getPosition().x - 8, this->getPosition().y - 16);
+	healthSprite.setPosition(this->getPosition().x - 12.5, this->getPosition().y - 16);
 
 	if (this->health > 40)
 	{
@@ -115,22 +119,22 @@ void Player::attack()
 	{
 		if (this->curDirection == 0) // face down
 		{
-			knife->setRotation(-90.f);
+			knife->setRotation(180.f);
 			knife->setPosition(this->getPosition().x, this->getPosition().y + 10);
 		}
 		else if (this->curDirection == 1) // face up
 		{
-			knife->setRotation(-180.f);
+			knife->setRotation(0.f);
 			knife->setPosition(this->getPosition().x, this->getPosition().y - 10);
 		}
 		else if (this->curDirection == 3) // face left
 		{
-			knife->setRotation(-180.f);
+			knife->setRotation(90.f);
 			knife->setPosition(this->getPosition().x - 5, this->getPosition().y);
 		}
 		else if (this->curDirection == 2) // face right
 		{
-			knife->setRotation(-180.f);
+			knife->setRotation(270.f);
 			knife->setPosition(this->getPosition().x + 5, this->getPosition().y);
 		}
 		knife->setRotation(0.f);

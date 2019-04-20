@@ -14,7 +14,7 @@ private:
 
 public:
 	//Area constructors
-	AreaSwitch(bool hidden=true, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(16, 16)) : Node(SWITCH, size){
+	AreaSwitch(bool hidden=true, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(SWITCH, size){
 		this->detecting = detecting;
 		this->hidden = hidden;
 	}

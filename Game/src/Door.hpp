@@ -1,5 +1,6 @@
 #include "Node.h"
 #include "Player.h"
+#include "GridMaker.h"
 
 /*
  * Created by Stuart Irwin on 4/17/2019.
@@ -58,6 +59,7 @@ public:
 		if(state < 0) {
 			setPosition(getPosition() - sf::Vector2f(8, 8));
 			state += 2;
+			GridMaker::set_tile(getPosition(), '#');
 		}
 
 		if(state == 1) {
@@ -72,8 +74,10 @@ public:
 			if(horizontal_shown < 16 && time >= nextTime) {
 				nextTime = time += 0.05;
 				horizontal_shown++;
-			} else if(horizontal_shown == 16)
+			} else if(horizontal_shown == 16) {
+				GridMaker::set_tile(getPosition(), '.');
 				set_delete();
+			}
 		}
 
 		//Set shown amount of texture

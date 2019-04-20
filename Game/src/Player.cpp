@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() :Entity(60, 0, false, 1.2)
+Player::Player() :Entity(60, 0, false, 1.2, PLAYER, sf::Vector2i(10, 16))
 {
 	//sf::IntRect playerRectangle(0,0 10, 16);
 	this->setTexture(textures->playerIdleDown);
@@ -141,6 +141,7 @@ void Player::animatePlayer(double time)
 
 void Player::drawGUI(sf::RenderWindow &window)
 {
+	window.draw(*this);
 	window.draw(healthSprite);
 }
 

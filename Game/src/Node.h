@@ -25,7 +25,7 @@ public:
 	static sf::Vector2f playerPos;
 
 	//Node constructors
-	Node(CollisionLayer layer = PLAYER, sf::Vector2i size = sf::Vector2i(16, 16));
+	Node(CollisionLayer layer = ENEMY, sf::Vector2i size = sf::Vector2i(16, 16));
 
 	//Base getters
 	sf::Vector2i get_size();

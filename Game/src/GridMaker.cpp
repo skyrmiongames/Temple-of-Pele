@@ -48,6 +48,8 @@ int GridMaker::index_tile(char c) {
 			return 0;
 		case',':
 			return 3;
+		case '*':
+			return 3;
 		case '+':
 			return 2;
 		case ' ': case '\0': case '~': case '=':

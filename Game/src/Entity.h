@@ -15,8 +15,10 @@ public:
 		int _health = 60,
 		int _attack_power = 20,
 		double _speed = 1.0,
-		bool _invulnerable = false
-	) : health(_health), max_health(_health), attack_power(_attack_power), speed(_speed), invulnerable(_invulnerable) {}
+		bool _invulnerable = false,
+		CollisionLayer _layer = ENEMY,
+		sf::Vector2i _size = sf::Vector2i(16, 16)
+	) : Node(_layer, _size), health(_health), max_health(_health), attack_power(_attack_power), speed(_speed), invulnerable(_invulnerable) {}
 
 	~Entity() {}
 

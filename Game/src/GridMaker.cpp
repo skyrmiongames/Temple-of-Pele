@@ -12,7 +12,7 @@ int GridMaker::indexes[HEIGHT * WIDTH];
 //Convert file to char[][]
 void GridMaker::build_grid() {
 	//Get map file
-	std::ifstream mapFile("resources/test_map.txt");
+	std::ifstream mapFile("resources/maps/test_map.txt");
 
 	//Set line variables
 	int i = 0;

@@ -28,8 +28,8 @@ CollisionLayer Node::get_layer() {
 }
 
 //Get logic single use limit
-bool Node::is_singleton() {
-	return false;
+UseAmount Node::is_singleton() {
+	return MULTI;
 }
 
 //Get hidden value

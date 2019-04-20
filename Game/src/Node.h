@@ -30,7 +30,7 @@ public:
 	//Base getters
 	sf::Vector2i get_size();
 	CollisionLayer get_layer();
-	bool is_singleton();
+	UseAmount is_singleton();
 	virtual bool get_hidden();
 
 	//Collision and visual engine

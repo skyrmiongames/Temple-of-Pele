@@ -11,26 +11,29 @@
 class StartNodes {
 public:
 	static void test_nodes() {
+		//Main loader
+		NodeLoader mainLoader;
+
 		//First door
-		Door *door1 = new Door();
-		door1->setPosition(256, 112);
-		UpdateList::add_node(door1);
+		Door *door = new Door();
+		mainLoader.add_node(door, 17, 7);
 
 		//Auto open door
-		AreaSwitch *area1 = new AreaSwitch(false);
-		area1->add_channel(door1);
-		area1->setPosition(265, 106);
-		UpdateList::add_node(area1);
+		AreaSwitch *area = new AreaSwitch();
+		area->add_channel(door);
+		mainLoader.add_node(area, 17, 6);
 
 		//Second unloaded door
 		NodeLoader *loader1 = new NodeLoader();
-		Door *door2 = new Door(true, true);
-		loader1->add_node(door2, sf::Vector2f(14, 11));
+		door = new Door(true, true);
+		loader1->add_node(door, 14, 11);
 
 		//Auto close door
-		AreaSwitch *area2 = new AreaSwitch(false);
-		area2->add_channel(loader1);
-		area2->setPosition(202, 170);
-		UpdateList::add_node(area2);
+		area = new AreaSwitch(PLAYER);
+		area->add_channel(loader1);
+		mainLoader.add_node(area, 13, 11);
+
+		//Place nodes
+		mainLoader.activate();
 	}
 };

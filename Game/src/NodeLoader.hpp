@@ -11,9 +11,9 @@ private:
 
 public:
 	//Prepare node for adding
-	void add_node(Node *next, sf::Vector2f position) {
+	void add_node(Node *next, int x, int y) {
 		contents.push_back(next);
-		next->setPosition(position * 16.0F + sf::Vector2f(8, 8));
+		next->setPosition(x * 16, y * 16);
 	}
 
 	//Add content nodes
@@ -23,9 +23,11 @@ public:
 	}
 
 	//One use only
-	bool is_singleton() {
-		return true;
+	UseAmount is_singleton() {
+		return DELETE;
 	}
+
+	//Full delete
 	~NodeLoader() {
 		contents.clear();
 	}

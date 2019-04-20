@@ -31,3 +31,9 @@ enum OrthagonalDirection {
 	West,
 	Northwest
 };
+
+enum UseAmount {
+	MULTI,
+	SINGLE,
+	DELETE
+};

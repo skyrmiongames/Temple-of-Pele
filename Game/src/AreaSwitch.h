@@ -14,10 +14,9 @@ private:
 
 public:
 	//Area constructors
-	AreaSwitch(bool hidden=true, sf::Vector2i size=sf::Vector2i(16, 16), CollisionLayer detecting=PLAYER) : Node(SWITCH, size){
+	AreaSwitch(bool hidden=true, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(16, 16)) : Node(SWITCH, size){
 		this->detecting = detecting;
 		this->hidden = hidden;
-		setTexture(textures->Knife);
 	}
 
 	//Hide area
@@ -75,7 +74,7 @@ private:
 
 public:
 	//Area constructors
-	EmptySwitch(sf::Vector2i size=sf::Vector2i(16, 16), CollisionLayer detecting=ENEMY) : Node(SWITCH, size){
+	EmptySwitch(CollisionLayer detecting=ENEMY, sf::Vector2i size=sf::Vector2i(16, 16)) : Node(SWITCH, size){
 		this->detecting = detecting;
 	}
 

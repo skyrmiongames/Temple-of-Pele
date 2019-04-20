@@ -23,20 +23,20 @@ public:
 
 	Textures()
 	{
-		playerIdleDown.loadFromFile("resources/Player_IdleDown.png");
-		playerIdleUp.loadFromFile("resources/Player_IdleUp.png");
-		playerIdleRight.loadFromFile("resources/Player_IdleRight.png");
-		playerIdleLeft.loadFromFile("resources/Player_IdleLeft.png");
-		playerMoveDown.loadFromFile("resources/Player_WalkDown.png");
-		playerMoveUp.loadFromFile("resources/Player_WalkUp.png");
-		playerMoveRight.loadFromFile("resources/Player_WalkRight.png");
-		playerMoveLeft.loadFromFile("resources/Player_WalkLeft.png");
+		playerIdleDown.loadFromFile("resources/player/Player_IdleDown.png");
+		playerIdleUp.loadFromFile("resources/player/Player_IdleUp.png");
+		playerIdleRight.loadFromFile("resources/player/Player_IdleRight.png");
+		playerIdleLeft.loadFromFile("resources/player/Player_IdleLeft.png");
+		playerMoveDown.loadFromFile("resources/player/Player_WalkDown.png");
+		playerMoveUp.loadFromFile("resources/player/Player_WalkUp.png");
+		playerMoveRight.loadFromFile("resources/player/Player_WalkRight.png");
+		playerMoveLeft.loadFromFile("resources/player/Player_WalkLeft.png");
 
-		healthSpriteTexture.loadFromFile("resources/Health_HeartsGif.png");
+		healthSpriteTexture.loadFromFile("resources/player/Health_HeartsGif.png");
 
 		Enemy1Gif.loadFromFile("resources/Enemy1_BaseGif.png");
 
-		Knife.loadFromFile("resources/Knife_Base.png");
+		Knife.loadFromFile("resources/player/Knife_Base.png");
 
 		doors.loadFromFile("resources/Doors.png");
 	}

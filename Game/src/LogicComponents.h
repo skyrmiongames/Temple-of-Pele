@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "enums.h"
 
 /*
  * Created by Stuart Irwin on 4/17/2019.
@@ -11,7 +12,7 @@ class LogicReciever
 {
   public:
 	virtual void activate() = 0;
-	virtual bool is_singleton() = 0;
+	virtual UseAmount is_singleton() = 0;
 	virtual ~LogicReciever() {}
 };
 
@@ -39,10 +40,15 @@ class LogicSender
 			(*it)->activate();
 
 			//Delete if single use
-			if ((*it)->is_singleton())
+			if((*it)->is_singleton() != MULTI)
 			{
-				delete *it;
+				//Remove from channels
+				LogicReciever *deleting = *it;
 				it = channels.erase(it);
+
+				//Check for full delete
+				if((*it)->is_singleton() == DELETE)
+					delete deleting;
 			}
 		}
 	}

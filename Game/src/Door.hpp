@@ -21,23 +21,20 @@ public:
 	Door(bool closing=false, bool vertical=false, bool locked=false) : Node(SOLID, sf::Vector2i(16, 16)) {
 		//Set variables
 		this->horizontal_shown = closing ? 16 : 0;
-		this->state = closing ? 1 : 0;
+		this->state = closing ? -1 : -2;
 		this->vertical_shown = locked ? 16 : 0;
 
 		//Configure door properties
-		setOrigin(0, 0);
 		setTexture(textures->doors);
 
 		//Rotate door properly
-		if(vertical) {
-			setOrigin(16, 0);
+		if(vertical)
 			setRotation(90);
-		}
 	}
 
 	//Can delete after opening
-	bool is_singleton() {
-		return false;
+	UseAmount is_singleton() {
+		return SINGLE;
 	}
 
 	//Start to open normal door
@@ -57,15 +54,21 @@ public:
 
 	//Continue door animation
 	void update(double time) {
+		//Finalize door position
+		if(state < 0) {
+			setPosition(getPosition() - sf::Vector2f(8, 8));
+			state += 2;
+		}
+
 		if(state == 1) {
-			//Closing
+			//Closing animation
 			if(horizontal_shown > 0 && time >= nextTime) {
 				nextTime = time += 0.05;
 				horizontal_shown--;
 			} else if(horizontal_shown == 0)
 				state = 0;
 		} else if(state == 2) {
-			//Opening
+			//Opening animation
 			if(horizontal_shown < 16 && time >= nextTime) {
 				nextTime = time += 0.05;
 				horizontal_shown++;

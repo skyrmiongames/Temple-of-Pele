@@ -23,8 +23,8 @@ public:
 		nextTime = -1;
 	}
 
-	bool is_singleton() {
-		return single;
+	UseAmount is_singleton() {
+		return single ? SINGLE : MULTI;
 	}
 
 	//Wait for end of timer

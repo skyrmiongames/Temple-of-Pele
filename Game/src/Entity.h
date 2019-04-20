@@ -49,7 +49,7 @@ public:
 	void move(
 		OrthagonalDirection direction, 
 		float distance = 0.1,
-		bool allowVoid = true
+		bool allowVoid = false
 	) {
 
 		float angle

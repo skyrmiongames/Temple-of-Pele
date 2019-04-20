@@ -20,12 +20,12 @@ int main() {
 	//Load tile map
 	GridMaker::build_grid("resources/maps/test_map.txt");
 	TileMap map;
-    if (!map.load("resources/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
+    if (!map.load("resources/tiles/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
         return -1;
 
     //Load animated tile map
 	AnimatedTileMap aniMap;
-    if (!aniMap.load("resources/TileMap_Gif.png", sf::Vector2u(16, 16), GridMaker::index_grid(true), 12))
+    if (!aniMap.load("resources/tiles/TileMap_Gif.png", sf::Vector2u(16, 16), GridMaker::index_grid(true), 12))
         return -1;
 
     //Set up player

@@ -26,6 +26,7 @@ public:
 	sf::Texture doors;
 	sf::Texture exitLight;
 	sf::Texture plate;
+	sf::Texture bridge;
 
 	Textures()
 	{
@@ -48,8 +49,9 @@ public:
 		Enemy1Gif.loadFromFile("resources/Enemy1_BaseGif.png");
 
 		//Tile objects
-		doors.loadFromFile("resources/Doors.png");
-		exitLight.loadFromFile("resources/Exit_Light.png");
-		plate.loadFromFile("resources/Pressure_Plate.png");
+		doors.loadFromFile("resources/tiles/Doors.png");
+		exitLight.loadFromFile("resources/tiles/Exit_Light.png");
+		plate.loadFromFile("resources/tiles/Pressure_Plate.png");
+		bridge.loadFromFile("resources/tiles/Bridge.png");
 	}
 };

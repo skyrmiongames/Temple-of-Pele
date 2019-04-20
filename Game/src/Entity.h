@@ -46,7 +46,7 @@ public:
 
 	int get_attack() { return attack_power; }
 
-	void move(
+	/*void move(
 		OrthagonalDirection direction, 
 		float distance = 0.1,
 		bool allowVoid = false
@@ -65,12 +65,12 @@ public:
 
 		move(angle, distance, allowVoid);
 		
-	}
+	}*/
 
 	void move(
 		float angle = 0.0,
 		float distance = 0.1,
-		bool allowVoid = true
+		bool allowVoid = false
 	) {
 
 		float xOffset = cos(angle) * distance;

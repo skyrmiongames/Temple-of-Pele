@@ -48,14 +48,14 @@ public:
 	) {
 
 		float angle
-			= direction == North ? PI / 2
-			: direction == East ? 0
-			: direction == West ? PI
-			: direction == South ? (3 * PI) / 2
-			: direction == Northeast ? PI / 4
-			: direction == Northwest ? (3 * PI) / 4
-			: direction == Southwest ? (5 * PI) / 4
-			: direction == Southeast ? (7 * PI) / 4
+			= direction == North ? (3 * PI) / 2
+			: direction == East ? PI
+			: direction == West ? 0
+			: direction == South ? PI / 2
+			: direction == Northeast ? (3 * PI) / 4
+			: direction == Northwest ? (PI) / 4
+			: direction == Southwest ? (7 * PI) / 4
+			: direction == Southeast ? (5 * PI) / 4
 			: 0;
 
 		move(angle, distance, allowVoid);

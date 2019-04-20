@@ -11,7 +11,7 @@
 #include "Player.h"
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(600, 400), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(1200, 800), "Temple of Pele");
 	sf::Clock clock;
 
 	Textures *mainTextures = new Textures();
@@ -60,6 +60,8 @@ int main() {
 		//Draw nodes and sprites
 		UpdateList::update(window, clock.getElapsedTime().asSeconds());
 		player->drawGUI(window);
+		player->drawView(window);
+		player->animatePlayer(clock.getElapsedTime().asSeconds());
 
 		window.display();
 	}

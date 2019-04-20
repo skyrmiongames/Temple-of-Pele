@@ -47,7 +47,7 @@ class LogicSender
 				it = channels.erase(it);
 
 				//Check for full delete
-				if((*it)->is_singleton() == DELETE)
+				if((deleting)->is_singleton() == DELETE)
 					delete deleting;
 			}
 		}

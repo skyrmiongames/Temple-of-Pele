@@ -15,7 +15,7 @@
 
 class GridMaker {
 public:
-	static const int WIDTH = 25;
+	static const int WIDTH = 40;
 	static const int HEIGHT= 15;
 
 	//Build and convert grid

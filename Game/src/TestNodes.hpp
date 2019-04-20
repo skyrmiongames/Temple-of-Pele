@@ -4,6 +4,7 @@
 #include "NodeLoader.hpp"
 #include "Key.hpp"
 #include "Bridge.hpp"
+#include "EndScreen.hpp"
 
 /*
  * Created by Stuart Irwin on 4/18/2019.
@@ -58,6 +59,11 @@ public:
 		node->setTexture(Node::textures->exitLight);
 		node->setRotation(-90);
 		mainLoader.add_node(node, 23, 12);
+
+		//Exit end screen
+		EndScreen *end = new EndScreen(true);
+		area->add_channel(end);
+		loader1->add_node(end, 23, 12);
 
 		//Place nodes
 		mainLoader.activate();

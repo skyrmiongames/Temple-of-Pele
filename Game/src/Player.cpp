@@ -206,9 +206,11 @@ void Player::attack()
 
 void Player::update(double time)
 {
-	eightWayMovement(time);
-	updateHealth();
- 	attack();
+	if(!endGame) {
+		eightWayMovement(time);
+		updateHealth();
+	 	attack();
+	}
 }
 
 void Player::collide(Node *object) 
@@ -216,6 +218,14 @@ void Player::collide(Node *object)
 	//Pickup key object
 	if(object->get_layer() == KEY && hasKey == false) {
 		hasKey = true;
+		object->activate();
+	}
+
+	//Show full end screen
+	if(object->get_layer() == ENDSCREEN) {
+		viewPlayer.setSize(sf::Vector2f(600, 400));
+		endGame = true;
+		setPosition(1000,80);
 		object->activate();
 	}
 }

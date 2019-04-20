@@ -31,4 +31,5 @@ private:
 	int curDirection;
 	int curMoveFrame = 0;
 	double lastTime;
+	bool endGame;
 };

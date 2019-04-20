@@ -14,7 +14,8 @@ enum CollisionLayer {
 	FIREBALL,
 	KEY,
 	TORCH,
-	SWITCH
+	SWITCH,
+	ENDSCREEN
 };
 
 enum TileType {

@@ -5,19 +5,25 @@
  * Show and run game end screen
  */
 
-class EndScreen : public sf::Drawable, public sf::Transformable {
+class EndScreen : public Node {
 private:
 	TileMap map;
-	sf::View viewPlayer;
+	bool win;
+	bool active = false;
 
 	//Draw selected tilemap
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
-		target.draw(map);
-		window.setView(viewPlayer);
+		if(active) {
+			target.draw(map);
+		}
     }
 
 public:
-	EndScreen(bool win) {
+	EndScreen(bool win) : Node(ENDSCREEN) {
+		this->win = win;
+	}
+
+	void activate() {
 		//Load text map file
 		if(win)
 			GridMaker::build_grid("resources/maps/win_text.txt");
@@ -25,11 +31,9 @@ public:
 			GridMaker::build_grid("resources/maps/lose_text.txt");
 
 		//Build tilemap
-		map.load("resources/tiles/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), 38, 9);
-		setPosition(-100, -100);
+		map.load("resources/tiles/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT);
+		map.setPosition(717, 0);
 
-		//Set up viewport
-		viewPlayer.setSize(sf::Vector2f(300, 200));
-		viewPlayer.setCenter(sf::Vector2f(-100, -100));
+		active = true;
 	}
-}
+};

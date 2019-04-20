@@ -13,8 +13,6 @@ sf::Vector2f Node::playerPos;
 Node::Node(CollisionLayer layer, sf::Vector2i size) {
 	this->layer = layer;
 	this->size = size;
-
-	setOrigin(size.x / 2, size.y / 2);
 }
 
 //Get collision size
@@ -53,7 +51,7 @@ bool Node::check_collision(Node *other) {
 	sf::Vector2i otherSize = other->get_size() / 2;
 
 	//Check all cordinates
-		return thisPos.x - thisSize.x <= otherPos.x + otherSize.x && 
+	return thisPos.x - thisSize.x <= otherPos.x + otherSize.x && 
 		thisPos.x + thisSize.x >= otherPos.x - otherSize.x &&
 		thisPos.y - thisSize.y <= otherPos.y + otherSize.y && 
 		thisPos.y + thisSize.y >= otherPos.y - otherSize.y;

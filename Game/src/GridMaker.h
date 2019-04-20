@@ -19,7 +19,7 @@ public:
 	static const int HEIGHT= 15;
 
 	//Build and convert grid
-	static void build_grid();
+	static void build_grid(std::string file);
 	static int* index_grid(bool animated=false);
 	static int index_tile(char c);
 	static int animated_index_tile(char c);

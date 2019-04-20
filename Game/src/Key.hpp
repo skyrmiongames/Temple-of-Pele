@@ -11,6 +11,11 @@ public:
 		setTexture(textures->key);
 	}
 
+	//One use thing
+	UseAmount is_singleton() {
+		return SINGLE;
+	}
+
 	//Delete key when picked up
 	void activate() {
 		set_delete();

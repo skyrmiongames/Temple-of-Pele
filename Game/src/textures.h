@@ -4,6 +4,7 @@
 class Textures
 {
 public:
+	//Player animations
 	sf::Texture playerIdleDown;
 	sf::Texture playerIdleUp;
 	sf::Texture playerIdleRight;
@@ -13,17 +14,22 @@ public:
 	sf::Texture playerMoveRight;
 	sf::Texture playerMoveLeft;
 
+	//Player items
 	sf::Texture healthSpriteTexture;
-
-	sf::Texture Enemy1Gif;
-
 	sf::Texture knife;
 	sf::Texture key;
 
+	//Enemies
+	sf::Texture Enemy1Gif;
+
+	//Tile objects
 	sf::Texture doors;
+	sf::Texture exitLight;
+	sf::Texture plate;
 
 	Textures()
 	{
+		//Player animations
 		playerIdleDown.loadFromFile("resources/player/Player_IdleDown.png");
 		playerIdleUp.loadFromFile("resources/player/Player_IdleUp.png");
 		playerIdleRight.loadFromFile("resources/player/Player_IdleRight.png");
@@ -33,13 +39,17 @@ public:
 		playerMoveRight.loadFromFile("resources/player/Player_WalkRight.png");
 		playerMoveLeft.loadFromFile("resources/player/Player_WalkLeft.png");
 
+		//Player items
 		healthSpriteTexture.loadFromFile("resources/player/Health_HeartsGif.png");
-
-		Enemy1Gif.loadFromFile("resources/Enemy1_BaseGif.png");
-
 		knife.loadFromFile("resources/player/Knife_Base.png");
 		key.loadFromFile("resources/Key_Tile.png");
 
+		//Enemies
+		Enemy1Gif.loadFromFile("resources/Enemy1_BaseGif.png");
+
+		//Tile objects
 		doors.loadFromFile("resources/Doors.png");
+		exitLight.loadFromFile("resources/Exit_Light.png");
+		plate.loadFromFile("resources/Pressure_Plate.png");
 	}
 };

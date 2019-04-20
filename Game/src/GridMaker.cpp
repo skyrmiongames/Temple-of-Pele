@@ -10,9 +10,9 @@ char GridMaker::tiles[HEIGHT][WIDTH];
 int GridMaker::indexes[HEIGHT * WIDTH];
 
 //Convert file to char[][]
-void GridMaker::build_grid() {
+void GridMaker::build_grid(std::string file) {
 	//Get map file
-	std::ifstream mapFile("resources/maps/test_map.txt");
+	std::ifstream mapFile(file);
 
 	//Set line variables
 	int i = 0;
@@ -47,11 +47,11 @@ int GridMaker::index_tile(char c) {
 		case '#':
 			return 0;
 		case',':
-			return 3;
+			return 4;
 		case '*':
-			return 3;
-		case '+':
 			return 2;
+		case '+':
+			return 3;
 		case ' ': case '\0': case '~': case '=':
 			return -1;
 		default:

@@ -197,9 +197,10 @@ void Player::attack()
 		{
 			knife->setRotation(270);
 			knife->setPosition(this->getPosition().x + 5, this->getPosition().y);
+		} else {
+			knife->setRotation(0.f);
+			knife->setPosition(-10, 10);
 		}
-		knife->setRotation(0.f);
-		knife->setPosition(-10, 10);
 	}
 }
 

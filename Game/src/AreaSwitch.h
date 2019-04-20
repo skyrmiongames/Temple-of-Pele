@@ -17,6 +17,7 @@ public:
 	AreaSwitch(bool hidden=true, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(SWITCH, size){
 		this->detecting = detecting;
 		this->hidden = hidden;
+		setTexture(textures->plate);
 	}
 
 	//Hide area
@@ -45,6 +46,7 @@ public:
 	PressureSwitch(int delay, CollisionLayer detecting=PLAYER) : Node(SWITCH) {
 		this->delay = delay;
 		this->detecting = detecting;
+		setTexture(textures->plate);
 	}
 
 	//Show when active

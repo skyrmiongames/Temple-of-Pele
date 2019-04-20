@@ -6,10 +6,10 @@
 
 /*
  * Created by Stuart Irwin on 4/18/2019.
- * Node spawners on startup
+ * Node spawners on test map startup
  */
 
-class StartNodes {
+class TestNodes {
 public:
 	static void test_nodes() {
 		//Main loader
@@ -20,7 +20,7 @@ public:
 		mainLoader.add_node(door, 17, 7);
 
 		//Auto open door
-		AreaSwitch *area = new AreaSwitch();
+		AreaSwitch *area = new AreaSwitch(false);
 		area->add_channel(door);
 		mainLoader.add_node(area, 17, 3);
 
@@ -38,7 +38,7 @@ public:
 		//Auto close door
 		area = new AreaSwitch();
 		area->add_channel(loader1);
-		mainLoader.add_node(area, 12, 11);
+		mainLoader.add_node(area, 13, 11);
 
 		//Basic key
 		Key *key = new Key();
@@ -47,6 +47,12 @@ public:
 		//Basic locked door
 		door = new Door(false, true, true);
 		mainLoader.add_node(door, 19, 11);
+
+		//Exit thing
+		Node *node = new Node(SWITCH);
+		node->setTexture(Node::textures->exitLight);
+		node->setRotation(-90);
+		mainLoader.add_node(node, 23, 12);
 
 		//Place nodes
 		mainLoader.activate();

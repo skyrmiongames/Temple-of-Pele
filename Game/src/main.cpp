@@ -5,7 +5,7 @@
 #include <string>
 
 //Game headers
-#include "StartNodes.hpp"
+#include "TestNodes.hpp"
 #include "GridMaker.h"
 #include "AnimatedTileMap.hpp"
 #include "Player.h"
@@ -18,7 +18,7 @@ int main() {
 	Node::textures = mainTextures;
 
 	//Load tile map
-	GridMaker::build_grid();
+	GridMaker::build_grid("resources/maps/test_map.txt");
 	TileMap map;
     if (!map.load("resources/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
         return -1;
@@ -30,11 +30,11 @@ int main() {
 
     //Set up player
     Player *player = new Player();
-	player->setPosition(64, 64);
+	player->setPosition(128, 64);
 	UpdateList::add_node(player);
 
 	//Set up test room nodes
-	StartNodes::test_nodes();
+	TestNodes::test_nodes();
 
     //Run main window
 	while (window.isOpen()) {

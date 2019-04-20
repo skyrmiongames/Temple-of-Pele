@@ -29,8 +29,10 @@ public:
 		setTexture(textures->doors);
 
 		//Rotate door properly
-		if(vertical)
+		if(vertical) {
 			setRotation(90);
+			setOrigin(0, 16);
+		}
 	}
 
 	//Can delete after opening
@@ -57,7 +59,6 @@ public:
 	void update(double time) {
 		//Finalize door position
 		if(state < 0) {
-			setPosition(getPosition() - sf::Vector2f(8, 8));
 			state += 2;
 			GridMaker::set_tile(getPosition(), '#');
 		}

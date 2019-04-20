@@ -13,7 +13,9 @@ public:
 	//Prepare node for adding
 	void add_node(Node *next, int x, int y) {
 		contents.push_back(next);
-		next->setPosition(x * 16, y * 16);
+
+		//Set proper node position
+		next->setPosition((x - 1) * 16, (y - 1) * 16);
 	}
 
 	//Add content nodes

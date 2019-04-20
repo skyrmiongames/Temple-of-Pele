@@ -2,6 +2,7 @@
 #include "Door.hpp"
 #include "AreaSwitch.h"
 #include "NodeLoader.hpp"
+#include "Key.hpp"
 
 /*
  * Created by Stuart Irwin on 4/18/2019.
@@ -38,6 +39,14 @@ public:
 		area = new AreaSwitch();
 		area->add_channel(loader1);
 		mainLoader.add_node(area, 12, 11);
+
+		//Basic key
+		Key *key = new Key();
+		loader1->add_node(key, 5, 11);
+
+		//Basic locked door
+		door = new Door(false, true, true);
+		mainLoader.add_node(door, 19, 11);
 
 		//Place nodes
 		mainLoader.activate();

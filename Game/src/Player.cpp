@@ -10,6 +10,7 @@ Player::Player() :Entity(60, 0, false, 1.2, PLAYER, sf::Vector2i(10, 16))
 	int curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
 	knife = new Node(SWORD);
 	knife->setPosition(-10,10);
+	knife->setTexture(textures->knife);
 
 	double lastTime = 0.0;
 	int curMoveFrame = 0;
@@ -173,11 +174,6 @@ void Player::updateHealth()
 	}
 }
 
-void Player::updateKey()
-{
-	
-}
-
 void Player::attack()
 {
  	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -211,12 +207,21 @@ void Player::update(double time)
 {
 	eightWayMovement(time);
 	updateHealth();
-	updateKey();
  	attack();
 }
 
-bool Player::getKey()
+void Player::collide(Node *object) 
 {
+	//Pickup key object
+	if(object->get_layer() == KEY && hasKey == false) {
+		hasKey = true;
+		object->activate();
+	}
+}
+
+bool Player::getKey()
+{	
+	//Use key if available
 	if(hasKey) {
 		hasKey = false;
 		return true;

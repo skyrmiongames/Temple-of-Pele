@@ -12,6 +12,7 @@ public:
 	void eightWayMovement(double time);
 	void animatePlayer(double time);
 	void update(double time);
+	void collide(Node *object);
 
 	void drawGUI(sf::RenderWindow &window);
 	void drawView(sf::RenderWindow &window);

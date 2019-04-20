@@ -70,7 +70,7 @@ public:
 	void move(
 		float angle = 0.0,
 		float distance = 0.1,
-		bool allowVoid = true
+		bool allowVoid = false
 	) {
 
 		float xOffset = cos(angle) * distance;

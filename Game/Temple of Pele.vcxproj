@@ -28,19 +28,24 @@
   <ItemGroup>
     <ClInclude Include="src\AnimatedTileMap.hpp" />
     <ClInclude Include="src\AreaSwitch.h" />
+    <ClInclude Include="src\Bridge.hpp" />
     <ClInclude Include="src\Door.hpp" />
     <ClInclude Include="src\Doors.hpp" />
+    <ClInclude Include="src\EndScreen.hpp" />
     <ClInclude Include="src\Enemy.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\enums.h" />
     <ClInclude Include="src\GridMaker.h" />
     <ClInclude Include="src\Helpers.h" />
+    <ClInclude Include="src\Key.hpp" />
     <ClInclude Include="src\LogicComponents.h" />
+    <ClInclude Include="src\LogicGates.hpp" />
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\NodeLoader.hpp" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Room.hpp" />
     <ClInclude Include="src\StartNodes.hpp" />
+    <ClInclude Include="src\TestNodes.hpp" />
     <ClInclude Include="src\textures.h" />
     <ClInclude Include="src\TileMap.hpp" />
     <ClInclude Include="src\UpdateList.h" />

@@ -5,6 +5,7 @@
 #include "Key.hpp"
 #include "Bridge.hpp"
 #include "EndScreen.hpp"
+#include "Enemy.h"
 
 /*
  * Created by Stuart Irwin on 4/18/2019.
@@ -53,6 +54,10 @@ public:
 		//Basic locked door
 		door = new Door(false, true, true);
 		mainLoader.add_node(door, 19, 11);
+
+		//Basic enemy
+		Enemy* enemy = new Enemy();
+		mainLoader.add_node(enemy, 6, 4);
 
 		//Exit thing
 		Node *node = new Node(SWITCH);

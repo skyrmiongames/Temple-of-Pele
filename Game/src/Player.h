@@ -25,7 +25,7 @@ public:
 
 private:
 	sf::Sprite healthSprite;
-	Node *knife;
+	Node knife;
 	sf::View viewPlayer;
 	bool hasKey;
 	int curDirection;

@@ -21,6 +21,7 @@ private:
 public:
 	EndScreen(bool win) : Node(ENDSCREEN) {
 		this->win = win;
+		setTexture(Node::textures->exitLight);
 	}
 
 	void activate() {

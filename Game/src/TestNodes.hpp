@@ -54,14 +54,9 @@ public:
 		door = new Door(false, true, true);
 		mainLoader.add_node(door, 19, 11);
 
-		//Exit thing
-		Node *node = new Node(SWITCH);
-		node->setTexture(Node::textures->exitLight);
-		node->setRotation(-90);
-		mainLoader.add_node(node, 23, 12);
-
-		//Exit end screen
+		//Exit  to end screen
 		EndScreen *end = new EndScreen(true);
+		end->setRotation(-90);
 		area->add_channel(end);
 		loader1->add_node(end, 23, 12);
 

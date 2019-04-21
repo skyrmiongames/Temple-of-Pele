@@ -29,14 +29,14 @@ void Player::eightWayMovement(double time)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) // up
 	{
 		this->setTexture(textures->playerIdleUp);
-		move((3 * PI)/2);
+		move(PI/2);
 		//move(North);
 		this->curDirection = 1;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
 	{
 		this->setTexture(textures->playerIdleDown);
-		move(PI/2);
+		move(-PI/2);
 		//move(South);
 		this->curDirection = 0;
 	}

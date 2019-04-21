@@ -5,6 +5,7 @@
 #include "Key.hpp"
 #include "Bridge.hpp"
 #include "EndScreen.hpp"
+#include "Enemy.h"
 
 /*
  * Created by Stuart Irwin on 4/18/2019.
@@ -54,7 +55,17 @@ public:
 		door = new Door(false, true, true);
 		mainLoader.add_node(door, 19, 11);
 
-		//Exit  to end screen
+		//Basic enemy
+		Enemy* enemy = new Enemy();
+		mainLoader.add_node(enemy, 6, 4);
+
+		//Exit thing
+		Node *node = new Node(SWITCH);
+		node->setTexture(Node::textures->exitLight);
+		node->setRotation(-90);
+		mainLoader.add_node(node, 23, 12);
+
+		//Exit end screen
 		EndScreen *end = new EndScreen(true);
 		end->setRotation(-90);
 		area->add_channel(end);

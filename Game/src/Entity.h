@@ -74,7 +74,7 @@ public:
 	) {
 
 		float xOffset = cos(angle) * distance;
-		float yOffset = sin(angle) * distance;
+		float yOffset = - sin(angle) * distance;
 
 		sf::Vector2f target(getPosition().x + xOffset, getPosition().y + yOffset);
 		TileType targetType = GridMaker::check_tile(target);
@@ -84,7 +84,7 @@ public:
 		}
 	}
 
-	virtual void update() {};
+	// virtual void update() {};
 
 protected:
 	int health;

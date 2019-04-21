@@ -4,8 +4,13 @@
 
 class Enemy : public Entity {
 public:
-	Enemy();
-	~Enemy();
+	Enemy() : Entity() {}
+	~Enemy() {}
+
+	void update() {
+		float playerAngle = atan((playerPos.x - getPosition().x) / (playerPos.y - getPosition().y));
+		move(playerAngle);
+	}
 
 private:
 

@@ -67,6 +67,7 @@ public:
 
 		//Exit end screen
 		EndScreen *end = new EndScreen(true);
+		end->setRotation(-90);
 		area->add_channel(end);
 		loader1->add_node(end, 23, 12);
 

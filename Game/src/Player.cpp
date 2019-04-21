@@ -8,9 +8,9 @@ Player::Player() :Entity(60, 0, false, 1.2, PLAYER, sf::Vector2i(10, 16))
 	this->healthSprite.setTextureRect(sf::IntRect (0, 0, 25, 7));
 	this->hasKey = false;
 	int curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
-	knife = new Node(SWORD);
-	knife->setPosition(-10,10);
-	knife->setTexture(textures->knife);
+	knife = Node(SWORD, sf::Vector2i(10, 10));
+	knife.setPosition(-10,10);
+	knife.setTexture(textures->knife);
 
 	double lastTime = 0.0;
 	int curMoveFrame = 0;
@@ -82,7 +82,6 @@ void Player::eightWayMovement(double time)
 		/*move(Southeast);*/
 		this->curDirection = 2;
 	}
-	knife->setPosition(-10, 10);
 }
 
 void Player::updateTime(double time, int curFrame, int maxMoveFrames)
@@ -144,6 +143,7 @@ void Player::drawGUI(sf::RenderWindow &window)
 {
 	window.draw(*this);
 	window.draw(healthSprite);
+	window.draw(knife);
 }
 
 void Player::drawView(sf::RenderWindow &window)
@@ -180,27 +180,27 @@ void Player::attack()
 	{
 		if (this->curDirection == 0) // face down
 		{
-			knife->setRotation(180);
-			knife->setPosition(this->getPosition().x, this->getPosition().y + 10);
+			knife.setRotation(180);
+			knife.setPosition(this->getPosition().x, this->getPosition().y + 16);
 		}
 		else if (this->curDirection == 1) // face up
 		{
-			knife->setRotation(0);
-			knife->setPosition(this->getPosition().x, this->getPosition().y - 10);
+			knife.setRotation(0);
+			knife.setPosition(this->getPosition().x, this->getPosition().y - 16);
 		}
 		else if (this->curDirection == 3) // face left
 		{
-			knife->setRotation(90);
-			knife->setPosition(this->getPosition().x - 5, this->getPosition().y);
+			knife.setRotation(270);
+			knife.setPosition(this->getPosition().x - 12, this->getPosition().y + 2);
 		}
 		else if (this->curDirection == 2) // face right
 		{
-			knife->setRotation(270);
-			knife->setPosition(this->getPosition().x + 5, this->getPosition().y);
-		} else {
-			knife->setRotation(0.f);
-			knife->setPosition(-10, 10);
+			knife.setRotation(90);
+			knife.setPosition(this->getPosition().x + 12, this->getPosition().y - 2);
 		}
+	} else {
+		knife.setRotation(0.f);
+		knife.setPosition(0, 1000);
 	}
 }
 

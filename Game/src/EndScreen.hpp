@@ -1,4 +1,5 @@
 #include "TileMap.hpp"
+#pragma once
 
 /*
  * Created by Stuart Irwin on 4/20/2019.

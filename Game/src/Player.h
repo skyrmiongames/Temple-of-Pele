@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+#include "EndScreen.hpp"
 
 class Player : public Entity
 {
@@ -12,7 +13,8 @@ public:
 	void eightWayMovement(double time);
 	void animatePlayer(double time);
 	void update(double time);
-	void collide(Node *object);
+	void collide(Node *object, double time);
+	void die();
 
 	void drawGUI(sf::RenderWindow &window);
 	void drawView(sf::RenderWindow &window);

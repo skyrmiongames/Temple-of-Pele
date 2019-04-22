@@ -238,20 +238,23 @@ void Player::takeDamage(double time)
 	set_health(get_health() - 20);
 	switch (curDirection) // push back for when getting injured. 
 	{
-	case 0: setPosition(getPosition().x, getPosition().y + 3);
+	case 0: setPosition(getPosition().x, getPosition().y - 5);
 		break; // up
-	case 1: setPosition(getPosition().x, getPosition().y - 3);
+	case 1: setPosition(getPosition().x, getPosition().y + 5);
 		break; // down
-	case 2: setPosition(getPosition().x - 3, getPosition().y);
+	case 2: setPosition(getPosition().x - 5, getPosition().y);
 		break; // right
-	case 3: setPosition(getPosition().x + 3, getPosition().y);
+	case 3: setPosition(getPosition().x + 5, getPosition().y);
 		break; // left
 	}
 }
 
 void Player::updateHealth(double time)
 {
-	//takeDamage(time);
+	if (GridMaker::check_tile(getPosition()) == EMPTY)
+	{
+		takeDamage(time);
+	}
 
 	healthSprite.setPosition(this->getPosition().x - 12.5, this->getPosition().y - 16);
 
@@ -269,8 +272,18 @@ void Player::updateHealth(double time)
 	}
 	else
 	{
-		this->is_dead();
+		healthSprite.setTextureRect(sf::IntRect(0, 21, 25, 7));
+		die();
 	}
+}
+void Player::die()
+{
+	endGame = true;
+	EndScreen *object = new EndScreen(false);
+
+	viewPlayer.setSize(sf::Vector2f(600, 400));
+	setPosition(1000, 80);
+	object->activate();
 }
 
 void Player::attack()
@@ -312,7 +325,7 @@ void Player::update(double time)
 	}
 }
 
-void Player::collide(Node *object) 
+void Player::collide(Node *object , double time) 
 {
 	//Pickup key object
 	if(object->get_layer() == KEY && hasKey == false) {
@@ -322,7 +335,7 @@ void Player::collide(Node *object)
 
 	if (object->get_layer() == ENEMY, object->get_layer() == FIREBALL)
 	{
-		//takeDamage();
+		takeDamage(time);
 	}
 
 	//Show full end screen

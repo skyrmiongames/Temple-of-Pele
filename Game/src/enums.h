@@ -12,6 +12,7 @@ enum CollisionLayer {
 	SWORD,
 	ENEMY,
 	FIREBALL,
+	LAVA,
 	KEY,
 	TORCH,
 	SWITCH,

@@ -16,7 +16,10 @@ public:
 
 	void drawGUI(sf::RenderWindow &window);
 	void drawView(sf::RenderWindow &window);
-	void updateHealth();
+
+	void updateHealth(double time);
+	bool takeDamage(double time);
+
 	void updateKey();
 	void updateTime(double time, int curFrame, int maxFrames);
 	void attack();

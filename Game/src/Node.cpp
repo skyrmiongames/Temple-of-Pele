@@ -35,6 +35,16 @@ bool Node::get_hidden() {
 	return false;
 }
 
+bool Node::get_isHazard()
+{
+	return isHazard;
+}
+
+void Node::set_isHazard(bool newIsHazard)
+{
+	this->isHazard = newIsHazard;
+}
+
 //Check if near/on screen
 bool Node::on_screen() {
 	return true;

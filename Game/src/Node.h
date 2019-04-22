@@ -19,6 +19,8 @@ private:
 	sf::Vector2i size;
 	bool deleted = false;
 
+	bool isHazard = false;
+
 public:
 	//Random static variables
 	static Textures *textures;
@@ -32,6 +34,10 @@ public:
 	CollisionLayer get_layer();
 	UseAmount is_singleton();
 	virtual bool get_hidden();
+
+	//Hazard getter and setter
+	bool get_isHazard();
+	void set_isHazard(bool newIsHazard);
 
 	//Collision and visual engine
 	bool on_screen();

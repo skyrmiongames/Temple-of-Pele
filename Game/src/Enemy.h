@@ -9,6 +9,7 @@ class Enemy : public Entity {
 public:
 	Enemy() : Entity() {
 		setTexture(textures->Enemy1Gif);
+		set_isHazard(true);
 	}
 	~Enemy() {}
 

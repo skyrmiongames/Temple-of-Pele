@@ -76,6 +76,8 @@ int main() {
 
 		//Draw nodes and sprites
 		UpdateList::update(window, clock.getElapsedTime().asSeconds());
+
+		//Player updates
 		player->drawGUI(window);
 		player->drawView(window);
 		player->animatePlayer(clock.getElapsedTime().asSeconds());

@@ -15,7 +15,7 @@ public:
 		contents.push_back(next);
 
 		//Set proper node position
-		next->setPosition((x - 1) * 16, (y - 1) * 16);
+		next->setPosition(x * 16 - 8, y * 16 - 8);
 	}
 
 	//Add content nodes

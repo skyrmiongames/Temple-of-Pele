@@ -50,8 +50,8 @@ public:
 		NodeLoader mainLoader;
 
 		//Load each room
-		codeRoom(&mainLoader, 51, 25);
-		centerRoom(&mainLoader, 39, 13);
+		codeRoom(&mainLoader, 50, 25);
+		centerRoom(&mainLoader, 38, 13);
 
 		mainLoader.activate();
 	}

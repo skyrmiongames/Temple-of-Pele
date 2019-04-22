@@ -20,6 +20,7 @@ public:
 
 		//Set base texture
 		setTexture(textures->plate);
+		setOrigin(8, 8);
 	}
 
 	//Hide area
@@ -45,10 +46,13 @@ private:
 
 public:
 	//Area constructors
-	PressureSwitch(int delay, CollisionLayer detecting=PLAYER) : Node(SWITCH) {
+	PressureSwitch(int delay, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(SWITCH, size) {
 		this->delay = delay;
 		this->detecting = detecting;
+
+		//Set base texture
 		setTexture(textures->plate);
+		setOrigin(8, 8);
 	}
 
 	//Show when active

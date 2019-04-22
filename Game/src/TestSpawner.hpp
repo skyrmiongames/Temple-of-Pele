@@ -1,20 +1,13 @@
-#include "UpdateList.h"
-#include "Door.hpp"
-#include "AreaSwitch.h"
-#include "NodeLoader.hpp"
-#include "Key.hpp"
-#include "Bridge.hpp"
-#include "EndScreen.hpp"
-#include "Enemy.h"
+#include "NodeSpawner.h"
 
 /*
  * Created by Stuart Irwin on 4/18/2019.
  * Node spawners on test map startup
  */
 
-class TestNodes {
+class TestSpawner : public NodeSpawner {
 public:
-	static void test_nodes() {
+	void spawn() {
 		//Main loader
 		NodeLoader mainLoader;
 

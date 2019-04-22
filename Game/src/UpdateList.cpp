@@ -47,7 +47,7 @@ void UpdateList::update(sf::RenderWindow &window, double time) {
 				for(Node *object : screen) {
 					//Actually check collision box
 					if(object != source && source->check_collision(object)) {
-						source->collide(object);
+						source->collide(object, time);
 
 						//Check for double detection
 						if(!moving_layer(object))

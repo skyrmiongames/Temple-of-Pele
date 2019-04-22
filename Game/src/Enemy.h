@@ -18,7 +18,7 @@ public:
 			(playerPos.x - getPosition().x)
 		) + (getPosition().x > playerPos.x ? PI : 0);
 		
-		std::cout << playerAngle << std::endl;
+		//std::cout << playerAngle << std::endl;
 		move(playerAngle, 0.005);
 	}
 

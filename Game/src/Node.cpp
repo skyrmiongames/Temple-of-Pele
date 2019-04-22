@@ -74,3 +74,6 @@ void Node::on_load() {}
 void Node::activate() {}
 void Node::update(double time) {}
 void Node::collide(Node *object) {}
+void Node::collide(Node *object, double time) {
+	collide(object);
+}

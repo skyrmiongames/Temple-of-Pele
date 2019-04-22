@@ -47,4 +47,5 @@ public:
 	virtual void activate();
 	virtual void update(double time);
 	virtual void collide(Node *object);
+	virtual void collide(Node *object, double time);
 };

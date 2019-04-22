@@ -5,20 +5,37 @@
 #include <string>
 
 //Game headers
-#include "TestNodes.hpp"
+#include "TestSpawner.hpp"
+#include "FullSpawner.hpp"
 #include "GridMaker.h"
 #include "AnimatedTileMap.hpp"
 #include "Player.h"
 
 int main() {
+	bool testMode = true;
+
+	//Start game window
 	sf::RenderWindow window(sf::VideoMode(1200, 800), "Temple of Pele");
 	sf::Clock clock;
 
+	//Set texture loader
 	Textures *mainTextures = new Textures();
 	Node::textures = mainTextures;
 
+	//Mode variables
+	NodeSpawner *spawner = new FullSpawner();
+	std::string file = "resources/maps/full_map.txt";
+	sf::Vector2f startPos = sf::Vector2f(600, 432);
+
+	//Set test mode
+	if(testMode) {
+		spawner = new TestSpawner();
+		file = "resources/maps/test_map.txt";
+		startPos = sf::Vector2f(112, 80);
+	}
+
 	//Load tile map
-	GridMaker::build_grid("resources/maps/test_map.txt");
+	GridMaker::build_grid(file);
 	TileMap map;
     if (!map.load("resources/tiles/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
         return -1;
@@ -30,11 +47,11 @@ int main() {
 
     //Set up player
     Player *player = new Player();
-	player->setPosition(128, 64);
+	player->setPosition(startPos);
 	UpdateList::add_node(player);
 
 	//Set up test room nodes
-	TestNodes::test_nodes();
+	spawner->spawn();
 
     //Run main window
 	while (window.isOpen()) {

@@ -15,8 +15,8 @@
 
 class GridMaker {
 public:
-	static const int WIDTH = 40;
-	static const int HEIGHT= 15;
+	static const int WIDTH = 79;
+	static const int HEIGHT= 33;
 
 	//Build and convert grid
 	static void build_grid(std::string file);

@@ -44,7 +44,7 @@ int* GridMaker::index_grid(bool animated) {
 //Get integer index of tile texture
 int GridMaker::index_tile(char c) {
 	switch(c) {
-		case '#':
+		case '#': case '@':
 			return 0;
 		case',':
 			return 4;
@@ -84,7 +84,7 @@ TileType GridMaker::check_tile(sf::Vector2f position) {
 	char c = get_tile(position);
 
 	switch(c) {
-		case '#': case '+':
+		case '#': case '+': case '@':
 			return WALL;
 		case ' ': case '\0': case '~': case '=':
 			return EMPTY;

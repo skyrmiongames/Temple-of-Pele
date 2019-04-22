@@ -18,10 +18,11 @@ public:
 	void drawView(sf::RenderWindow &window);
 
 	void updateHealth(double time);
-	bool takeDamage(double time);
+	void takeDamage(double time);
 
 	void updateKey();
-	void updateTime(double time, int curFrame, int maxFrames);
+	void updateFrameTime(double time, int curFrame, int maxFrames);
+	void updateTakeDamageTime(double time);
 	void attack();
 
 	bool getKey();

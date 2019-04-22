@@ -76,7 +76,7 @@ void Player::eightWayMovement(double time)
 	}
 }
 
-void Player::updateTime(double time, int curFrame, int maxMoveFrames)
+void Player::updateFrameTime(double time, int curFrame, int maxMoveFrames)
 {
 	if (time - lastTime >= 0.1)
 	{
@@ -86,6 +86,15 @@ void Player::updateTime(double time, int curFrame, int maxMoveFrames)
 		{
 			curMoveFrame = 0;
 		}
+	}
+}
+
+void Player::updateTakeDamageTime(double time)
+{
+	if (time - lastTime >= 1)
+	{
+		lastTime = time;
+		this->invulnerable = false;
 	}
 }
 
@@ -99,7 +108,7 @@ void Player::animatePlayer(double time)
 		if (curDirection == 1) //up
 		{
 			maxMoveFrames = 4;
-			updateTime(time, curMoveFrame, maxMoveFrames);
+			updateFrameTime(time, curMoveFrame, maxMoveFrames);
 			this->setTexture(textures->playerMoveUp);
 			switch (curMoveFrame)
 			{
@@ -120,7 +129,7 @@ void Player::animatePlayer(double time)
 		else if (curDirection == 0) // down
 		{
 			maxMoveFrames = 4;
-			updateTime(time, curMoveFrame, maxMoveFrames);
+			updateFrameTime(time, curMoveFrame, maxMoveFrames);
 			this->setTexture(textures->playerMoveDown);
 			switch (curMoveFrame)
 			{
@@ -141,7 +150,7 @@ void Player::animatePlayer(double time)
 		else if (curDirection == 3) // left
 		{
 			maxMoveFrames = 5;
-			updateTime(time, curMoveFrame, maxMoveFrames);
+			updateFrameTime(time, curMoveFrame, maxMoveFrames);
 			this->setTexture(textures->playerMoveLeft);
 			switch (curMoveFrame)
 			{
@@ -165,7 +174,7 @@ void Player::animatePlayer(double time)
 		else if (curDirection == 2) // right
 		{
 			maxMoveFrames = 5;
-			updateTime(time, curMoveFrame, maxMoveFrames);
+			updateFrameTime(time, curMoveFrame, maxMoveFrames);
 			this->setTexture(textures->playerMoveRight);
 			switch (curMoveFrame)
 			{
@@ -222,35 +231,27 @@ void Player::drawView(sf::RenderWindow &window)
 	window.setView(viewPlayer);
 }
 
-bool Player::takeDamage(double time)
+void Player::takeDamage(double time)
 {
-	bool injured = false;
-	Node object;
-
-	if (this->check_collision(&object) == true)
+	this->invulnerable = true;
+	updateTakeDamageTime(time);
+	set_health(get_health() - 20);
+	switch (curDirection) // push back for when getting injured. 
 	{
-		if (object.get_isHazard() == true)
-		{
-			set_health(get_health() - 20);
-			switch (curDirection) // push back for when getting injured. 
-			{
-			case 0: setPosition(getPosition().x, getPosition().y + 3);
-				break; // up
-			case 1: setPosition(getPosition().x, getPosition().y - 3);
-				break; // down
-			case 2: setPosition(getPosition().x - 3, getPosition().y);
-				break; // right
-			case 3: setPosition(getPosition().x + 3, getPosition().y);
-				break; // left
-			}
-		}
+	case 0: setPosition(getPosition().x, getPosition().y + 3);
+		break; // up
+	case 1: setPosition(getPosition().x, getPosition().y - 3);
+		break; // down
+	case 2: setPosition(getPosition().x - 3, getPosition().y);
+		break; // right
+	case 3: setPosition(getPosition().x + 3, getPosition().y);
+		break; // left
 	}
-	return injured;
 }
 
 void Player::updateHealth(double time)
 {
-	bool hurt = takeDamage(time);
+	//takeDamage(time);
 
 	healthSprite.setPosition(this->getPosition().x - 12.5, this->getPosition().y - 16);
 
@@ -307,7 +308,6 @@ void Player::update(double time)
 	if(!endGame) {
 		eightWayMovement(time);
 		updateHealth(time);
-		//animatePlayer(time)
 	 	attack();
 	}
 }
@@ -320,10 +320,10 @@ void Player::collide(Node *object)
 		object->activate();
 	}
 
-	//if (object->get_layer() == LAVA)
-	//{
-	//	takeDamage(0);
-	//}
+	if (object->get_layer() == ENEMY, object->get_layer() == FIREBALL)
+	{
+		//takeDamage();
+	}
 
 	//Show full end screen
 	if(object->get_layer() == ENDSCREEN) {

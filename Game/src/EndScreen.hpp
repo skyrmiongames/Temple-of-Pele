@@ -1,4 +1,5 @@
 #include "TileMap.hpp"
+#pragma once
 
 /*
  * Created by Stuart Irwin on 4/20/2019.
@@ -33,7 +34,7 @@ public:
 
 		//Build tilemap
 		map.load("resources/tiles/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT);
-		map.setPosition(717, 0);
+		map.setPosition(2717, 0);
 
 		active = true;
 	}

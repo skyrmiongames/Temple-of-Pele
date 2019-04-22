@@ -12,7 +12,7 @@
 #include "Player.h"
 
 int main() {
-	bool testMode = true;
+	bool testMode = false;
 
 	//Start game window
 	sf::RenderWindow window(sf::VideoMode(1200, 800), "Temple of Pele");

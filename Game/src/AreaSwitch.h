@@ -17,6 +17,8 @@ public:
 	AreaSwitch(bool hidden=true, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(SWITCH, size){
 		this->detecting = detecting;
 		this->hidden = hidden;
+
+		//Set base texture
 		setTexture(textures->plate);
 	}
 

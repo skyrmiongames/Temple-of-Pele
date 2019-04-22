@@ -39,6 +39,7 @@ public:
 		area = new AreaSwitch();
 		area->add_channel(loader1);
 		mainLoader.add_node(area, 13, 11);
+		area->setPosition(area->getPosition() + sf::Vector2f(-8, 0));
 
 		//Basic key
 		Key *key = new Key();
@@ -62,7 +63,7 @@ public:
 		EndScreen *end = new EndScreen(true);
 		end->setRotation(-90);
 		area->add_channel(end);
-		loader1->add_node(end, 23, 12);
+		loader1->add_node(end, 23, 11);
 
 		//Place nodes
 		mainLoader.activate();

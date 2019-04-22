@@ -237,17 +237,17 @@ void Player::takeDamage(double time)
 	this->invulnerable = true;
 	updateTakeDamageTime(time);
 	modify_health(-20);
-	switch (curDirection) // push back for when getting injured. 
-	{
-	case 0: setPosition(getPosition().x, getPosition().y - 5);
-		break; // up
-	case 1: setPosition(getPosition().x, getPosition().y + 5);
-		break; // down
-	case 2: setPosition(getPosition().x - 5, getPosition().y);
-		break; // right
-	case 3: setPosition(getPosition().x + 5, getPosition().y);
-		break; // left
-	}
+	//switch (curDirection) // push back for when getting injured. 
+	//{
+	//case 0: setPosition(getPosition().x, getPosition().y - 5);
+	//	break; // up
+	//case 1: setPosition(getPosition().x, getPosition().y + 5);
+	//	break; // down
+	//case 2: setPosition(getPosition().x - 5, getPosition().y);
+	//	break; // right
+	//case 3: setPosition(getPosition().x + 5, getPosition().y);
+	//	break; // left
+	//}
 }
 
 void Player::updateHealth(double time)
@@ -295,22 +295,22 @@ void Player::attack()
 		if (this->curDirection == 0) // face down
 		{
 			knife.setRotation(180);
-			knife.setPosition(this->getPosition().x + 2, this->getPosition().y + 16);
+			knife.setPosition(this->getPosition().x + 2, this->getPosition().y + 8);
 		}
 		else if (this->curDirection == 1) // face up
 		{
 			knife.setRotation(0);
-			knife.setPosition(this->getPosition().x - 2, this->getPosition().y - 16);
+			knife.setPosition(this->getPosition().x - 2, this->getPosition().y - 8);
 		}
 		else if (this->curDirection == 3) // face left
 		{
 			knife.setRotation(270);
-			knife.setPosition(this->getPosition().x - 12, this->getPosition().y + 2);
+			knife.setPosition(this->getPosition().x - 12, this->getPosition().y - 2);
 		}
 		else if (this->curDirection == 2) // face right
 		{
 			knife.setRotation(90);
-			knife.setPosition(this->getPosition().x + 12, this->getPosition().y - 2);
+			knife.setPosition(this->getPosition().x + 12, this->getPosition().y + 4);
 		}
 	} else {
 		knife.setRotation(0.f);

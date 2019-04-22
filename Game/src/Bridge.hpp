@@ -7,11 +7,12 @@
  * Activatable bridge to go over lava
  */
 
-class Bridge : public Node {
+class Bridge : public Node, public LogicSender {
 private:
 	//Bridge current state
 	int vertical_shown = 0;
 	double nextTime = 0;
+	bool closing = false;
 
 public:
 	//Build bridge
@@ -38,9 +39,14 @@ public:
 		}
 	}
 
-	//Continue door animation
+	//Start closing animation
+	void activate() {
+		closing = true;
+	}
+
+	//Continue bridge animation
 	void update(double time) {
-		if(vertical_shown < 16) {
+		if(closing && vertical_shown < 16) {
 			//Closing animation
 			if(time >= nextTime) {
 				nextTime = time += 0.1;
@@ -48,8 +54,10 @@ public:
 			}
 
 			//Set solid ground
-			if(vertical_shown == 16)
+			if(vertical_shown == 16) {
 				GridMaker::set_tile(getPosition(), '.');
+				send();
+			}
 		}
 
 		//Set shown amount of texture

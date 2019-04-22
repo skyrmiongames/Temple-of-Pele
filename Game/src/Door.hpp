@@ -31,7 +31,7 @@ public:
 		//Rotate door properly
 		if(vertical) {
 			setRotation(90);
-			setOrigin(0, 16);
+			//setOrigin(0, 16);
 		}
 	}
 

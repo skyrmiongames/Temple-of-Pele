@@ -29,7 +29,7 @@ public:
 		if (!invulnerable || modifier > 0) set_health(get_health() + modifier);
 
 		if (is_dead()) {
-			// TODO: implement death code
+			set_delete();
 		}
 
 		return get_health();

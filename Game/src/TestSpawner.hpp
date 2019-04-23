@@ -58,17 +58,9 @@ public:
 		Enemy* enemy = new Enemy();
 		mainLoader.add_node(enemy, 6, 4);
 
-		//Exit thing
-		Node *node = new Node(SWITCH);
-		node->setTexture(Node::textures->exitLight);
-		node->setRotation(-90);
-		mainLoader.add_node(node, 23, 12);
-
 		//Exit end screen
 		EndScreen *end = new EndScreen(true);
-		end->setRotation(-90);
-		area->add_channel(end);
-		loader1->add_node(end, 23, 11);
+		mainLoader.add_node(end, 23, 11);
 
 		//Place nodes
 		mainLoader.activate();

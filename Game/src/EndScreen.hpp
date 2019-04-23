@@ -8,6 +8,7 @@
 
 class EndScreen : public Node {
 private:
+	sf::Sprite *light;
 	TileMap map;
 	bool win;
 	bool active = false;
@@ -15,14 +16,23 @@ private:
 	//Draw selected tilemap
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
 		if(active) {
+			//Draw end text map
 			target.draw(map);
+		} else {
+			light->setPosition(getPosition());
+			target.draw(*light);
 		}
     }
 
 public:
 	EndScreen(bool win) : Node(ENDSCREEN) {
 		this->win = win;
-		setTexture(Node::textures->exitLight);
+
+		//Build sprite for light effect
+		light = new sf::Sprite();
+		light->setRotation(-90);
+		light->setTexture(textures->exitLight);
+		light->setOrigin(8, 8);
 	}
 
 	void activate() {
@@ -34,7 +44,9 @@ public:
 
 		//Build tilemap
 		map.load("resources/tiles/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT);
-		map.setPosition(2717, 0);
+		map.setPosition(1715, 0);
+		setPosition(2000, 0);
+		setRotation(0);
 
 		active = true;
 	}

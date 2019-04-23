@@ -302,7 +302,7 @@ void Player::die()
 	UpdateList::add_node(object);
 
 	viewPlayer.setSize(sf::Vector2f(600, 400));
-	setPosition(3000, 80);
+	setPosition(2000, 80);
 	object->activate();
 }
 
@@ -393,7 +393,7 @@ void Player::collide(Node *object , double time)
 	if(object->get_layer() == ENDSCREEN) {
 		viewPlayer.setSize(sf::Vector2f(600, 400));
 		endGame = true;
-		setPosition(3000,80);
+		setPosition(2000,80);
 		object->activate();
 	}
 }

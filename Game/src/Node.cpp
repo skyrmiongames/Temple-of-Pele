@@ -49,7 +49,11 @@ void Node::set_isHazard(bool newIsHazard)
 
 //Check if near/on screen
 bool Node::on_screen() {
-	return true;
+	sf::Vector2f pos = getPosition();
+	return pos.x > playerPos.x - 160 && 
+		pos.x < playerPos.x + 160 &&
+		pos.y > playerPos.y - 160 &&
+		pos.y < playerPos.y + 160;
 }
 
 //Check collision box against other node

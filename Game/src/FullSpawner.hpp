@@ -24,7 +24,7 @@ private:
 
 		//Dramatic closing door
 		Door *door2 = new Door(true, true);
-		loader1->add_node(door2, x + 5, y + 2);
+		//loader1->add_node(door2, x + 5, y + 2);
 
 		//Enemy 1
 		Enemy* enemy = new Enemy();
@@ -65,7 +65,7 @@ private:
 
 		//End door
 		Door *door = new Door(false, true);
-		loader->add_node(door, x + 13, y + 1);
+		//loader->add_node(door, x + 13, y + 1);
 	}
 
 	//Central room (origin at center)
@@ -99,11 +99,11 @@ private:
 		loader->add_node(key, x, y - 1);
 
 		//Upper bridge set
-		bridge1 = new Bridge(North);
-		bridge2 = new Bridge(North);
+		bridge1 = new Bridge(South);
+		bridge2 = new Bridge(South);
 		bridge1->add_channel(bridge2);
-		loader->add_node(bridge1, x, y - 2);
-		loader->add_node(bridge2, x, y - 3);
+		loader->add_node(bridge1, x, y - 3);
+		loader->add_node(bridge2, x, y - 2);
 
 		//Upper pressure plate
 		AreaSwitch *plate = new AreaSwitch(false);
@@ -117,6 +117,10 @@ private:
 
 	//Central right room (origin at top)
 	void bridgeRoom(NodeLoader *loader, int x, int y) {
+		//Enemy 1
+		Enemy* enemy = new Enemy();
+		loader->add_node(enemy, x + 2, y + 2);
+
 		//Bridge set
 		Bridge *bridge1 = new Bridge(North);
 		Bridge *bridge2 = new Bridge(North);
@@ -125,20 +129,55 @@ private:
 		loader->add_node(bridge2, x + 13, y + 4);
 
 		//Bridge pressure plate
-		AreaSwitch *plate = new AreaSwitch();
+		AreaSwitch *plate = new AreaSwitch(false);
 		plate->add_channel(bridge1);
 		loader->add_node(plate, x + 7, y + 6);
+
+		//Enemy 4
+		enemy = new Enemy();
+		loader->add_node(enemy, x + 13, y + 2);
+	}
+
+	//Top right room (origin at bottom)
+	void endRoom(NodeLoader *loader, int x, int y) {
+		//Return bridge set
+		Bridge *bridge1 = new Bridge(South);
+		Bridge *bridge2 = new Bridge(South);
+		Bridge *bridge3 = new Bridge(South);
+		bridge1->add_channel(bridge2);
+		bridge2->add_channel(bridge3);
+		loader->add_node(bridge1, x + 1, y - 3);
+		loader->add_node(bridge2, x + 1, y - 2);
+		loader->add_node(bridge3, x + 1, y - 1);
+
+		//Bridge pressure plate
+		AreaSwitch *plate = new AreaSwitch(false);
+		plate->add_channel(bridge1);
+		loader->add_node(plate, x, y - 4);
+
+		//Locked door
+		Door *door = new Door(false, false, true);
+		loader->add_node(door, x, y - 6);
+
+		//Game exit
+		EndScreen *end = new EndScreen(true);
+		loader->add_node(end, x + 8, y - 7);
 	}
 
 public:
 	void spawn() {
 		NodeLoader mainLoader;
 
+		//Front door
+		Door *door = new Door(true);
+		mainLoader.add_node(door, 38, 32);
+
 		//Load each room
 		codeRoom(&mainLoader, 50, 25);
 		trapRoom(&mainLoader, 19, 24);
 		centerRoom(&mainLoader, 38, 13);
-		bridgeRoom(&mainLoader, 11, 57);
+		bridgeRoom(&mainLoader, 57, 11);
+		endRoom(&mainLoader, 70, 9);
 
 		mainLoader.activate();
 	}

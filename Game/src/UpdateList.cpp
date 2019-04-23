@@ -11,7 +11,7 @@ std::vector<Node *> UpdateList::adding;
 
 //Check if node has moving collisionlayer
 bool UpdateList::moving_layer(Node *n) {
-	return n->get_layer() == PLAYER || n->get_layer() == ENEMY;
+	return n->get_layer() == PLAYER || n->get_layer() == ENEMY || n->get_layer() == FIREBALL;
 }
 
 //Add node to update cycle
@@ -23,15 +23,18 @@ void UpdateList::add_node(Node *next) {
 void UpdateList::remove_nodes() {
 	std::vector<Node *>::iterator it = screen.begin();
 	while(it != screen.end()) {
+		bool removing = false;
+
 		//Check for delete mark
 		if((*it)->get_delete()) {
 			Node *deleting = *it;
 			it = screen.erase(it);
+			removing = true;
 			delete deleting;
 		}
 
 		//Move to next
-		if(it != screen.end()) it++; 
+		if(!removing && it != screen.end()) it++; 
 	}
 }
 
@@ -51,7 +54,7 @@ void UpdateList::update(sf::RenderWindow &window, double time) {
 
 						//Check for double detection
 						if(!moving_layer(object))
-							object->collide(source);
+							object->collide(source, time);
 					}
 				}
 			}

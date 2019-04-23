@@ -24,15 +24,12 @@ public:
 		switch(direction) {
 			case East:
 				setRotation(90);
-				setOrigin(0, 16);
 				break;
 			case South:
 				setRotation(180);
-				setOrigin(16, 16);
 				break;
 			case West:
 				setRotation(-90);
-				setOrigin(16, 0);
 				break;
 			default:
 				break;

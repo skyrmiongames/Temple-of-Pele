@@ -36,6 +36,7 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\enums.h" />
     <ClInclude Include="src\Fireball.h" />
+    <ClInclude Include="src\FullSpawner.hpp" />
     <ClInclude Include="src\GridMaker.h" />
     <ClInclude Include="src\Helpers.h" />
     <ClInclude Include="src\Key.hpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="src\Room.hpp" />
     <ClInclude Include="src\StartNodes.hpp" />
     <ClInclude Include="src\TestNodes.hpp" />
+    <ClInclude Include="src\TestSpawner.hpp" />
     <ClInclude Include="src\textures.h" />
     <ClInclude Include="src\TileMap.hpp" />
     <ClInclude Include="src\UpdateList.h" />

@@ -26,18 +26,30 @@ public:
 	void updateKey();
 	void updateFrameTime(double time, int curFrame, int maxFrames);
 	void updateTakeDamageTime(double time);
-	void attack();
+	
+	void attack(double time);
+	bool attackCoolDown(double time);
+	bool attackTime(double time);
 
 	bool getKey();
 
 private:
 	sf::Sprite healthSprite;
-	Node knife;
+	Node knifeV;
+	Node knifeH;
+
 	sf::View viewPlayer;
+	
 	bool hasKey;
 	int curDirection;
+	
 	int curMoveFrame = 0;
 	double lastAniTime;
+
 	double lastDamageTime;
+	
 	bool endGame;
+
+	double lastAttackTime;
+	double attackAniTime;
 };

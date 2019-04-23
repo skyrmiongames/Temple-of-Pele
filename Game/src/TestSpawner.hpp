@@ -20,6 +20,11 @@ public:
 		area->add_channel(door);
 		mainLoader.add_node(area, 17, 3);
 
+		//Auto open door
+		area = new AreaSwitch(false, ENEMY);
+		area->add_channel(door);
+		mainLoader.add_node(area, 9, 6);
+
 		//Second unloaded door
 		NodeLoader *loader1 = new NodeLoader();
 		door = new Door(true, true);
@@ -39,6 +44,7 @@ public:
 		area = new AreaSwitch();
 		area->add_channel(loader1);
 		mainLoader.add_node(area, 13, 11);
+		area->setPosition(area->getPosition() + sf::Vector2f(-8, 0));
 
 		//Basic key
 		Key *key = new Key();
@@ -52,17 +58,9 @@ public:
 		Enemy* enemy = new Enemy();
 		mainLoader.add_node(enemy, 6, 4);
 
-		//Exit thing
-		Node *node = new Node(SWITCH);
-		node->setTexture(Node::textures->exitLight);
-		node->setRotation(-90);
-		mainLoader.add_node(node, 23, 12);
-
 		//Exit end screen
 		EndScreen *end = new EndScreen(true);
-		end->setRotation(-90);
-		area->add_channel(end);
-		loader1->add_node(end, 23, 12);
+		mainLoader.add_node(end, 23, 11);
 
 		//Place nodes
 		mainLoader.activate();

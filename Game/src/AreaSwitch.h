@@ -42,7 +42,8 @@ class PressureSwitch : public Node, public LogicSender {
 private:
 	int delay;
 	CollisionLayer detecting;
-	int timer = 0;
+	int nextTime = 0;
+	bool hidden = false;
 
 public:
 	//Area constructors
@@ -57,21 +58,22 @@ public:
 
 	//Show when active
 	bool get_hidden() {
-		return timer > 0;
+		return hidden;
 	}
 
 	//Activate on collision
-	void collide(Node *object) {
+	void collide(Node *object, double time) {
 		if(object->get_layer() == detecting) {
-			send();
-			timer = delay;
+			if(nextTime <= time)
+				send();
+
+			nextTime = time + delay;
 		}
 	}
 
 	//Deactivate on update
 	void update(double time) {
-		if(timer > 0)
-			timer--;
+		hidden = (nextTime > time);
 	}
 };
 

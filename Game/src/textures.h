@@ -22,6 +22,7 @@ public:
 	//Enemies
 	sf::Texture EnemyLeftGif;
 	sf::Texture EnemyRightGif;
+	sf::Texture Fireball;
 
 	//Tile objects
 	sf::Texture doors;
@@ -49,6 +50,7 @@ public:
 		//Enemies
 		EnemyRightGif.loadFromFile("resources/EnemyRight_BaseGif.png");
 		EnemyLeftGif.loadFromFile("resources/EnemyLeft_BaseGif.png");
+		Fireball.loadFromFile("resources/FireBall_BaseGif.png");
 
 		//Tile objects
 		doors.loadFromFile("resources/tiles/Doors.png");

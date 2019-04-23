@@ -146,6 +146,44 @@ private:
 		loader->add_node(enemy, x + 13, y + 2);
 	}
 
+	//Upper center trap room (origin at top)
+	void bossRoom(NodeLoader *loader, int x, int y) {
+		//Trap specific loader
+		NodeLoader *loader1 = new NodeLoader();
+
+		//Trap activator
+		AreaSwitch *area = new AreaSwitch();
+		area->add_channel(loader1);
+		loader->add_node(area, x + 4, y + 2);
+		area->setPosition(area->getPosition() + sf::Vector2f(-8, 0));
+
+		//Already closed door
+		Door *door1 = new Door(false, true);
+		loader->add_node(door1, x - 1, y + 2);
+
+		//Dramatic closing door
+		Door *door2 = new Door(true, true);
+		loader1->add_node(door2, x + 5, y + 2);
+
+		//Enemy 1
+		Enemy* enemy = new Enemy();
+		loader1->add_node(enemy, x, y + 1);
+
+		//Enemy 2
+		enemy = new Enemy();
+		loader1->add_node(enemy, x + 2, y + 3);
+
+		//Trap finished detector
+		EmptySwitch *empty = new EmptySwitch(ENEMY, sf::Vector2i(80, 80));
+		empty->add_channel(door1);
+		empty->add_channel(door2);
+		loader1->add_node(empty, x + 2, y + 2);
+
+		//Basic key
+		Key *key = new Key();
+		loader->add_node(key, x - 3, y + 2);
+	}
+
 	//Top right room (origin at bottom)
 	void endRoom(NodeLoader *loader, int x, int y) {
 		//Return bridge set

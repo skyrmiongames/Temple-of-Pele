@@ -2,7 +2,6 @@
 
 #include "Node.h"
 #include "enums.h"
-#include "Helpers.h"
 #include "GridMaker.h"
 
 #include <math.h>

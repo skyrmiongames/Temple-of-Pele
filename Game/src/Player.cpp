@@ -37,54 +37,30 @@ Player::~Player()
 
 void Player::eightWayMovement(double time)
 {
+	sf::Vector2i direction;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) // up
 	{
-		move(PI/2);
-		//move(North);
-		this->curDirection = 1;
+		direction.y--;
+		this->curDirection = 0;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
 	{
-		move(-PI/2);
-		//move(South);
-		this->curDirection = 0;
+		direction.y++;
+		this->curDirection = 1;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left
 	{
-		move(PI);
-		/*move(East);*/
+		direction.x--;
 		this->curDirection = 3;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // right
 	{
-		move(0);
-		/*move(West);*/
-		this->curDirection = 2;
+		direction.x++;
+		this->curDirection = 4;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // up-left
-	{
-		move(PI/4);
-		/*move(Northwest);*/
-		this->curDirection = 3;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // up-right
-	{
-		move((3 * PI) / 4);
-		/*move(Northeast);*/
-		this->curDirection = 2;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // down-left
-	{
-		move((3 * PI) / 4);
-		/*move(Southwest);*/
-		this->curDirection = 3;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // down-right
-	{
-		move((5 * PI) / 4);
-		/*move(Southeast);*/
-		this->curDirection = 2;
-	}
+
+
+	move(std::atan2(direction.y, direction.x));
 }
 
 void Player::updateFrameTime(double time, int curFrame, int maxMoveFrames)
@@ -384,7 +360,7 @@ void Player::collide(Node *object , double time)
 		object->activate();
 	}
 
-	if (object->get_layer() == ENEMY, object->get_layer() == FIREBALL)
+	if (object->get_layer() == ENEMY || object->get_layer() == FIREBALL)
 	{
 		takeDamage(time);
 	}

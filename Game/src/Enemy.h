@@ -7,8 +7,8 @@
 
 class Enemy : public Entity {
 public:
-	Enemy() : Entity() {
-		setTexture(textures->Enemy1Gif);
+	Enemy(sf::Texture texture = textures->Enemy1Gif) : Entity() {
+		setTexture(texture);
 		set_isHazard(true);
 	}
 	~Enemy() {}

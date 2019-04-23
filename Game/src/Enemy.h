@@ -7,8 +7,7 @@
 
 class Enemy : public Entity {
 public:
-	Enemy(sf::Texture texture = textures->Enemy1Gif) : Entity() {
-		setTexture(texture);
+	Enemy() : Entity() {
 		set_isHazard(true);
 		maxFrames = 6;
 		curFrame = 1;

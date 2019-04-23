@@ -24,7 +24,7 @@ private:
 
 		//Dramatic closing door
 		Door *door2 = new Door(true, true);
-		//loader1->add_node(door2, x + 5, y + 2);
+		loader1->add_node(door2, x + 5, y + 2);
 
 		//Enemy 1
 		Enemy* enemy = new Enemy();
@@ -47,25 +47,33 @@ private:
 
 	//Lower right room (origin at top)
 	void codeRoom(NodeLoader *loader, int x, int y) {
+		//Code checker
+		LogicCode *code = new LogicCode();
+
 		//Left end plate
-		PressureSwitch *plate = new PressureSwitch(10);
+		PressureSwitch *plate = new PressureSwitch(4);
+		plate->add_channel(code->get_key());
 		loader->add_node(plate, x + 3, y + 2);
 
+		//Right end plate
+		plate = new PressureSwitch(4);
+		plate->add_channel(code->get_key());
+		loader->add_node(plate, x + 9, y + 2);
+
 		//Left mid plate
-		plate = new PressureSwitch(10);
+		plate = new PressureSwitch(4);
+		plate->add_channel(code->get_key());
 		loader->add_node(plate, x + 5, y + 2);
 
 		//Right mid plate
-		plate = new PressureSwitch(10);
+		plate = new PressureSwitch(4);
+		plate->add_channel(code->get_key());
 		loader->add_node(plate, x + 7, y + 2);
-
-		//Right end plate
-		plate = new PressureSwitch(10);
-		loader->add_node(plate, x + 9, y + 2);
 
 		//End door
 		Door *door = new Door(false, true);
-		//loader->add_node(door, x + 13, y + 1);
+		code->add_channel(door);
+		loader->add_node(door, x + 13, y + 1);
 	}
 
 	//Central room (origin at center)

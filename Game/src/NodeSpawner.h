@@ -7,6 +7,7 @@
 #include "Bridge.hpp"
 #include "EndScreen.hpp"
 #include "Enemy.h"
+#include "LogicCode.hpp"
 
 /*
  * Created by Stuart Irwin on 4/22/2019.

@@ -31,12 +31,14 @@ class LogicSender
 	//Activate receivers
 	void send()
 	{
+		bool removing = false;
 		for (
 			std::vector<LogicReciever *>::iterator it = channels.begin(); // Get the iterator
 			it != channels.end();										  // Stop if we're at the end
-			it != channels.end() ? it++ : it							  // If we're not at the end, increment the iterator, otherwise leave it alone
+			(!removing && it != channels.end()) ? it++ : it							  // If we're not at the end, increment the iterator, otherwise leave it alone
 		)
 		{
+			removing = false;
 			(*it)->activate();
 
 			//Delete if single use
@@ -45,6 +47,7 @@ class LogicSender
 				//Remove from channels
 				LogicReciever *deleting = *it;
 				it = channels.erase(it);
+				removing = true;
 
 				//Check for full delete
 				if((deleting)->is_singleton() == DELETE)

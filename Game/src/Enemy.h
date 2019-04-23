@@ -33,7 +33,7 @@ public:
 
 		animateEnemy(time);
 		//std::cout << playerAngle << std::endl;
-		move(playerAngle, 0.005);
+		move(playerAngle, 0.005, false);
 	}
 
 	void collide(Node *object) {

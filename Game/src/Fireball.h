@@ -56,16 +56,13 @@ public:
 	};
 
 	void update(double time) {
-		move(angle, speed, true);
+		if(!move(angle, speed, true))
+			set_delete();
 		animateFireball(time);
 	}
 
 	void collide(Node* object) {
 		Enemy::collide(object); //allow the player to block fireballs
-
-		if (object->get_layer() == WALL) { // walls kill fireballs
-			set_delete();
-		}
 	};
 
 private:

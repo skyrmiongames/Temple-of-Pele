@@ -40,12 +40,12 @@ void Player::eightWayMovement(double time)
 	sf::Vector2i direction;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) // up
 	{
-		direction.y--;
+		direction.y++;
 		this->curDirection = 0;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
 	{
-		direction.y++;
+		direction.y--;
 		this->curDirection = 1;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left
@@ -59,8 +59,8 @@ void Player::eightWayMovement(double time)
 		this->curDirection = 4;
 	}
 
-
-	move(std::atan2(direction.y, direction.x));
+	if(direction.x != 0 || direction.y != 0)
+		move(std::atan2(direction.y, direction.x));
 }
 
 void Player::updateFrameTime(double time, int curFrame, int maxMoveFrames)

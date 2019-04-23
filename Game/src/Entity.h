@@ -45,7 +45,7 @@ public:
 
 	int get_attack() { return attack_power; }
 
-	void move(
+	bool move(
 		float angle = 0.0,
 		float distance = 0.1,
 		bool allowVoid = true
@@ -59,7 +59,9 @@ public:
 
 		if (targetType != WALL && (!allowVoid ? targetType != EMPTY : true)) {
 			setPosition(sf::Vector2f(target.x, target.y));
+			return true;
 		}
+		return false;
 	}
 
 	// virtual void update() {};

@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "textures.h"
+#include "Helpers.h"
 
 #include <iostream>
 
@@ -16,10 +17,7 @@ public:
 	~Enemy() {}
 
 	void update(double time) {
-		float playerAngle = atan( // This enemy is 1, player is 2.
-			(-playerPos.y + getPosition().y)/
-			(playerPos.x - getPosition().x)
-		) + (getPosition().x > playerPos.x ? PI : 0);
+		float playerAngle = angleTo(getPosition(), playerPos);
 		
 		if (getPosition().x < playerPos.x)
 		{

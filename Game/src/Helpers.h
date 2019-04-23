@@ -26,3 +26,10 @@ bool oneof(T value_to_check, int comparison_value_count, ...) {
 
 	return ret;
 }
+
+float angleTo(sf::Vector2f start, sf::Vector2f end) {
+	return atan( // This enemy is 1, player is 2.
+		(-end.y + start.y) /
+		 (end.x - start.x)
+	) + (start.x > end.x ? PI : 0);
+}

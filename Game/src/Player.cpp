@@ -328,11 +328,10 @@ bool Player::attackTime(double time)
 
 void Player::attack(double time)
 {
-	bool attackCoolDownOver = attackCoolDown(time);
-	bool attackAniDone = attackTime(time);
+	//bool attackCoolDownOver = attackCoolDown(time);
+	//bool attackAniDone = attackTime(time);
 
- 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
-		&& attackAniDone == true && attackCoolDownOver == true)
+ 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		attackAniTime = time;
 		lastAttackTime = time;
@@ -347,6 +346,11 @@ void Player::attack(double time)
 			knifeV.setRotation(0);
 			knifeV.setPosition(this->getPosition().x - 2, this->getPosition().y - 8);
 		}
+		else if (curDirection != 0 || curDirection != 1)
+		{
+			knifeV.setRotation(0.f);
+			knifeV.setPosition(0, 1000);
+		}
 		if (this->curDirection == 3) // face left
 		{
 			knifeH.setRotation(270);
@@ -356,6 +360,11 @@ void Player::attack(double time)
 		{
 			knifeH.setRotation(90);
 			knifeH.setPosition(this->getPosition().x + 12, this->getPosition().y + 4);
+		}
+		else if (curDirection != 2 || curDirection != 3)
+		{
+			knifeH.setRotation(0.f);
+			knifeH.setPosition(0, 1000);
 		}
 	}
 	else

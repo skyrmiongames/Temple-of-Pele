@@ -7,7 +7,45 @@
 
 class FullSpawner : public NodeSpawner {
 private:
-	//Lower right room (origin at top corner)
+	//Lower left room (origin at top)
+	void trapRoom(NodeLoader *loader, int x, int y) {
+		//Trap specific loader
+		NodeLoader *loader1 = new NodeLoader();
+
+		//Trap activator
+		AreaSwitch *area = new AreaSwitch();
+		area->add_channel(loader1);
+		loader->add_node(area, x + 4, y + 2);
+		area->setPosition(area->getPosition() + sf::Vector2f(-8, 0));
+
+		//Already closed door
+		Door *door1 = new Door(false, true);
+		loader->add_node(door1, x - 1, y + 2);
+
+		//Dramatic closing door
+		Door *door2 = new Door(true, true);
+		loader1->add_node(door2, x + 5, y + 2);
+
+		//Enemy 1
+		Enemy* enemy = new Enemy();
+		loader1->add_node(enemy, x, y + 1);
+
+		//Enemy 2
+		enemy = new Enemy();
+		loader1->add_node(enemy, x + 2, y + 3);
+
+		//Trap finished detector
+		EmptySwitch *empty = new EmptySwitch(ENEMY, sf::Vector2i(80, 80));
+		empty->add_channel(door1);
+		empty->add_channel(door2);
+		loader1->add_node(empty, x + 2, y + 2);
+
+		//Basic key
+		Key *key = new Key();
+		loader->add_node(key, x - 3, y + 2);
+	}
+
+	//Lower right room (origin at top)
 	void codeRoom(NodeLoader *loader, int x, int y) {
 		//Left end plate
 		PressureSwitch *plate = new PressureSwitch(10);
@@ -26,7 +64,7 @@ private:
 		loader->add_node(plate, x + 9, y + 2);
 
 		//End door
-		Door *door = new Door();
+		Door *door = new Door(false, true);
 		loader->add_node(door, x + 13, y + 1);
 	}
 
@@ -55,6 +93,41 @@ private:
 		torch = new AreaSwitch(false, PLAYER, sf::Vector2i(17, 17));
 		torch->add_channel(bridge1);
 		loader->add_node(torch, x + 3, y + 3);
+
+		//Center key
+		Key *key = new Key();
+		loader->add_node(key, x, y - 1);
+
+		//Upper bridge set
+		bridge1 = new Bridge(North);
+		bridge2 = new Bridge(North);
+		bridge1->add_channel(bridge2);
+		loader->add_node(bridge1, x, y - 2);
+		loader->add_node(bridge2, x, y - 3);
+
+		//Upper pressure plate
+		AreaSwitch *plate = new AreaSwitch(false);
+		plate->add_channel(bridge1);
+		loader->add_node(plate, x, y - 4);
+
+		//Far right door
+		Door *door = new Door(false, true, true);
+		loader->add_node(door, x + 9, y);
+	}
+
+	//Central right room (origin at top)
+	void bridgeRoom(NodeLoader *loader, int x, int y) {
+		//Bridge set
+		Bridge *bridge1 = new Bridge(North);
+		Bridge *bridge2 = new Bridge(North);
+		bridge1->add_channel(bridge2);
+		loader->add_node(bridge1, x + 13, y + 5);
+		loader->add_node(bridge2, x + 13, y + 4);
+
+		//Bridge pressure plate
+		AreaSwitch *plate = new AreaSwitch();
+		plate->add_channel(bridge1);
+		loader->add_node(plate, x + 7, y + 6);
 	}
 
 public:
@@ -63,7 +136,9 @@ public:
 
 		//Load each room
 		codeRoom(&mainLoader, 50, 25);
+		trapRoom(&mainLoader, 19, 24);
 		centerRoom(&mainLoader, 38, 13);
+		bridgeRoom(&mainLoader, 11, 57);
 
 		mainLoader.activate();
 	}

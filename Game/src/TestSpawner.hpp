@@ -20,6 +20,11 @@ public:
 		area->add_channel(door);
 		mainLoader.add_node(area, 17, 3);
 
+		//Auto open door
+		area = new AreaSwitch(false, ENEMY);
+		area->add_channel(door);
+		mainLoader.add_node(area, 9, 6);
+
 		//Second unloaded door
 		NodeLoader *loader1 = new NodeLoader();
 		door = new Door(true, true);

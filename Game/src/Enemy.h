@@ -8,7 +8,7 @@
 class Enemy : public Entity {
 public:
 	Enemy() : Entity() {
-		setTexture(textures->Enemy1Gif);
+		setTexture(textures->EnemyRightGif);
 		set_isHazard(true);
 		maxFrames = 6;
 		curFrame = 1;
@@ -22,15 +22,24 @@ public:
 			(playerPos.x - getPosition().x)
 		) + (getPosition().x > playerPos.x ? PI : 0);
 		
+		if (getPosition().x < playerPos.x)
+		{
+			setTexture(textures->EnemyRightGif);
+		}
+		else
+		{
+			setTexture(textures->EnemyLeftGif);
+		}
+
 		animateEnemy(time);
 		//std::cout << playerAngle << std::endl;
 		move(playerAngle, 0.005);
 	}
 
-	void collide(Node &object) {
-		if (object.get_layer() == SWORD)
+	void collide(Node *object) {
+		if (object->get_layer() == SWORD)
 		{
-			//modify_health(-20);
+			set_delete();
 		}
 	};
 

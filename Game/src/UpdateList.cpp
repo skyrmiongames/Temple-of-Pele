@@ -11,7 +11,7 @@ std::vector<Node *> UpdateList::adding;
 
 //Check if node has moving collisionlayer
 bool UpdateList::moving_layer(Node *n) {
-	return n->get_layer() == PLAYER || n->get_layer() == ENEMY;
+	return n->get_layer() == PLAYER || n->get_layer() == ENEMY || n->get_layer() == FIREBALL;
 }
 
 //Add node to update cycle

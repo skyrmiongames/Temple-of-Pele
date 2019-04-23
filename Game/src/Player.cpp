@@ -8,9 +8,19 @@ Player::Player() :Entity(60, 0, false, 1.2, PLAYER, sf::Vector2i(10, 16))
 	this->healthSprite.setTextureRect(sf::IntRect (0, 0, 25, 7));
 	this->hasKey = false;
 	curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
-	knife = Node(SWORD, sf::Vector2i(10, 10));
-	knife.setPosition(-10,10);
-	knife.setTexture(textures->knife);
+
+	knifeV = Node(SWORD, sf::Vector2i(4, 10));
+	knifeV.setPosition(-10,10);
+	knifeV.setTexture(textures->knife);
+	UpdateList::add_node(&knifeV);
+
+	knifeH = Node(SWORD, sf::Vector2i(10, 4));
+	knifeH.setPosition(-10, 10);
+	knifeH.setTexture(textures->knife);
+	UpdateList::add_node(&knifeH);
+	
+	attackAniTime = 0.0;
+	lastAttackTime = 0.0;
 
 	lastAniTime = 0.0;
 	lastDamageTime = 0.0;
@@ -223,7 +233,12 @@ void Player::drawGUI(sf::RenderWindow &window)
 {
 	window.draw(*this);
 	window.draw(healthSprite);
-	window.draw(knife);
+	window.draw(knifeV);
+	window.draw(knifeH);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard().Space) && endGame)
+	{
+		window.close();
+	}
 }
 
 void Player::drawView(sf::RenderWindow &window)
@@ -237,17 +252,20 @@ void Player::takeDamage(double time)
 	this->invulnerable = true;
 	updateTakeDamageTime(time);
 	modify_health(-20);
-	//switch (curDirection) // push back for when getting injured. 
-	//{
-	//case 0: setPosition(getPosition().x, getPosition().y - 5);
-	//	break; // up
-	//case 1: setPosition(getPosition().x, getPosition().y + 5);
-	//	break; // down
-	//case 2: setPosition(getPosition().x - 5, getPosition().y);
-	//	break; // right
-	//case 3: setPosition(getPosition().x + 5, getPosition().y);
-	//	break; // left
-	//}
+	if (GridMaker::check_tile(getPosition()) == EMPTY)
+	{
+		switch (curDirection) // push back for when getting injured. 
+		{
+		case 0: setPosition(getPosition().x, getPosition().y - 1);
+			break; // up
+		case 1: setPosition(getPosition().x, getPosition().y + 1);
+			break; // down
+		case 2: setPosition(getPosition().x - 1, getPosition().y);
+			break; // right
+		case 3: setPosition(getPosition().x + 1, getPosition().y);
+			break; // left
+		}
+	}
 }
 
 void Player::updateHealth(double time)
@@ -288,40 +306,71 @@ void Player::die()
 	object->activate();
 }
 
-void Player::attack()
+bool Player::attackCoolDown(double time)
 {
- 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	bool done = false;
+	if (time - lastAttackTime >= 1)
 	{
+
+		done = true;
+	}
+	return done;
+}
+bool Player::attackTime(double time)
+{
+	bool done = false;
+	if (time - attackAniTime >= 1)
+	{
+		done = true;
+	}
+	return done;
+}
+
+void Player::attack(double time)
+{
+	bool attackCoolDownOver = attackCoolDown(time);
+	bool attackAniDone = attackTime(time);
+
+ 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
+		&& attackAniDone == true && attackCoolDownOver == true)
+	{
+		attackAniTime = time;
+		lastAttackTime = time;
+		
 		if (this->curDirection == 0) // face down
 		{
-			knife.setRotation(180);
-			knife.setPosition(this->getPosition().x + 2, this->getPosition().y + 8);
+			knifeV.setRotation(180);
+			knifeV.setPosition(this->getPosition().x + 2, this->getPosition().y + 8);
 		}
 		else if (this->curDirection == 1) // face up
 		{
-			knife.setRotation(0);
-			knife.setPosition(this->getPosition().x - 2, this->getPosition().y - 8);
+			knifeV.setRotation(0);
+			knifeV.setPosition(this->getPosition().x - 2, this->getPosition().y - 8);
 		}
-		else if (this->curDirection == 3) // face left
+		if (this->curDirection == 3) // face left
 		{
-			knife.setRotation(270);
-			knife.setPosition(this->getPosition().x - 12, this->getPosition().y - 2);
+			knifeH.setRotation(270);
+			knifeH.setPosition(this->getPosition().x - 12, this->getPosition().y - 2);
 		}
 		else if (this->curDirection == 2) // face right
 		{
-			knife.setRotation(90);
-			knife.setPosition(this->getPosition().x + 12, this->getPosition().y + 4);
+			knifeH.setRotation(90);
+			knifeH.setPosition(this->getPosition().x + 12, this->getPosition().y + 4);
 		}
-	} else {
-		knife.setRotation(0.f);
-		knife.setPosition(0, 1000);
+	}
+	else
+	{
+		knifeH.setRotation(0.f);
+		knifeH.setPosition(0, 1000);
+		knifeV.setRotation(0.f);
+		knifeV.setPosition(0, 1000);
 	}
 }
 
 void Player::update(double time)
 {
 	if(!endGame) {
-		attack();
+		attack(time);
 		eightWayMovement(time);
 		updateHealth(time);
 	}

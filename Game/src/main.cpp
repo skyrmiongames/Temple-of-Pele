@@ -24,8 +24,8 @@ int main() {
 	//Mode variables
 	NodeSpawner *spawner = new FullSpawner();
 	std::string file = "resources/maps/full_map.txt";
-	sf::Vector2f startPos = sf::Vector2f(600, 480);
-	startPos = sf::Vector2f(960, 176);
+	sf::Vector2f startPos = sf::Vector2f(500, 480);
+	//startPos = sf::Vector2f(960, 176);
 
 	//Set test mode
 	if(testMode) {

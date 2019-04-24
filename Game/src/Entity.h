@@ -12,7 +12,7 @@ class Entity : public Node {
 public:
 	Entity(
 		CollisionLayer _layer = ENEMY,
-		sf::Vector2i _size = sf::Vector2i(16, 10),
+		sf::Vector2i _size = sf::Vector2i(10, 16),
 		int _health = 60,
 		int _attack_power = 20,
 		double _speed = 1.0,

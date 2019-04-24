@@ -21,6 +21,10 @@ public:
 		//Set base texture
 		setTexture(textures->plate);
 		setOrigin(8, 8);
+
+		//Switch to torch
+		if(detecting == FIREBALL)
+			setTexture(textures->brazier);
 	}
 
 	//Hide area

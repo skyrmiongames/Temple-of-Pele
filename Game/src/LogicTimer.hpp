@@ -5,15 +5,15 @@
  * Basic logic gates
  */
 
-class TimerGate : public LogicSender, public Node {
+class LogicTimer : public LogicSender, public Node {
 private:
 	double nextTime = 0;
-	int delay;
+	double delay;
 	bool single;
 
 public:
 	//Set up base timer
-	TimerGate(int delay, bool single=false) {
+	LogicTimer(double delay, bool single=false) {
 		this->delay = delay;
 		this->single = single;
 	}
@@ -34,6 +34,7 @@ public:
 			nextTime = time + delay;
 		else if(nextTime > 0 && time >= nextTime) {
 			//Finish timer
+			nextTime = 0;
 			send();
 			if(single)
 				set_delete();

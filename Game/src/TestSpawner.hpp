@@ -60,7 +60,7 @@ public:
 
 		//Fireball enemy
 		FireEnemy* enemyFire = new FireEnemy();
-		mainLoader.add_node(enemy, 6, 4);
+		mainLoader.add_node(enemyFire, 5, 3);
 
 		//Exit end screen
 		EndScreen *end = new EndScreen(true);

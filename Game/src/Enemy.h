@@ -8,7 +8,7 @@ class Enemy : public Entity {
 public:
 	Enemy(
 		CollisionLayer _layer = ENEMY,
-		sf::Vector2i _size = sf::Vector2i(16, 10)
+		sf::Vector2i _size = sf::Vector2i(10, 16)
 	) : Entity(_layer, _size) {
 		set_isHazard(true);
 		maxFrames = 6;

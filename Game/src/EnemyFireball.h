@@ -3,7 +3,7 @@
 #include "Enemy.h"
 #include "Fireball.h"
 
-class FireEnemy : Enemy
+class FireEnemy : public Enemy
 {
 public:
 	FireEnemy() : Enemy()
@@ -14,7 +14,7 @@ public:
 
 	void update(double time)
 	{
-		spawnFireBall(time);
+		fireballTimer(time);
 	}
 
 	void fireballTimer(double time)
@@ -23,15 +23,6 @@ public:
 		{
 			fireballCoolDown = time;
 			new Fireball(getPosition());
-		}
-	};
-
-	void spawnFireBall(double time) 
-	{
-		if (abs(this->getPosition().x - playerPos.x) < 50 || 
-			abs(this->getPosition().y - playerPos.y) < 50)
-		{
-			fireballTimer(time);
 		}
 	};
 

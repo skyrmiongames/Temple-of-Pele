@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "EnemyFireball.h"
 #include "LogicCode.hpp"
+#include "LogicTimer.hpp"
 #include "FireLauncher.hpp"
 
 /*

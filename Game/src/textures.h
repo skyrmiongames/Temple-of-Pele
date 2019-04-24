@@ -32,6 +32,7 @@ public:
 	sf::Texture plate;
 	sf::Texture bridge;
 	sf::Texture spitter;
+	sf::Texture brazier;
 
 	Textures()
 	{
@@ -63,5 +64,6 @@ public:
 		plate.loadFromFile("resources/tiles/Pressure_Plate.png");
 		bridge.loadFromFile("resources/tiles/Bridge.png");
 		spitter.loadFromFile("resources/tiles/Spitter.png");
+		brazier.loadFromFile("resources/tiles/Brazier_base.png");
 	}
 };

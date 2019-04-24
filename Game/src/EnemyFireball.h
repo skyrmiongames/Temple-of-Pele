@@ -35,7 +35,7 @@ public:
 		if (nextTime > 0 && time >= nextTime)
 		{
 			nextTime = time + 5;
-			UpdateList::add_node(new Fireball(getPosition()));
+			UpdateList::add_node(new Fireball(getPosition(), 400, .07));
 		}
 
 		if (nextTime == -1) 

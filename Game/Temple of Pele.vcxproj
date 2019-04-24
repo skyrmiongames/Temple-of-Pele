@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="resources\map.txt" />
+    <Text Include="resources\maps\full_map.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6EE0F4F0-0FC6-4736-9FBC-80D8BFB59F03}</ProjectGuid>

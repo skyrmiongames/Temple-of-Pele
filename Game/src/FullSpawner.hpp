@@ -146,7 +146,7 @@ private:
 		loader->add_node(launcher4, x + 7, y);
 
 		//Pressure plate
-		AreaSwitch *plate = new AreaSwitch(false);
+		PressureSwitch *plate = new PressureSwitch(4);
 		plate->add_channel(launcher1);
 		loader->add_node(plate, x + 9, y + 2);
 

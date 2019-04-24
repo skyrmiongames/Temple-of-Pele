@@ -37,16 +37,6 @@ bool Node::get_hidden() {
 	return false;
 }
 
-bool Node::get_isHazard()
-{
-	return isHazard;
-}
-
-void Node::set_isHazard(bool newIsHazard)
-{
-	this->isHazard = newIsHazard;
-}
-
 //Check if near/on screen
 bool Node::on_screen() {
 	sf::Vector2f pos = getPosition();
@@ -86,7 +76,6 @@ void Node::set_delete() {
 Node::~Node() {}
 
 //Define virtual placeholders
-void Node::on_load() {}
 void Node::activate() {}
 void Node::update(double time) {}
 void Node::collide(Node *object) {}

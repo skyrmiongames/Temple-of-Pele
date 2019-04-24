@@ -10,7 +10,6 @@ public:
 		CollisionLayer _layer = ENEMY,
 		sf::Vector2i _size = sf::Vector2i(10, 16)
 	) : Entity(_layer, _size) {
-		set_isHazard(true);
 		maxFrames = 6;
 		curFrame = 1;
 		lastTime = 0.0;

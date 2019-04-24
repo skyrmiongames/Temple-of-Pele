@@ -110,6 +110,9 @@
     <ClInclude Include="src\Fireball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyFireball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\Enemy1_BaseGif.png">

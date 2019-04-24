@@ -26,6 +26,7 @@
     <ClCompile Include="src\UpdateList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EnemyFireball.h" />
     <ClInclude Include="src\AnimatedTileMap.hpp" />
     <ClInclude Include="src\AreaSwitch.h" />
     <ClInclude Include="src\Bridge.hpp" />

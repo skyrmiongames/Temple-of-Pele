@@ -8,6 +8,7 @@
 #include "EndScreen.hpp"
 #include "Enemy.h"
 #include "LogicCode.hpp"
+#include "FireLauncher.hpp"
 
 /*
  * Created by Stuart Irwin on 4/22/2019.

@@ -29,6 +29,7 @@ public:
 	sf::Texture exitLight;
 	sf::Texture plate;
 	sf::Texture bridge;
+	sf::Texture spitter;
 
 	Textures()
 	{
@@ -57,5 +58,6 @@ public:
 		exitLight.loadFromFile("resources/tiles/Exit_Light.png");
 		plate.loadFromFile("resources/tiles/Pressure_Plate.png");
 		bridge.loadFromFile("resources/tiles/Bridge.png");
+		spitter.loadFromFile("resources/tiles/Spitter.png");
 	}
 };

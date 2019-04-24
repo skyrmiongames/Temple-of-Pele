@@ -7,13 +7,11 @@
 class Fireball : public Enemy {
 public:
 	Fireball(
-		sf::Vector2f location,
 		float _angle = 1.30357, // using Conway's constant for an interesting value that will probably never occur
 		float _speed = 0.5
 
 	) : Enemy() {
-		setPosition(location);
-		angle = _angle == 1.30357 ? angleTo(location, playerPos): _angle;
+		angle = _angle == 1.30357 ? angleTo(getPosition(), playerPos): _angle;
 
 		curFrame = 1;
 		maxFrame = 4;

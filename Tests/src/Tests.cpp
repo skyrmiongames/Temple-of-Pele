@@ -8,7 +8,6 @@
 #include "../../Game/src/enums.h"
 #include "../../Game/src/Player.h"
 #include "../../Game/src/UpdateList.h"
-#include "TestNode.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -33,7 +32,9 @@ public:
 	};
 	TEST_CLASS(UpdateList) {
 	public:
-		TEST_METHOD(node_update1) {
+		TEST_METHOD(node_update) {
+			sf::RenderWindow target;
+
 			//Create testing node
 			TestNode* testNode = new TestNode();
 			::UpdateList::add_node(testNode);
@@ -43,14 +44,16 @@ public:
 			Assert::IsFalse(testNode->updated);
 
 			//Run single update
-			::UpdateList::update(5);
+			::UpdateList::update(target, 5);
 
 			//Check final condition
 			Assert::IsFalse(testNode->collided);
 			Assert::IsTrue(testNode->updated);
 		}
 
-		TEST_METHOD(node_update2) {
+		TEST_METHOD(node_collide) {
+			sf::RenderWindow target;
+
 			//Create testing node 1
 			TestNode* testNode1 = new TestNode();
 			testNode1->setPosition(40, 40);
@@ -68,7 +71,7 @@ public:
 			Assert::IsFalse(testNode2->updated);
 
 			//Run single update
-			::UpdateList::update(5);
+			::UpdateList::update(target, 5);
 
 			//Check final conditions
 			Assert::IsTrue(testNode1->collided);
@@ -80,7 +83,7 @@ public:
 	TEST_CLASS(Player) {
 	public:
 		TEST_METHOD(takeDamage) {
-			Player p;
+			::Player p;
 			bool success = false;
 
 			success = p.takeDamage(10);
@@ -88,7 +91,7 @@ public:
 		}
 
 		TEST_METHOD(getKey) {
-			Player p;
+			::Player p;
 			bool success = false;
 
 			p.setKey(true);

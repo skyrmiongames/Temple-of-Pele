@@ -4,7 +4,7 @@
 #include "Fireball.h"
 #include "UpdateList.h"
 
-class FireEnemy : public Enemy
+class FireEnemy : public Enemy // Aside from shooting fireballs this enemy acts identically to the basic enemy
 {
 public:
 	FireEnemy() : Enemy()
@@ -30,6 +30,7 @@ public:
 		fireballTimer(time);
 	}
 
+	// times fireball spawning
 	void fireballTimer(double time)
 	{
 		if (nextTime > 0 && time >= nextTime)

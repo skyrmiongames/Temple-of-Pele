@@ -9,9 +9,12 @@
 #include "FullSpawner.hpp"
 #include "GridMaker.h"
 #include "AnimatedTileMap.hpp"
+#include "Tests.h"
 
 int main() {
-	bool testMode = true;
+	bool testMode = false;
+
+	//testPlayer testPlayer;
 
 	//Start game window
 	sf::RenderWindow window(sf::VideoMode(1200, 800), "Temple of Pele");

@@ -6,6 +6,8 @@ Player::Player() :Entity(PLAYER, 60, 0, false, 1.2, sf::Vector2i(10, 16))
 	this->setTexture(textures->playerIdleDown);
 	this->healthSprite.setTexture(textures->healthSpriteTexture);
 	this->healthSprite.setTextureRect(sf::IntRect (0, 0, 25, 7));
+	this->keyIcon.setTexture(textures->key);
+	keyIcon.setPosition(-10, 10);
 	this->hasKey = false;
 	curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
 
@@ -18,9 +20,6 @@ Player::Player() :Entity(PLAYER, 60, 0, false, 1.2, sf::Vector2i(10, 16))
 	knifeH.setPosition(-10, 10);
 	knifeH.setTexture(textures->knife);
 	UpdateList::add_node(&knifeH);
-	
-	attackAniTime = 0.0;
-	lastAttackTime = 0.0;
 
 	lastAniTime = 0.0;
 	lastDamageTime = 0.0;
@@ -73,15 +72,6 @@ void Player::updateFrameTime(double time, int curFrame, int maxMoveFrames)
 		{
 			curMoveFrame = 0;
 		}
-	}
-}
-
-void Player::updateTakeDamageTime(double time)
-{
-	if (time - lastDamageTime >= 1)
-	{
-		lastDamageTime = time;
-		this->invulnerable = false;
 	}
 }
 
@@ -209,6 +199,7 @@ void Player::drawGUI(sf::RenderWindow &window)
 {
 	window.draw(*this);
 	window.draw(healthSprite);
+	window.draw(keyIcon);
 	window.draw(knifeV);
 	window.draw(knifeH);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard().Space) && endGame)
@@ -223,10 +214,39 @@ void Player::drawView(sf::RenderWindow &window)
 	window.setView(viewPlayer);
 }
 
-void Player::takeDamage(double time)
+bool Player::updateTakeDamageTime(double time)
 {
+	bool isInvulnerable = true;
+	if (time - lastDamageTime >= 1)
+	{
+		lastDamageTime = time;
+		this->invulnerable = false;
+	}
+	return isInvulnerable;
+}
+
+void Player::setLastDamageTime(double newDamageTime)
+{
+	this->lastDamageTime = newDamageTime;
+}
+
+void Player::updateKey()
+{
+	if (hasKey == true)
+	{
+		keyIcon.setPosition(getPosition().x - 7, getPosition().y - 32);
+	}
+	else
+	{
+		keyIcon.setPosition(-10, 10);
+	}
+}
+
+bool Player::takeDamage(double time)
+{
+	bool isInvulnerable = false;
 	this->invulnerable = true;
-	updateTakeDamageTime(time);
+	isInvulnerable = updateTakeDamageTime(time);
 	modify_health(-20);
 	if (GridMaker::check_tile(getPosition()) == EMPTY)
 	{
@@ -242,6 +262,7 @@ void Player::takeDamage(double time)
 			break; // left
 		}
 	}
+	return isInvulnerable;
 }
 
 void Player::updateHealth(double time)
@@ -282,27 +303,7 @@ void Player::die()
 	object->activate();
 }
 
-bool Player::attackCoolDown(double time)
-{
-	bool done = false;
-	if (time - lastAttackTime >= 1)
-	{
-
-		done = true;
-	}
-	return done;
-}
-bool Player::attackTime(double time)
-{
-	bool done = false;
-	if (time - attackAniTime >= 1)
-	{
-		done = true;
-	}
-	return done;
-}
-
-void Player::attack(double time)
+void Player::attack()
 {
 
  	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -310,12 +311,12 @@ void Player::attack(double time)
 		if (this->curDirection == 0) // face down
 		{
 			knifeV.setRotation(180);
-			knifeV.setPosition(this->getPosition().x + 2, this->getPosition().y + 8);
+			knifeV.setPosition(this->getPosition().x , this->getPosition().y + 8);
 		}
 		else if (this->curDirection == 1) // face up
 		{
 			knifeV.setRotation(0);
-			knifeV.setPosition(this->getPosition().x - 2, this->getPosition().y - 8);
+			knifeV.setPosition(this->getPosition().x , this->getPosition().y - 8);
 		}
 		else if (curDirection != 0 || curDirection != 1)
 		{
@@ -350,9 +351,10 @@ void Player::attack(double time)
 void Player::update(double time)
 {
 	if(!endGame) {
-		attack(time);
+		attack();
 		eightWayMovement(time);
 		updateHealth(time);
+		updateKey();
 	}
 }
 
@@ -386,4 +388,9 @@ bool Player::getKey()
 		return true;
 	}
 	return false;
+}
+
+void Player::setKey(bool newHasKey)
+{
+	hasKey = newHasKey;
 }

@@ -11,12 +11,12 @@ Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2)
 	this->hasKey = false;
 	curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
 
-	knifeV = Node(SWORD, sf::Vector2i(4, 10));
+	knifeV = Node(SWORD, sf::Vector2i(4, 11));
 	knifeV.setPosition(-10,10);
 	knifeV.setTexture(textures->knife);
 	UpdateList::add_node(&knifeV);
 
-	knifeH = Node(SWORD, sf::Vector2i(10, 4));
+	knifeH = Node(SWORD, sf::Vector2i(11, 4));
 	knifeH.setPosition(-10, 10);
 	knifeH.setTexture(textures->knife);
 	UpdateList::add_node(&knifeH);
@@ -59,7 +59,7 @@ void Player::eightWayMovement(double time)
 	}
 
 	if(direction.x != 0 || direction.y != 0)
-		move(std::atan2(direction.y, direction.x));
+		move(std::atan2(direction.y, direction.x), 0.1, false);
 }
 
 void Player::updateFrameTime(double time, int curFrame, int maxMoveFrames)

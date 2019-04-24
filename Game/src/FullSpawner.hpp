@@ -86,7 +86,7 @@ private:
 		loader->add_node(bridge2, x - 5, y + 1);
 
 		//Left torch
-		AreaSwitch *torch = new AreaSwitch(false, PLAYER, sf::Vector2i(17, 17));
+		AreaSwitch *torch = new AreaSwitch(false, FIREBALL, sf::Vector2i(17, 17));
 		torch->add_channel(bridge1);
 		loader->add_node(torch, x - 3, y + 3);
 
@@ -98,7 +98,7 @@ private:
 		loader->add_node(bridge2, x + 5, y + 1);
 
 		//Right torch
-		torch = new AreaSwitch(false, PLAYER, sf::Vector2i(17, 17));
+		torch = new AreaSwitch(false, FIREBALL, sf::Vector2i(17, 17));
 		torch->add_channel(bridge1);
 		loader->add_node(torch, x + 3, y + 3);
 
@@ -241,13 +241,9 @@ private:
 
 		//Enemy 2
 		enemy = new Enemy();
-		loader1->add_node(enemy, x + 7, y + 2);
-
-		//Enemy 3
-		enemy = new Enemy();
 		loader1->add_node(enemy, x + 5, y + 3);
 
-		//Enemy 4
+		//Enemy 3
 		enemy = new FireEnemy();
 		loader1->add_node(enemy, x + 3, y + 3);
 

@@ -19,8 +19,6 @@ private:
 	sf::Vector2i size;
 	bool deleted = false;
 
-	bool isHazard = false;
-
 public:
 	//Random static variables
 	static Textures *textures;
@@ -35,10 +33,6 @@ public:
 	UseAmount is_singleton();
 	virtual bool get_hidden();
 
-	//Hazard getter and setter
-	bool get_isHazard();
-	void set_isHazard(bool newIsHazard);
-
 	//Collision and visual engine
 	bool on_screen();
 	bool check_collision(Node *other);
@@ -49,7 +43,6 @@ public:
 	virtual ~Node();
 
 	//Entity implementation
-	virtual void on_load();
 	virtual void activate();
 	virtual void update(double time);
 	virtual void collide(Node *object);

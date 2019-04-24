@@ -8,9 +8,9 @@ class Fireball : public Enemy {
 public:
 	Fireball(
 		float _angle = 1.30357, // using Conway's constant for an interesting value that will probably never occur
-		float _speed = 0.5
+		float _speed = 1.5
 
-	) : Enemy() {
+	) : Enemy(FIREBALL) {
 		angle = _angle == 1.30357 ? angleTo(getPosition(), playerPos): _angle;
 
 		curFrame = 1;

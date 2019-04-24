@@ -8,7 +8,7 @@
 
 class Enemy : public Entity {
 public:
-	Enemy() : Entity() {
+	Enemy(CollisionLayer _layer = ENEMY) : Entity(_layer) {
 		set_isHazard(true);
 		maxFrames = 6;
 		curFrame = 1;

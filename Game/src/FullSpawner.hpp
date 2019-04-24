@@ -188,15 +188,15 @@ private:
 	void endRoom(NodeLoader *loader, int x, int y) {
 		//Fire trap 1
 		FireLauncher *launcher = new FireLauncher(East, 5);
-		loader->add_node(launcher, x, y + 1);
+		loader->add_node(launcher, x, y - 1);
 
 		//Fire trap 2
 		launcher = new FireLauncher(East, 5);
-		loader->add_node(launcher, x, y + 2);
+		loader->add_node(launcher, x, y - 2);
 
 		//Fire trap 3
 		launcher = new FireLauncher(East, 5);
-		loader->add_node(launcher, x, y + 3);
+		loader->add_node(launcher, x, y - 3);
 
 		//Return bridge set
 		Bridge *bridge1 = new Bridge(South);

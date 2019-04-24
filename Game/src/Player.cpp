@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() :Entity(60, 0, false, 1.2, PLAYER, sf::Vector2i(10, 16))
+Player::Player() :Entity(PLAYER, 60, 0, false, 1.2, sf::Vector2i(10, 16))
 {
 	//sf::IntRect playerRectangle(0,0 10, 16);
 	this->setTexture(textures->playerIdleDown);

@@ -37,12 +37,15 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\enums.h" />
     <ClInclude Include="src\Fireball.h" />
+    <ClInclude Include="src\FireLauncher.hpp" />
     <ClInclude Include="src\FullSpawner.hpp" />
     <ClInclude Include="src\GridMaker.h" />
     <ClInclude Include="src\Helpers.h" />
     <ClInclude Include="src\Key.hpp" />
+    <ClInclude Include="src\LogicCode.hpp" />
     <ClInclude Include="src\LogicComponents.h" />
     <ClInclude Include="src\LogicGates.hpp" />
+    <ClInclude Include="src\LogicTimer.hpp" />
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\NodeLoader.hpp" />
     <ClInclude Include="src\NodeSpawner.h" />

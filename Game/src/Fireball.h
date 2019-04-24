@@ -17,12 +17,12 @@ public:
 		maxFrame = 4;
 		lastTime = 0.0;
 		setTexture(textures->Fireball); // TODO: needs own texture file
-		setRotation(90);
+		setRotation(-90);
 	}
 	~Fireball() {}
 
 	void timeFireBall(double time) {
-		if (time - lastTime >= .5)
+		if (time - lastTime >= .2)
 		{
 			curFrame++;
 			lastTime = time; 

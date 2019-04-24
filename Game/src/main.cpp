@@ -11,7 +11,7 @@
 #include "AnimatedTileMap.hpp"
 
 int main() {
-	bool testMode = false;
+	bool testMode = true;
 
 	//Start game window
 	sf::RenderWindow window(sf::VideoMode(1200, 800), "Temple of Pele");

@@ -110,7 +110,10 @@
     <ClInclude Include="src\Fireball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyFireball.h">
+    <ClInclude Include="src\EnemyFireball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NodeSpawner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

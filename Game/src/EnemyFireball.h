@@ -1,7 +1,7 @@
 #pragma once
 
-#include "src\Enemy.h"
-#include "src\Fireball.h"
+#include "Enemy.h"
+#include "Fireball.h"
 
 class FireEnemy : Enemy
 {
@@ -14,7 +14,7 @@ public:
 
 	void update(double time)
 	{
-
+		spawnFireBall(time);
 	}
 
 	void fireballTimer(double time)
@@ -22,13 +22,17 @@ public:
 		if (time - fireballCoolDown >= 5)
 		{
 			fireballCoolDown = time;
-			new Fireball fireball();
+			new Fireball();
 		}
 	};
 
 	void spawnFireBall(double time) 
 	{
-	
+		if (abs(this->getPosition().x - playerPos.x) < 50 || 
+			abs(this->getPosition().y - playerPos.y) < 50)
+		{
+			fireballTimer(time);
+		}
 	};
 
 private:

@@ -26,7 +26,6 @@
     <ClCompile Include="src\UpdateList.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EnemyFireball.h" />
     <ClInclude Include="src\AnimatedTileMap.hpp" />
     <ClInclude Include="src\AreaSwitch.h" />
     <ClInclude Include="src\Bridge.hpp" />
@@ -34,6 +33,7 @@
     <ClInclude Include="src\Doors.hpp" />
     <ClInclude Include="src\EndScreen.hpp" />
     <ClInclude Include="src\Enemy.h" />
+    <ClInclude Include="src\EnemyFireball.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\enums.h" />
     <ClInclude Include="src\Fireball.h" />
@@ -45,6 +45,7 @@
     <ClInclude Include="src\LogicGates.hpp" />
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\NodeLoader.hpp" />
+    <ClInclude Include="src\NodeSpawner.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Room.hpp" />
     <ClInclude Include="src\StartNodes.hpp" />

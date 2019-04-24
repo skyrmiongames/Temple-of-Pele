@@ -3,6 +3,10 @@
 #include <cstdarg>
 #include <cmath>
 
+#include "enums.h"
+
+#include <SFML/System.hpp>
+
 /**
 Check to see if a value is in a list of values. 
 

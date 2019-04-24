@@ -52,7 +52,6 @@
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Room.hpp" />
     <ClInclude Include="src\StartNodes.hpp" />
-    <ClInclude Include="src\TestNodes.hpp" />
     <ClInclude Include="src\TestSpawner.hpp" />
     <ClInclude Include="src\textures.h" />
     <ClInclude Include="src\TileMap.hpp" />

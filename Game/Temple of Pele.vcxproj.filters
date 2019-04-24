@@ -98,9 +98,6 @@
     <ClInclude Include="src\LogicGates.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TestNodes.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\FullSpawner.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

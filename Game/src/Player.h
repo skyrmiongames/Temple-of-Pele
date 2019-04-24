@@ -6,7 +6,7 @@
 
 /*
 Player functions created by Benjamin Hoover 
-with exception of collide() and die() made by Stuart Irwin
+with exception of getKey(), collide() and die() made by Stuart Irwin
 */
 
 class Player : public Entity

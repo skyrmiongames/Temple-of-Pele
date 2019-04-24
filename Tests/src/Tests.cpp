@@ -1,8 +1,12 @@
+#include <SFML\Graphics.hpp>
+#include <SFML\System.hpp>
+
 #include "CppUnitTest.h"
+#include "TestNode.hpp"
 
 #include "../../Game/src/Helpers.h"
 #include "../../Game/src/enums.h"
-
+#include "../../Game/src/Player.h"
 #include "../../Game/src/UpdateList.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -27,11 +31,14 @@ namespace Tests {
 		}
 	};
 
-	TEST_CLASS(UpdateList) {
+	TEST_CLASS(TestUpdateList) {
 	public:
 		TEST_METHOD(node_update) {
+			//Create test Viewer
+			sf::RenderWindow target;
+
 			//Create testing node
-			Node *testNode = new testNode;
+			TestNode *testNode = new TestNode;
 			UpdateList::add_node(testNode);
 
 			//Check start conditions
@@ -39,21 +46,24 @@ namespace Tests {
 			Assert::IsFalse(testNode->updated);
 
 			//Run single update
-			UpdateList::update(5);
+			UpdateList::update(target, 5);
 
 			//Check final condition
 			Assert::IsFalse(testNode->collided);
 			Assert::IsTrue(testNode->updated);
 		}
 
-		TEST_METHOD(node_update) {
+		TEST_METHOD(node_collide) {
+			//Create test Viewer
+			sf::RenderWindow target;
+
 			//Create testing node 1
-			Node *testNode1 = new testNode;
+			TestNode *testNode1 = new TestNode();
 			testNode1->setPosition(40, 40);
 			UpdateList::add_node(testNode1);
 
 			//Create testing node 2
-			Node *testNode2 = new testNode;
+			TestNode *testNode2 = new TestNode();
 			testNode2->setPosition(50, 50);
 			UpdateList::add_node(testNode1);
 
@@ -64,7 +74,7 @@ namespace Tests {
 			Assert::IsFalse(testNode2->updated);
 
 			//Run single update
-			UpdateList::update(5);
+			UpdateList::update(target, 5);
 
 			//Check final conditions
 			Assert::IsTrue(testNode1->collided);
@@ -72,27 +82,25 @@ namespace Tests {
 			Assert::IsTrue(testNode2->collided);
 			Assert::IsTrue(testNode2->updated);
 		}
+	};
+	TEST_CLASS(TestPlayer) {
+	public:
+		TEST_METHOD(takeDamage) {
+			Player p;
+			bool success = false;
 
-TEST_METHOD(angleCalc) {
-	Assert::AreEqual(angleTo(sf::Vector2f(0, 0), sf::Vector2f(5, 0)), 0.0f);
-}
+			success = p.takeDamage(10);
+			Assert::IsTrue(success);
+		}
 
-TEST_METHOD(takeDamage) {
-	Player p;
-	bool success = false;
+		TEST_METHOD(getKey) {
+			Player p;
+			bool success = false;
 
-	success = p.takeDamage(10);
-	Assert::IsTrue(success);
-}
+			p.setKey(true);
 
-TEST_METHOD(getKey) {
-	Player p;
-	bool success = false;
-
-	p.setKey(true);
-
-	success = p.getKey();
-	Assert::IsTrue(success);
-};
+			success = p.getKey();
+			Assert::IsTrue(success);
+		}
 	};
 }

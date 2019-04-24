@@ -20,5 +20,5 @@ namespace Tests {
 		void collide(Node *object) {
 			updated = true;
 		}
-	}
+	};
 }

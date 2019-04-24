@@ -22,6 +22,8 @@ public:
 	//Enemies
 	sf::Texture EnemyLeftGif;
 	sf::Texture EnemyRightGif;
+	sf::Texture FireEnemyLeftGif;
+	sf::Texture FireEnemyRightGif;
 	sf::Texture Fireball;
 
 	//Tile objects
@@ -51,6 +53,8 @@ public:
 		//Enemies
 		EnemyRightGif.loadFromFile("resources/EnemyRight_BaseGif.png");
 		EnemyLeftGif.loadFromFile("resources/EnemyLeft_BaseGif.png");
+		FireEnemyRightGif.loadFromFile("resources/FireEnemyRight_BaseGif.png");
+		FireEnemyLeftGif.loadFromFile("resources/FireEnemyLeft_BaseGif.png");
 		Fireball.loadFromFile("resources/FireBall_BaseGif.png");
 
 		//Tile objects

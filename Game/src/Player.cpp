@@ -41,12 +41,12 @@ void Player::eightWayMovement(double time)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) // up
 	{
 		direction.y++;
-		this->curDirection = 0;
+		this->curDirection = 1;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
 	{
 		direction.y--;
-		this->curDirection = 1;
+		this->curDirection = 0;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left
 	{
@@ -56,7 +56,7 @@ void Player::eightWayMovement(double time)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // right
 	{
 		direction.x++;
-		this->curDirection = 4;
+		this->curDirection = 2;
 	}
 
 	if(direction.x != 0 || direction.y != 0)
@@ -304,14 +304,9 @@ bool Player::attackTime(double time)
 
 void Player::attack(double time)
 {
-	//bool attackCoolDownOver = attackCoolDown(time);
-	//bool attackAniDone = attackTime(time);
 
  	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
-		attackAniTime = time;
-		lastAttackTime = time;
-		
 		if (this->curDirection == 0) // face down
 		{
 			knifeV.setRotation(180);

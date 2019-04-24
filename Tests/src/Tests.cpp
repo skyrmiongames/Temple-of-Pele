@@ -21,9 +21,14 @@ namespace Tests {
 			Assert::IsFalse(oneof(1, 3, 2, 3, 4));
 			Assert::IsFalse(oneof(North, 3, Northeast, East, Southeast));
 		}
-	}
+
+		TEST_METHOD(angleCalc) {
+			Assert::AreEqual(angleTo(sf::Vector2f(0, 0), sf::Vector2f(5,0)), 0.0f);
+		}
+	};
 
 	TEST_CLASS(UpdateList) {
+	public:
 		TEST_METHOD(node_update) {
 			//Create testing node
 			Node *testNode = new testNode;
@@ -67,5 +72,5 @@ namespace Tests {
 			Assert::IsTrue(testNode2->collided);
 			Assert::IsTrue(testNode2->updated);
 		}
-	}
+	};
 }

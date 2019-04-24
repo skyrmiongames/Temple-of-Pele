@@ -11,27 +11,33 @@ Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2)
 	this->hasKey = false;
 	curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
 
+	// vertical knife constructor
 	knifeV = Node(SWORD, sf::Vector2i(4, 11));
 	knifeV.setPosition(-10,10);
 	knifeV.setTexture(textures->knife);
 	UpdateList::add_node(&knifeV);
 
+	// horizontal knife constructor
 	knifeH = Node(SWORD, sf::Vector2i(11, 4));
 	knifeH.setPosition(-10, 10);
 	knifeH.setTexture(textures->knife);
 	UpdateList::add_node(&knifeH);
 
+	// time members
 	lastAniTime = 0.0;
 	lastDamageTime = 0.0;
+
+	// current movment frame
 	curMoveFrame = 0;
 
-	viewPlayer.setSize(sf::Vector2f(300, 200)); //= new sf::View(sf::Vector2f(this->getPosition().x, this->getPosition().y),
+	// setting player view size
+	viewPlayer.setSize(sf::Vector2f(300, 200)); 
 	viewPlayer.setCenter(sf::Vector2f(150, 100));
 }
 
 Player::~Player()
 {
-
+	
 }
 
 void Player::eightWayMovement(double time)

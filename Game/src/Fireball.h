@@ -19,11 +19,12 @@ public:
 		curFrame = 1;
 		maxFrame = 4;
 		lastTime = 0.0;
-		setTexture(textures->Fireball); // TODO: needs own texture file
+		setTexture(textures->Fireball);
 		setRotation(-90);
 	}
 	~Fireball() {}
 
+	// times fireball animation
 	void timeFireBall(double time) {
 		if (time - lastTime >= .2)
 		{
@@ -36,6 +37,7 @@ public:
 		}
 	};
 
+	// animates fireball
 	void animateFireball(double time)
 	{
 		timeFireBall(time);

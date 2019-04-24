@@ -27,7 +27,7 @@ public:
 	int modify_health(int modifier) {
 		if (!invulnerable || modifier > 0) set_health(get_health() + modifier);
 
-		if (is_dead()) {
+		if (is_dead() && get_layer() != PLAYER) {
 			set_delete();
 		}
 

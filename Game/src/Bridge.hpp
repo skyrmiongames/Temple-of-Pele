@@ -46,7 +46,7 @@ public:
 		if(closing && vertical_shown < 16) {
 			//Closing animation
 			if(time >= nextTime) {
-				nextTime = time += 0.1;
+				nextTime = time += 0.08;
 				vertical_shown++;
 			}
 

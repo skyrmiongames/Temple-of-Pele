@@ -28,7 +28,7 @@ class testPlayer
 
 		p.setKey(true);
 
-		p.getKey();
+		success = p.getKey();
 
 		if (success == true)
 		{

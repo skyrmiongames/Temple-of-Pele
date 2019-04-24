@@ -1,6 +1,11 @@
 #pragma once
 #include "Node.h"
 
+/*
+	Textures made by Benjamin Hoover with exception of doors, spitter, bridge, exitLight,
+	and plate which were made by Stuart Irwin
+*/
+
 class Textures
 {
 public:

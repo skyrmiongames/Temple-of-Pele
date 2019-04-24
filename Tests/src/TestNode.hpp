@@ -17,7 +17,7 @@ namespace Tests {
 			updated = true;
 		}
 
-		void collide(Node *object) {
+		void collide(Node* object) {
 			updated = true;
 		}
 	};

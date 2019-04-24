@@ -14,8 +14,6 @@
 int main() {
 	bool testMode = false;
 
-	//testPlayer testPlayer;
-
 	//Start game window
 	sf::RenderWindow window(sf::VideoMode(1200, 800), "Temple of Pele");
 	sf::Clock clock;
@@ -28,7 +26,7 @@ int main() {
 	NodeSpawner *spawner = new FullSpawner();
 	std::string file = "resources/maps/full_map.txt";
 	sf::Vector2f startPos = sf::Vector2f(600, 480);
-	startPos = sf::Vector2f(1104, 176);
+	startPos = sf::Vector2f(960, 176);
 
 	//Set test mode
 	if(testMode) {

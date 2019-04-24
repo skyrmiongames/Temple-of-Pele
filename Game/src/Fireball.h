@@ -7,11 +7,14 @@
 class Fireball : public Enemy {
 public:
 	Fireball(
+		sf::Vector2f _location,
 		float _angle = 1.30357, // using Conway's constant for an interesting value that will probably never occur
-		float _speed = 1.5
+		float _speed = 0.1
 
-	) : Enemy(FIREBALL) {
+	) : Enemy(FIREBALL, sf::Vector2i(10, 10)) {
+		setPosition(_location);
 		angle = _angle == 1.30357 ? angleTo(getPosition(), playerPos): _angle;
+		speed = _speed;
 
 		curFrame = 1;
 		maxFrame = 4;
@@ -60,7 +63,10 @@ public:
 	}
 
 	void collide(Node* object) {
-		Enemy::collide(object); //allow the player to block fireballs
+		if (object->get_layer() == SWORD || object->get_layer() == PLAYER)
+		{
+			set_delete();
+		} //allow the player to block fireballs
 	};
 
 private:

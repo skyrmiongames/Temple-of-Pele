@@ -22,7 +22,7 @@ public:
 		if (time - fireballCoolDown >= 5)
 		{
 			fireballCoolDown = time;
-			new Fireball();
+			new Fireball(getPosition());
 		}
 	};
 

@@ -21,5 +21,9 @@ public:
 		Assert::IsFalse(oneof(North, 3, Northeast, East, Southeast));
 	}
 
+	TEST_METHOD(angleCalc) {
+		Assert::AreEqual(angleTo(sf::Vector2f(0, 0), sf::Vector2f(5,0)), 0.0f);
+	}
+
 	};
 }

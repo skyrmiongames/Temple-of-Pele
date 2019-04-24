@@ -2,6 +2,7 @@
 
 #include "../../Game/src/Helpers.h"
 #include "../../Game/src/enums.h"
+#include "../../Game/src/Player.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

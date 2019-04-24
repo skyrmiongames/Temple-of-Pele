@@ -187,15 +187,19 @@ private:
 	//Top right room (origin at bottom)
 	void endRoom(NodeLoader *loader, int x, int y) {
 		//Fire trap 1
-		FireLauncher *launcher = new FireLauncher(East, 5);
-		loader->add_node(launcher, x, y - 1);
+		FireLauncher *launcher = new FireLauncher(East, 2);
+		loader->add_node(launcher, x, y);
 
 		//Fire trap 2
-		launcher = new FireLauncher(East, 5);
-		loader->add_node(launcher, x, y - 2);
+		launcher = new FireLauncher(East, 2);
+		loader->add_node(launcher, x, y - 1);
 
 		//Fire trap 3
-		launcher = new FireLauncher(East, 5);
+		launcher = new FireLauncher(East, 2);
+		loader->add_node(launcher, x, y - 2);
+
+		//Fire trap 4
+		launcher = new FireLauncher(East, 2);
 		loader->add_node(launcher, x, y - 3);
 
 		//Return bridge set
@@ -231,11 +235,11 @@ public:
 		mainLoader.add_node(door, 38, 32);
 
 		//Load each room
-		codeRoom(&mainLoader, 50, 25);
-		trapRoom(&mainLoader, 19, 24);
-		centerRoom(&mainLoader, 38, 13);
-		bridgeRoom(&mainLoader, 57, 11);
-		endRoom(&mainLoader, 70, 9);
+		codeRoom(&mainLoader, 41, 25);
+		trapRoom(&mainLoader, 10, 24);
+		centerRoom(&mainLoader, 29, 13);
+		bridgeRoom(&mainLoader, 48, 11);
+		endRoom(&mainLoader, 61, 9);
 
 		mainLoader.activate();
 	}

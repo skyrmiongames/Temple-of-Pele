@@ -4,11 +4,12 @@
 #include "textures.h"
 #include "Helpers.h"
 
-#include <iostream>
-
 class Enemy : public Entity {
 public:
-	Enemy(CollisionLayer _layer = ENEMY) : Entity(_layer) {
+	Enemy(
+		CollisionLayer _layer = ENEMY,
+		sf::Vector2i _size = sf::Vector2i(16, 10)
+	) : Entity(_layer, _size) {
 		set_isHazard(true);
 		maxFrames = 6;
 		curFrame = 1;

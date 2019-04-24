@@ -47,8 +47,7 @@ public:
 
 	//Launch fireball in direction
 	void activate() {
-		Fireball *launched = new Fireball(angle);
-		launched->setPosition(getPosition());
+		Fireball *launched = new Fireball(getPosition(), angle);
 		UpdateList::add_node(launched);
 	}
 };

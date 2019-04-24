@@ -1,4 +1,5 @@
 #include "UpdateList.h"
+#include <iostream>
 
 /*
  * Created by Stuart Irwin on 4/15/2019.
@@ -27,9 +28,10 @@ void UpdateList::remove_nodes() {
 
 		//Check for delete mark
 		if((*it)->get_delete()) {
+			removing = true;
+
 			Node *deleting = *it;
 			it = screen.erase(it);
-			removing = true;
 			delete deleting;
 		}
 

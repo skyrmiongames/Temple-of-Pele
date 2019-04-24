@@ -9,7 +9,6 @@
 #include "FullSpawner.hpp"
 #include "GridMaker.h"
 #include "AnimatedTileMap.hpp"
-#include "Tests.h"
 
 int main() {
 	bool testMode = false;

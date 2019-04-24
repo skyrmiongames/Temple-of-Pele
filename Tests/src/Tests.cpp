@@ -22,8 +22,25 @@ public:
 	}
 
 	TEST_METHOD(angleCalc) {
-		Assert::AreEqual(angleTo(sf::Vector2f(0, 0), sf::Vector2f(5,0)), 0.0f);
+		Assert::AreEqual(angleTo(sf::Vector2f(0, 0), sf::Vector2f(5, 0)), 0.0f);
 	}
 
+	TEST_METHOD(takeDamage) {
+		Player p;
+		bool success = false;
+
+		success = p.takeDamage(10);
+		Assert::IsTrue(success);
+	}
+
+	TEST_METHOD(getKey) {
+		Player p;
+		bool success = false;
+
+		p.setKey(true);
+
+		success = p.getKey();
+		Assert::IsTrue(success);
+	};
 	};
 }

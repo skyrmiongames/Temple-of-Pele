@@ -7,6 +7,7 @@
 #include "Bridge.hpp"
 #include "EndScreen.hpp"
 #include "Enemy.h"
+#include "EnemyFireball.h"
 #include "LogicCode.hpp"
 #include "FireLauncher.hpp"
 

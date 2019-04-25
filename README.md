@@ -6,6 +6,8 @@
 
 -   Duncan Gibson, lab section 2
 
+-   Stuart Irwin, lab section 6
+
 ## Setup
 
 1. Grab SFML v2.5.1 32bit for Visual Studio 2015 from [here](https://www.sfml-dev.org/download/sfml/2.5.1/). ([direct link](https://www.sfml-dev.org/files/SFML-2.5.1-windows-vc14-32-bit.zip)).

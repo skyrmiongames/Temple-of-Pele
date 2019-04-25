@@ -1,4 +1,7 @@
+#pragma once
+
 #include "../../Game/src/Node.h"
+#include "../../Game/src/enums.h"
 
 /*
  * Created by Stuart Irwin on 4/24/2019.
@@ -17,7 +20,7 @@ namespace Tests {
 			updated = true;
 		}
 
-		void collide(Node* object) {
+		void collide(::Node* object) {
 			updated = true;
 		}
 	};

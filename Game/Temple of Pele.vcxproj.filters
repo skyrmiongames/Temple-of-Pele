@@ -162,5 +162,8 @@
     <Text Include="resources\maps\full_map.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="readme.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

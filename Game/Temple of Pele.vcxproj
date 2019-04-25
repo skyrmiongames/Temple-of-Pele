@@ -70,6 +70,7 @@
     <Image Include="resources\tileset.png" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="readme.txt" />
     <Text Include="resources\map.txt" />
     <Text Include="resources\maps\full_map.txt" />
   </ItemGroup>

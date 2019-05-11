@@ -11,27 +11,40 @@
 #include "GridMaker.h"
 #include "AnimatedTileMap.hpp"
 
-//X11 multithreading
+//X11 multithreading on linux
 #include <X11/Xlib.h>
 
-void renderingThread(sf::RenderWindow *window, Player *player, TileMap *map, AnimatedTileMap *aniMap) {
+bool running = true;
+
+void renderingThread(Player *player, TileMap *map, AnimatedTileMap *aniMap) {
+	sf::RenderWindow window(sf::VideoMode(1200, 800), "Temple of Pele");
+
     //Run rendering loop
-	while(window->isOpen()) {
+	while(window.isOpen()) {
+		//Check event updates
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
 		//Draw base map
-		window->clear();
-		window->draw(*map);
-		window->draw(*aniMap);
+		window.clear();
+		window.draw(*map);
+		window.draw(*aniMap);
 
 		//Draw general nodes
-		UpdateList::draw(*window);
+		UpdateList::draw(window);
 
 		//Draw player gui and features
-		player->drawGUI(*window);
-		player->drawView(*window);
+		player->drawGUI(window);
+		player->drawView(window);
 
 		//Confirm changes
-		window->display();
+		window.display();
 	}
+
+	running = false;
 }
 
 int main() {
@@ -39,7 +52,7 @@ int main() {
 
 	//Start game window
 	XInitThreads();
-	sf::RenderWindow window(sf::VideoMode(1200, 800), "Temple of Pele");
+	
 	sf::Clock clock;
 
 	//Set texture loader
@@ -82,17 +95,10 @@ int main() {
 	double nextFrame = 0;
 
 	//Start rendering thread
-	std::thread rendering(renderingThread, &window, player, &map, &aniMap);
+	std::thread rendering(renderingThread, player, &map, &aniMap);
 
     //Run main window
-	while (window.isOpen()) {
-		//Check event updates
-		sf::Event event;
-		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-
+	while (running) {
 		//Manage frame rate
 		if(clock.getElapsedTime().asSeconds() >= nextFrame) {
 			//Next update time

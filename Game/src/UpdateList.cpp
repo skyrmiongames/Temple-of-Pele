@@ -1,5 +1,4 @@
 #include "UpdateList.h"
-#include <iostream>
 
 /*
  * Created by Stuart Irwin on 4/15/2019.
@@ -8,7 +7,10 @@
 
 //Static variables
 std::vector<Node *> UpdateList::screen;
-std::vector<Node *> UpdateList::adding;
+std::vector<Node *> UpdateList::added;
+std::vector<Node *> UpdateList::deleted;
+std::vector<Node *> UpdateList::rendering;
+bool UpdateList::lock;
 
 //Check if node has moving collisionlayer
 bool UpdateList::moving_layer(Node *n) {
@@ -17,32 +19,39 @@ bool UpdateList::moving_layer(Node *n) {
 
 //Add node to update cycle
 void UpdateList::add_node(Node *next) {
-	adding.push_back(next);
+	added.push_back(next);
 }
 
 //Remove marked nodes from update cycle
-void UpdateList::remove_nodes() {
-	std::vector<Node *>::iterator it = screen.begin();
-	while(it != screen.end()) {
+void UpdateList::remove_nodes(std::vector<Node *> *list, std::vector<Node *> *deleting, bool permanent) {
+	std::vector<Node *>::iterator it = list->begin();
+	std::vector<Node *>::iterator remove = deleting->begin();
+
+	//Loop through list
+	while(it != list->end()) {
 		bool removing = false;
 
 		//Check for delete mark
-		if((*it)->get_delete()) {
+		if(*it == *remove) {
 			removing = true;
 
-			Node *deleting = *it;
-			it = screen.erase(it);
-			delete deleting;
+			Node *node = *it;
+			it = list->erase(it);
+			if(permanent)
+				delete node;
 		}
 
 		//Move to next
-		if(!removing && it != screen.end()) it++; 
+		if(!removing && it != list->end()) it++;
+		if(removing && remove != deleting->end()) remove++;
 	}
+
+	deleting->clear();
 }
 
 //Update all nodes in list
-void UpdateList::update(sf::RenderWindow &window, double time) {
-	bool deleting = false;
+void UpdateList::update(double time) {
+	std::vector<Node *> deleting;
 
 	//Check collisions and updates
 	for(Node *source : screen) {
@@ -63,22 +72,41 @@ void UpdateList::update(sf::RenderWindow &window, double time) {
 
 			//Update each object
 			source->update(time);
-			if(!source->get_hidden())
-				window.draw(*source);
 		}
 
 		//Check for deletion
-		if(source->get_delete())
-			deleting = true;
+		if(source->get_delete()) {
+			deleted.push_back(source);
+			deleting.push_back(source);
+		}
 	}
 
 	//Remove deleted nodes
-	if(deleting)
-		remove_nodes();
+	lock = true;
+	if(!deleting.empty())
+		remove_nodes(&screen, &deleting, false);
 
 	//Add new nodes
-	if (adding.size() > 0) {
-		screen.insert(screen.end(), adding.begin(), adding.end());
-		adding.clear();
+	if(!added.empty()) {
+		screen.insert(screen.end(), added.begin(), added.end());
+		added.clear();
+	}
+	lock = false;
+}
+
+//Thread safe draw nodes in list
+void UpdateList::draw(sf::RenderWindow &window) {
+	//Update list safely
+	if(lock == false)
+		rendering = screen;
+
+	//Delete nodes safely
+	if(!deleted.empty())
+		remove_nodes(&rendering, &deleted, true);
+
+	//Render each node
+	for(Node *source : rendering) {
+		if(!source->get_hidden() && source->on_screen())
+			window.draw(*source);
 	}
 }

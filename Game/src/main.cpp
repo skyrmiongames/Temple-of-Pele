@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <string>
+#include <thread>
 
 //Game headers
 #include "TestSpawner.hpp"
@@ -10,10 +11,34 @@
 #include "GridMaker.h"
 #include "AnimatedTileMap.hpp"
 
+//X11 multithreading
+#include <X11/Xlib.h>
+
+void renderingThread(sf::RenderWindow *window, Player *player, TileMap *map, AnimatedTileMap *aniMap) {
+    //Run rendering loop
+	while(window->isOpen()) {
+		//Draw base map
+		window->clear();
+		window->draw(*map);
+		window->draw(*aniMap);
+
+		//Draw general nodes
+		UpdateList::draw(*window);
+
+		//Draw player gui and features
+		player->drawGUI(*window);
+		player->drawView(*window);
+
+		//Confirm changes
+		window->display();
+	}
+}
+
 int main() {
 	bool testMode = false;
 
 	//Start game window
+	XInitThreads();
 	sf::RenderWindow window(sf::VideoMode(1200, 800), "Temple of Pele");
 	sf::Clock clock;
 
@@ -34,7 +59,7 @@ int main() {
 		startPos = sf::Vector2f(112, 80);
 	}
 
-	//Load tile map
+	//Load base tile map
 	GridMaker::build_grid(file);
 	TileMap map;
     if (!map.load("resources/tiles/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
@@ -50,8 +75,14 @@ int main() {
 	player->setPosition(startPos);
 	UpdateList::add_node(player);
 
-	//Set up test room nodes
+	//Set up selected room nodes
 	spawner->spawn();
+
+	//Set frame rate manager
+	double nextFrame = 0;
+
+	//Start rendering thread
+	std::thread rendering(renderingThread, &window, player, &map, &aniMap);
 
     //Run main window
 	while (window.isOpen()) {
@@ -62,26 +93,21 @@ int main() {
 				window.close();
 		}
 
-		//Locate player
-		Node::playerPos = player->getPosition();
+		//Manage frame rate
+		if(clock.getElapsedTime().asSeconds() >= nextFrame) {
+			//Next update time
+			nextFrame = clock.getElapsedTime().asSeconds() + .001;
 
-		//Draw base map
-		window.clear();
-		window.draw(map);
+			//Locate player
+			Node::playerPos = player->getPosition();
 
-		//Draw animated map
-		aniMap.update(clock.getElapsedTime().asSeconds());
-		window.draw(aniMap);
+			//Update nodes and sprites
+			UpdateList::update(clock.getElapsedTime().asSeconds());
 
-		//Draw nodes and sprites
-		UpdateList::update(window, clock.getElapsedTime().asSeconds());
-
-		//Player updates
-		player->drawGUI(window);
-		player->drawView(window);
-		player->animatePlayer(clock.getElapsedTime().asSeconds());
-
-		window.display();
+			//Update other graphics
+			aniMap.update(clock.getElapsedTime().asSeconds());
+			player->animatePlayer(clock.getElapsedTime().asSeconds());
+		}
 	}
 
 	return 0;

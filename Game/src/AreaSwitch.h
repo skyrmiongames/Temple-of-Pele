@@ -19,16 +19,11 @@ public:
 		this->hidden = hidden;
 
 		//Set base texture
-		setTexture(textures->plate);
 		setOrigin(8, 8);
-
-		//Switch to torch
-		if(detecting == FIREBALL)
-			setTexture(textures->brazier);
 	}
 
 	//Hide area
-	bool get_hidden() {
+	bool getHidden() {
 		return hidden;
 	}
 

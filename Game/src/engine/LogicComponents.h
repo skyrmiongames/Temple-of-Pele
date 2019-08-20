@@ -1,18 +1,23 @@
 #pragma once
 
 #include <vector>
-#include "enums.h"
 
 /*
  * Created by Stuart Irwin on 4/17/2019.
  * Interfaces for general logic
  */
 
+enum RecivingAction {
+	NONE,
+	UNLINK,
+	DELETE
+}
+
 class LogicReciever
 {
   public:
 	virtual void activate() = 0;
-	virtual UseAmount is_singleton() = 0;
+	virtual RecivingAction getRecivingAction() = 0;
 	virtual ~LogicReciever() {}
 };
 
@@ -42,7 +47,7 @@ class LogicSender
 			(*it)->activate();
 
 			//Delete if single use
-			if((*it)->is_singleton() != MULTI)
+			if((*it)->getRecivingAction() != NONE)
 			{
 				//Remove from channels
 				LogicReciever *deleting = *it;
@@ -50,7 +55,7 @@ class LogicSender
 				removing = true;
 
 				//Check for full delete
-				if((deleting)->is_singleton() == DELETE)
+				if((deleting)->getRecivingAction() == DELETE)
 					delete deleting;
 			}
 		}

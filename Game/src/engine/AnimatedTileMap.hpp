@@ -6,12 +6,13 @@
  * Builds animations out of tilemaps
  */
 
-class AnimatedTileMap : public sf::Drawable, public sf::Transformable {
+class AnimatedTileMap : public Node {
 private:
 	std::vector<TileMap> tilemaps;
 	int frame = 0;
 	int maxFrames;
 	double lastTime = 0;
+	double delay = -1;
 
 	//Draw selected tilemap
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -19,6 +20,10 @@ private:
     }
 
 public:
+	AnimatedTileMap() : Node(-1, false) {
+        
+    }
+
 	//Build tilemap list
 	bool load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, int frames) {
 		maxFrames = frames - 1;
@@ -48,11 +53,17 @@ public:
 		return true;
 	}
 
+	//Start animation
+	void start(double delay, double time=0) {
+		this.delay = delay;
+		this.lastTime = time;
+	}
+
 	//Update timer
 	void update(double time) {
 
 		//Every half second
-		if(time - lastTime >= 0.5) {
+		if(delay > 0 && time - lastTime >= 0.5) {
 			lastTime = time;
 			frame++;
 

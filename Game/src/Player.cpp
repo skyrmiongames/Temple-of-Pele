@@ -210,7 +210,7 @@ void Player::drawGUI(sf::RenderWindow &window)
 	window.draw(knifeH);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard().Space) && endGame)
 	{
-		window.close();
+		//window.close();
 	}
 }
 

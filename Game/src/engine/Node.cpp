@@ -20,9 +20,9 @@ sf::Vector2i Node::getSize() {
 	return size;
 }
 
-//Get next node in list
-Node *Node::getNext() {
-	return next;
+//Get parent node
+Node *Node::getParent() {
+	return parent;
 }
 
 //Check if node is hidden
@@ -44,6 +44,11 @@ Node::setSize(sf::Vector2i size) {
 //Set whether node is hidden
 void Node::setHidden(bool hidden) {
 	this->hidden = hidden;
+}
+
+//Set parent node
+void Node::setParent(Node *parent) {
+	this->parent = parent;
 }
 
 //Get full collision bitset
@@ -69,17 +74,26 @@ void Node::setCollisionLayer(unsigned char layer, bool collides) {
 bool Node::checkCollision(Node *other) {
 	//Get self box
 	sf::Vector2f thisPos = this->getPosition();
-	sf::Vector2i thisSize = this->get_size() / 2;
+	sf::Vector2i thisSize = this->getSize() / 2;
+
+	//Check for parent node
+	if(parent != NULL)
+		thisPos += parent->getPosition();
 
 	//Get other box
 	sf::Vector2f otherPos = other->getPosition();
-	sf::Vector2i otherSize = other->get_size() / 2;
+	sf::Vector2i otherSize = other->getSize() / 2;
 
 	//Check all cordinates
 	return thisPos.x - thisSize.x <= otherPos.x + otherSize.x && 
 		thisPos.x + thisSize.x >= otherPos.x - otherSize.x &&
 		thisPos.y - thisSize.y <= otherPos.y + otherSize.y && 
 		thisPos.y + thisSize.y >= otherPos.y - otherSize.y;
+}
+
+//Get next node in list
+Node *Node::getNext() {
+	return next;
 }
 
 //Add new node after this

@@ -19,11 +19,12 @@ private:
 	//Visible system variables
 	sf::Vector2i size;
 	bool hidden = false;
+	Node *parent = NULL;
+	std::bitset<MAXLAYER> collisionLayers;
 
 	//Background system variables
 	bool deleted = false;
 	Node *next = NULL;
-	std::bitset<MAXLAYER> collisionLayers;
 
 	//Extra variable for general use
 	int type;
@@ -36,12 +37,13 @@ public:
 	int getType();
 	sf::Vector2i getSize();
 	bool isHidden();
-	Node *getNext();
+	Node *getParent();
 
 	//General setters
 	void setType(int type);
 	void setSize(sf::Vector2i size);
 	void setHidden(bool hidden);
+	void setParent(Node *parent);
 
 	//Collision system
 	bitset<MAXLAYER> getCollisionLayer();
@@ -50,6 +52,7 @@ public:
 	bool checkCollision(Node *other);
 
 	//Linked list functions
+	Node *getNext();
 	void addNode(Node *node);
 	void deleteNext();
 

@@ -78,9 +78,14 @@ void UpdateList::draw(sf::RenderWindow &window) {
 	deleting->clear();
 
 
-	//Render each node
-	for(Node *source : rendering) {
-		if(!source->isHidden())
-			window.draw(*source);
+	//Render each node in order
+	for(Node *layer : screen) {
+		Node *source = layer;
+
+		while(source != NULL) {
+			if(!source->isHidden())
+				window.draw(*source);
+			source = source->getNext();
+		}
 	}
 }

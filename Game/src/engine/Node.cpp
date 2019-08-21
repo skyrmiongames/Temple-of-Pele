@@ -27,7 +27,7 @@ Node *Node::getNext() {
 
 //Check if node is hidden
 bool Node::isHidden() {
-	return false;
+	return hidden || deleted;
 }
 
 //Set node type variable
@@ -46,15 +46,20 @@ void Node::setHidden(bool hidden) {
 	this->hidden = hidden;
 }
 
+//Get full collision bitset
+bitset<MAXLAYER> Node::getCollisionLayer() {
+	return collisionLayers;
+}
+
 //Check if node collides with layer
-bool Node::getCollidesWith(unsigned char layer) {
+bool Node::getCollisionLayer(unsigned char layer) {
 	if(layer >= MAXLAYER)
 		throw new invalid_argument(LAYERERROR);
 	return collisionLayers[layer];
 }
 
 //Set if node collides with layer
-void Node::setCollidesWith(unsigned char layer, bool collides) {
+void Node::setCollisionLayer(unsigned char layer, bool collides) {
 	if(layer >= MAXLAYER)
 		throw new invalid_argument(LAYERERROR);
 	collisionLayers[layer] = collides;
@@ -87,13 +92,13 @@ void Node::addNode(Node *node) {
 
 //Remove node immdiately after this from list
 void Node::deleteNext() {
-	if(next != NULL && next->getDelete()) {
+	if(next != NULL && next->isDeleted()) {
 		next = next->getNext();
 	}
 }
 
 //Check for deletion mark
-bool Node::getDelete() {
+bool Node::isDeleted() {
 	return deleted;
 }
 

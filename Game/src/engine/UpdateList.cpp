@@ -2,64 +2,85 @@
 
 /*
  * Created by Stuart Irwin on 4/15/2019.
- * Manages list of nodes through update cycle
+ * Manages layers of nodes through update cycle
  */
 
 //Static variables
-Node **UpdateList::screen;
-Node **UpdateList::deleted;
+Node (*UpdateList::screen)[MAXLAYER];
+std::vector<Node *> UpdateList::deleted;
 
 //Add node to update cycle
-void UpdateList::add_node(unsigned int layer, Node *next) {
-	
+void UpdateList::addNode(unsigned char layer, Node *next) {
+	if(layer >= MAXLAYER)
+		throw new invalid_argument(LAYERERROR);
+	if(screen[layer] == NULL)
+		screen[layer] = next;
+	else 
+		screen[layer]->addNode(next);
 }
 
 //Update all nodes in list
 void UpdateList::update(double time) {
-
 	//Check collisions and updates
-	while(Node *source : screen) {
-		if(!source->isHidden()) {
-			//For moving object types
-			if(source->isCollidible()) {
-				for(Node *object : screen) {
-					//Actually check collision box
-					if(object->isCollidible() && object != source && source->check_collision(object)) {
-						source->collide(object, time);
+	for(int layer = 0; layer < MAXLAYER; layer++) {
+		Node *source = screen[layer];
+
+		//Check first node for deletion
+		if(source != NULL && source->isDeleted()) {
+			deleted.push_back(source);
+			source = source->getNext();
+			screen[layer] = source
+		}
+
+		//For each node in layer order
+		while(source != NULL) {
+			if(!source->isHidden()) {
+
+				//Check each selected collision layer
+				int collisionLayer = 0;
+				for(int i = 0; i < source->getCollisionLayer().count; i++) {
+					while(!source->getCollisionLayer(collisionLayer))
+						collisionLayer++;
+
+					//Check collision box of each node
+					for(Node *other : screen[collisionLayer]) {
+						if(other != source && source->check_collision(other)) {
+							source->collide(other, time);
+						}
 					}
+					collisionLayer++;
 				}
+
+				//Update each object
+				source->update(time);
 			}
 
-			//Update each object
-			source->update(time);
-		}
+			//Check next node for deletion
+			if(source->getNext() != NULL && source->getNext()->isDeleted()) {
+				deleted.push_back(source->getNext());
+				source->deleteNext();
+			}
 
-		//Check for deletion
-		if(source->get_delete()) {
-			deleted.push_back(source);
+			source = source->getNext();
 		}
-	}
-
-	//Add new nodes
-	if(!added.empty()) {
-		screen.insert(screen.end(), added.begin(), added.end());
-		added.clear();
 	}
 }
 
 //Thread safe draw nodes in list
 void UpdateList::draw(sf::RenderWindow &window) {
-	//Update list safely
-	if(lock == false)
-		rendering = screen;
+	//Loop through list to delete
+	std::vector<Node *>::iterator it = deleting->begin();
+	while(it != list->end()) {
+		Node *node = *it;
+		it++;
+		delete node;
+	}
+	deleting->clear();
 
-	//Delete nodes safely
-	if(!deleted.empty())
-		remove_nodes(&rendering, &deleted, true);
 
 	//Render each node
 	for(Node *source : rendering) {
-		if(!source->get_hidden() && source->on_screen())
+		if(!source->isHidden())
 			window.draw(*source);
 	}
 }

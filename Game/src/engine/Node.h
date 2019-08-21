@@ -44,8 +44,9 @@ public:
 	void setHidden(bool hidden);
 
 	//Collision system
-	bool getCollidesWith(unsigned char layer);
-	void setCollidesWith(unsigned char layer, bool collides);
+	bitset<MAXLAYER> getCollisionLayer();
+	bool getCollisionLayer(unsigned char layer);
+	void setCollisionLayer(unsigned char layer, bool collides);
 	bool checkCollision(Node *other);
 
 	//Linked list functions

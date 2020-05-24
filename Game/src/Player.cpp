@@ -39,8 +39,7 @@ Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2) {
 	curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
 
 	// setting player view size
-	viewPlayer.setSize(sf::Vector2f(300, 200));
-	viewPlayer.setCenter(sf::Vector2f(150, 100));
+	UpdateList::setCamera(this, sf::Vector2f(300, 200));
 
 	// set collision layers
 	collideWith(KEY);
@@ -79,7 +78,7 @@ void Player::eightWayMovement(double time)
 	}
 
 	if(direction.x != 0 || direction.y != 0)
-		move(std::atan2(direction.y, direction.x), 0.1, false);
+		move(std::atan2(direction.y, direction.x));
 
 	Entity::playerPos = getPosition();
 }
@@ -217,12 +216,6 @@ void Player::animatePlayer(double time)
 	}
 }
 
-void Player::drawView(sf::RenderWindow &window)
-{
-	viewPlayer.setCenter(getPosition().x, getPosition().y);
-	window.setView(viewPlayer);
-}
-
 bool Player::updateTakeDamageTime(double time)
 {
 	bool isInvulnerable = true;
@@ -293,7 +286,7 @@ void Player::die()
 	EndScreen *object = new EndScreen(textures, false);
 	UpdateList::addNode(object);
 
-	viewPlayer.setSize(sf::Vector2f(600, 400));
+	UpdateList::setCamera(this, sf::Vector2f(600, 400));
 	setPosition(2000, 80);
 	object->activate();
 }
@@ -369,7 +362,7 @@ void Player::collide(Node *object , double time)
 
 	//Show full end screen
 	if(object->getLayer() == ENDSCREEN) {
-		viewPlayer.setSize(sf::Vector2f(600, 400));
+		UpdateList::setCamera(this, sf::Vector2f(600, 400));
 		endGame = true;
 		setPosition(2000,80);
 		object->activate();

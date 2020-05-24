@@ -14,7 +14,7 @@ private:
 
 public:
 	//Fireball launcher
-	FireLauncher(Textures &textures, OrthagonalDirection direction, int delay=0) : Node(SWITCH, sf::Vector2i(16, 16)) {
+	FireLauncher(Textures &textures, OrthagonalDirection direction, int delay=0) : Node(FEATURE, sf::Vector2i(16, 16)) {
 		//Configure tile properties
 		setTexture(textures.spitter);
 		this->delay = delay;

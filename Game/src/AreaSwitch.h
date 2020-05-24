@@ -9,22 +9,13 @@
  */
 
 class AreaSwitch : public Node, public LogicSender {
-private:
-	bool hidden;
-
 public:
 	//Area constructors
-	AreaSwitch(bool hidden=true, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(SWITCH, size){
-		this->hidden = hidden;
+	AreaSwitch(bool hidden=true, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(FEATURE, size, hidden){
 		collideWith(detecting);
 
 		//Set base texture
 		setOrigin(8, 8);
-	}
-
-	//Hide area
-	bool getHidden() {
-		return hidden;
 	}
 
 	//Activate on collision
@@ -42,7 +33,7 @@ private:
 
 public:
 	//Area constructors
-	PressureSwitch(Textures &textures, int delay, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(SWITCH, size) {
+	PressureSwitch(Textures &textures, int delay, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(FEATURE, size) {
 		this->delay = delay;
 		collideWith(detecting);
 
@@ -71,7 +62,7 @@ private:
 
 public:
 	//Area constructors
-	EmptySwitch(CollisionLayer detecting=ENEMY, sf::Vector2i size=sf::Vector2i(16, 16)) : Node(SWITCH, size, true){
+	EmptySwitch(CollisionLayer detecting=ENEMY, sf::Vector2i size=sf::Vector2i(16, 16)) : Node(FEATURE, size, true){
 		collideWith(detecting);
 	}
 

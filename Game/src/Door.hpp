@@ -19,7 +19,7 @@ private:
 
 public:
 	//Build door
-	Door(Textures &textures, bool closing=false, bool vertical=false, bool locked=false) : Node(MAP, sf::Vector2i(16, 16)) {
+	Door(Textures &textures, bool closing=false, bool vertical=false, bool locked=false) : Node(FEATURE, sf::Vector2i(16, 16)) {
 		//Set variables
 		this->horizontal_shown = closing ? 16 : 0;
 		this->state = closing ? -1 : -2;

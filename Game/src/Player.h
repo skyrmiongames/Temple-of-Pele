@@ -33,9 +33,6 @@ public:
 	// ends game when health is zero
 	void die();
 
-	// Draws game window around player
-	void drawView(sf::RenderWindow &window);
-
 	// Updates healthSprite and calls takeDamage
 	void updateHealth(double time);
 	// Activates invicibility frames on timer
@@ -61,8 +58,6 @@ private:
 	// vertical and horizontal orientations of knife node for more precise hitboxes
 	Node knifeV;
 	Node knifeH;
-
-	sf::View viewPlayer;
 
 	bool hasKey = false;
 

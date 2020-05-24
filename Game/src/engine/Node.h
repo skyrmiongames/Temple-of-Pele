@@ -29,9 +29,9 @@ private:
 
 public:
 	//Node constructors
-	Node(unsigned char layer = 0, 
-		sf::Vector2i size = sf::Vector2i(16, 16), 
-		bool hidden = false, 
+	Node(unsigned char layer = 0,
+		sf::Vector2i size = sf::Vector2i(16, 16),
+		bool hidden = false,
 		Node *parent = NULL);
 
 	//General getters
@@ -39,6 +39,7 @@ public:
 	sf::Vector2i getSize();
 	bool isHidden();
 	Node *getParent();
+	sf::Vector2f getGPosition();
 
 	//General setters
 	void setLayer(unsigned char layer);

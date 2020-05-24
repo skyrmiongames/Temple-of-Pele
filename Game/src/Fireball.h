@@ -8,7 +8,7 @@ public:
 	Fireball(
 		sf::Vector2f _location,
 		float _angle = 400, // using Conway's constant for an interesting value that will probably never occur
-		float _speed = 0.1
+		float _speed = 1
 
 	) : Enemy(FIREBALL, sf::Vector2i(10, 10)) {
 		setPosition(_location);
@@ -23,6 +23,7 @@ public:
 
 		collideWith(SWORD);
 		collideWith(PLAYER);
+		collideWith(FEATURE);
 	}
 	~Fireball() {}
 
@@ -31,7 +32,7 @@ public:
 		if (time - lastTime >= .2)
 		{
 			curFrame++;
-			lastTime = time; 
+			lastTime = time;
 			if (curFrame == maxFrame)
 			{
 				curFrame = 1;

@@ -9,8 +9,7 @@
 enum CollisionLayer {
 	MAP,
 	LOGIC,
-	TORCH,
-	SWITCH,
+	FEATURE,
 	ENDSCREEN,
 	KEY,
 	GUI,

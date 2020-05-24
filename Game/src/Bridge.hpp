@@ -17,7 +17,7 @@ private:
 
 public:
 	//Build bridge
-	Bridge(Textures &textures, OrthagonalDirection direction) : Node(SWITCH, sf::Vector2i(16, 16)) {
+	Bridge(Textures &textures, OrthagonalDirection direction) : Node(FEATURE, sf::Vector2i(16, 16)) {
 		//Configure bridge properties
 		setTexture(textures.bridge);
 

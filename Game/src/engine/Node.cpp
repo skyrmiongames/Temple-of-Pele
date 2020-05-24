@@ -28,6 +28,13 @@ Node *Node::getParent() {
 	return parent;
 }
 
+//Get global position
+sf::Vector2f Node::getGPosition() {
+	if(parent != NULL)
+		return getPosition() + parent->getPosition();
+	return getPosition();
+}
+
 //Check if node is hidden
 bool Node::isHidden() {
 	return hidden || deleted;
@@ -77,16 +84,15 @@ void Node::collideWith(unsigned char layer) {
 
 //Check collision box against other node
 bool Node::checkCollision(Node *other) {
+	if(other == NULL)
+		return false;
+
 	//Get self box
-	sf::Vector2f thisPos = this->getPosition();
+	sf::Vector2f thisPos = this->getGPosition();
 	sf::Vector2i thisSize = this->getSize() / 2;
 
-	//Check for parent node
-	if(parent != NULL)
-		thisPos += parent->getPosition();
-
 	//Get other box
-	sf::Vector2f otherPos = other->getPosition();
+	sf::Vector2f otherPos = other->getGPosition();
 	sf::Vector2i otherSize = other->getSize() / 2;
 
 	//Check all cordinates

@@ -30,7 +30,7 @@ public:
 		}
 
 		animateEnemy(time);
-		move(playerAngle, 0.005, false);
+		move(playerAngle, 0.05);
 	}
 
 	void collide(Node *object) {

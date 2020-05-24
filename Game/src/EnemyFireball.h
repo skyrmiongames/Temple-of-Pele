@@ -26,7 +26,7 @@ public:
 		}
 
 		animateEnemy(time);
-		move(playerAngle, 0.005, false);
+		move(playerAngle, 0.05, false);
 		fireballTimer(time);
 	}
 
@@ -36,7 +36,7 @@ public:
 		if (nextTime > 0 && time >= nextTime)
 		{
 			nextTime = time + 5;
-			UpdateList::addNode(new Fireball(getPosition(), 400, .07));
+			UpdateList::addNode(new Fireball(getPosition(), 400, .7));
 		}
 
 		if (nextTime == -1)

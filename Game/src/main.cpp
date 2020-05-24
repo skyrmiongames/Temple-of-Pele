@@ -15,8 +15,8 @@
 bool running = true;
 sf::Vector2f Entity::playerPos;
 
-void renderingThread(Player *player) {
-	sf::RenderWindow window(sf::VideoMode(1200, 800), "Temple of Pele");
+void renderingThread(Player *player, std::string title) {
+	sf::RenderWindow window(sf::VideoMode(1200, 800), title);
 
     //Run rendering loop
 	while(window.isOpen()) {
@@ -34,7 +34,6 @@ void renderingThread(Player *player) {
 		UpdateList::draw(window);
 
 		//Draw player gui and features
-		player->drawGUI(window);
 		player->drawView(window);
 
 		//Confirm changes
@@ -51,14 +50,8 @@ int main() {
 	//Set texture loader
 	Textures textures;
 
-	//Mode variables
-	FullSpawner spawner;
-	std::string file = "resources/maps/full_map.txt";
-	sf::Vector2f startPos = sf::Vector2f(456, 480);
-	//startPos = sf::Vector2f(960, 176);
-
 	//Load base tile map
-	GridMaker::build_grid(file);
+	GridMaker::build_grid("resources/maps/full_map.txt");
 	TileMap map;
     if (!map.load("resources/tiles/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
         return -1;
@@ -73,17 +66,18 @@ int main() {
 
     //Set up player
     Player player;
-	player.setPosition(startPos);
+	player.setPosition(sf::Vector2f(456, 480));
 	UpdateList::addNode(&player);
 
 	//Set up selected room nodes
+	FullSpawner spawner;
 	spawner.spawn(textures);
 
 	//Set frame rate manager
 	double nextFrame = 0;
 
 	//Start rendering thread
-	std::thread rendering(renderingThread, &player);
+	std::thread rendering(renderingThread, &player, "Temple of Pele");
 
     //Run main window
 	while (running) {

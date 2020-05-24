@@ -6,10 +6,11 @@
  */
 
 //Base constructor
-Node::Node(unsigned char layer, sf::Vector2i size, bool hidden) {
+Node::Node(unsigned char layer, sf::Vector2i size, bool hidden, Node *parent) {
 	setSize(size);
-	this->hidden = hidden;
+	setHidden(hidden);
 	setLayer(layer);
+	setParent(parent);
 }
 
 //Get node layer variable

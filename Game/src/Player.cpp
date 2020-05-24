@@ -3,21 +3,29 @@
 Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2) {
 	//sf::IntRect playerRectangle(0,0 10, 16);
 	this->setTexture(textures.playerIdleDown);
-	this->healthSprite.setTexture(textures.healthSpriteTexture);
-	this->healthSprite.setTextureRect(sf::IntRect (0, 0, 25, 7));
-	this->keyIcon.setTexture(textures.key);
-	keyIcon.setPosition(-10, 10);
-	this->hasKey = false;
-	curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
+
+	// health display constructor
+	healthSprite = Node(GUI, sf::Vector2i(25, 7), false, this);
+	healthSprite.setPosition(0, -12.5);
+	healthSprite.setTexture(textures.healthSpriteTexture);
+	healthSprite.setTextureRect(sf::IntRect (0, 0, 25, 7));
+	UpdateList::addNode(&healthSprite);
+
+	// key constructor
+	keyIcon = Node(GUI, sf::Vector2i(16, 16), true, this);
+	keyIcon.setPosition(0, -24);
+	keyIcon.setTexture(textures.key);
+	UpdateList::addNode(&keyIcon);
+	hasKey = false;
 
 	// vertical knife constructor
-	knifeV = Node(SWORD, sf::Vector2i(4, 11));
+	knifeV = Node(SWORD, sf::Vector2i(4, 11), false);
 	knifeV.setPosition(-10,10);
 	knifeV.setTexture(textures.knife);
 	UpdateList::addNode(&knifeV);
 
 	// horizontal knife constructor
-	knifeH = Node(SWORD, sf::Vector2i(11, 4));
+	knifeH = Node(SWORD, sf::Vector2i(11, 4), false);
 	knifeH.setPosition(-10, 10);
 	knifeH.setTexture(textures.knife);
 	UpdateList::addNode(&knifeH);
@@ -28,6 +36,7 @@ Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2) {
 
 	// current movment frame
 	curMoveFrame = 0;
+	curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
 
 	// setting player view size
 	viewPlayer.setSize(sf::Vector2f(300, 200));
@@ -208,19 +217,6 @@ void Player::animatePlayer(double time)
 	}
 }
 
-void Player::drawGUI(sf::RenderWindow &window)
-{
-	window.draw(*this);
-	window.draw(healthSprite);
-	window.draw(keyIcon);
-	window.draw(knifeV);
-	window.draw(knifeH);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard().Space) && endGame)
-	{
-		//window.close();
-	}
-}
-
 void Player::drawView(sf::RenderWindow &window)
 {
 	viewPlayer.setCenter(getPosition().x, getPosition().y);
@@ -241,18 +237,6 @@ bool Player::updateTakeDamageTime(double time)
 void Player::setLastDamageTime(double newDamageTime)
 {
 	this->lastDamageTime = newDamageTime;
-}
-
-void Player::updateKey()
-{
-	if (hasKey == true)
-	{
-		keyIcon.setPosition(getPosition().x - 7, getPosition().y - 32);
-	}
-	else
-	{
-		keyIcon.setPosition(-10, 10);
-	}
 }
 
 bool Player::takeDamage(double time)
@@ -284,9 +268,7 @@ void Player::updateHealth(double time)
 	{
 		takeDamage(time);
 	}
-
-	healthSprite.setPosition(this->getPosition().x - 12.5, this->getPosition().y - 16);
-
+	
 	if (this->health > 40)
 	{
 		healthSprite.setTextureRect(sf::IntRect(0, 0, 25, 7));
@@ -367,7 +349,7 @@ void Player::update(double time)
 		attack();
 		eightWayMovement(time);
 		updateHealth(time);
-		updateKey();
+		keyIcon.setHidden(!hasKey);
 		animatePlayer(time);
 	}
 }

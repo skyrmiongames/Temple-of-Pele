@@ -33,8 +33,6 @@ public:
 	// ends game when health is zero
 	void die();
 
-	// Draws additional sprites, healthSprite, keyIcon
-	void drawGUI(sf::RenderWindow &window);
 	// Draws game window around player
 	void drawView(sf::RenderWindow &window);
 
@@ -50,9 +48,6 @@ public:
 	// moves sword sprite to player, used against enemies.
 	void attack();
 
-	// updates keyIcon's position based on hasKey
-	void updateKey();
-
 	// determines if player hasKey member is true or false
 	bool getKey();
 	// setter for if hasKey member
@@ -60,8 +55,8 @@ public:
 
 private:
 	// Player GUI
-	sf::Sprite healthSprite;
-	sf::Sprite keyIcon;
+	Node healthSprite;
+	Node keyIcon;
 
 	// vertical and horizontal orientations of knife node for more precise hitboxes
 	Node knifeV;

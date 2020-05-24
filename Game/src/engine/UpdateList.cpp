@@ -83,7 +83,13 @@ void UpdateList::draw(sf::RenderWindow &window) {
 
 		while(source != NULL) {
 			if(!source->isHidden()) {
-				window.draw(*source);
+				//Check for parent node
+				if(source->getParent() != NULL) {
+					sf::Transform translation;
+					translation.translate(source->getParent()->getPosition());
+					window.draw(*source, translation);
+				} else
+					window.draw(*source);
 			}
 			source = source->getNext();
 		}

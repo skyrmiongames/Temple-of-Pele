@@ -8,16 +8,16 @@
 
 enum CollisionLayer {
 	MAP,
-	PLAYER,
-	SWORD,
-	ENEMY,
-	FIREBALL,
-	LAVA,
-	KEY,
+	LOGIC,
 	TORCH,
 	SWITCH,
-	LOGIC,
-	ENDSCREEN
+	ENDSCREEN,
+	KEY,
+	GUI,
+	ENEMY,
+	SWORD,
+	PLAYER,
+	FIREBALL,
 };
 
 enum OrthagonalDirection {

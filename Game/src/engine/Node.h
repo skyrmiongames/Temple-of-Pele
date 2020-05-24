@@ -29,7 +29,10 @@ private:
 
 public:
 	//Node constructors
-	Node(unsigned char layer = 0, sf::Vector2i size = sf::Vector2i(16, 16), bool hidden = false);
+	Node(unsigned char layer = 0, 
+		sf::Vector2i size = sf::Vector2i(16, 16), 
+		bool hidden = false, 
+		Node *parent = NULL);
 
 	//General getters
 	int getLayer();

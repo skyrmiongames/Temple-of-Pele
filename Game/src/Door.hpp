@@ -1,13 +1,14 @@
 #include "engine/Node.h"
-#include "Player.h"
 #include "engine/GridMaker.h"
+#include "engine/LogicComponents.h"
+#include "Player.h"
 
 /*
  * Created by Stuart Irwin on 4/17/2019.
  * Base door object
  */
 
-class Door : public Node {
+class Door : public Node, public LogicReciever {
 private:
 	//Door base state
 	int vertical_shown;
@@ -37,9 +38,7 @@ public:
 	}
 
 	//Can delete after opening
-	UseAmount is_singleton() {
-		return SINGLE;
-	}
+	RecivingAction getRecivingAction() { return UNLINK; };
 
 	//Start to open normal door
 	void activate() {

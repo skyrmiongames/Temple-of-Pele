@@ -23,6 +23,8 @@ private:
 	static Node *camera;
 	static sf::View viewPlayer;
 
+	static void renderingThread(std::string title, sf::VideoMode mode);
+
 public:
 	//Manage node lists
 	static void addNode(Node *next);
@@ -32,7 +34,7 @@ public:
 	//Update loops
 	static void update(double time);
 	static void draw(sf::RenderWindow &window);
-};
 
-//Start engine
-void startEngine(std::string title, sf::VideoMode mode);
+	//Start engine
+	static void startEngine(std::string title, sf::VideoMode mode);
+};

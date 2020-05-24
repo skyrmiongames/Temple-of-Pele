@@ -288,7 +288,7 @@ void Player::die()
 
 	UpdateList::setCamera(this, sf::Vector2f(600, 400));
 	setPosition(2000, 80);
-	object->activate();
+	object->display();
 }
 
 void Player::attack()
@@ -349,12 +349,6 @@ void Player::update(double time)
 
 void Player::collide(Node *object , double time)
 {
-	//Pickup key object
-	if(object->getLayer() == KEY && hasKey == false) {
-		hasKey = true;
-		object->activate();
-	}
-
 	if (object->getLayer() == ENEMY || object->getLayer() == FIREBALL)
 	{
 		takeDamage(time);
@@ -365,7 +359,13 @@ void Player::collide(Node *object , double time)
 		UpdateList::setCamera(this, sf::Vector2f(600, 400));
 		endGame = true;
 		setPosition(2000,80);
-		object->activate();
+		((EndScreen*)object)->display();
+	}
+
+	//Pickup key object
+	if(object->getLayer() == KEY && hasKey == false) {
+		hasKey = true;
+		object->setDelete();
 	}
 }
 

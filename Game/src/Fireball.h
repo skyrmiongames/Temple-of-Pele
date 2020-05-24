@@ -23,7 +23,7 @@ public:
 
 		collideWith(SWORD);
 		collideWith(PLAYER);
-		collideWith(FEATURE);
+		collideWith(SWITCH);
 	}
 	~Fireball() {}
 

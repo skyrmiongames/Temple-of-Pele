@@ -7,7 +7,7 @@
 #include "Enemy.h"
 #include "EnemyFireball.h"
 #include "LogicCode.hpp"
-#include "LogicTimer.hpp"
+#include "engine/LogicGates.hpp"
 #include "FireLauncher.hpp"
 
 /*
@@ -59,25 +59,44 @@ private:
 	void codeRoom(Textures &textures, NodeLoader *loader, int x, int y) {
 		//Code checker
 		LogicCode *code = new LogicCode();
+		LogicCounter *counter = new LogicCounter(4);
+
+		//Reset lock
+		LockableGate *lock = new LockableGate();
+		code->addChannel(new LockableGatePassthrough(lock));
+
+		//Reset timer
+		LogicTimer *timer = new LogicTimer(LOGIC, 0.5);
+		timer->addChannel(lock);
+		counter->addChannel(timer);
+		loader->add_node(timer, x, y);
 
 		//Left end plate
-		PressureSwitch *plate = new PressureSwitch(textures, 4);
+		PressureSwitch *plate = new PressureSwitch(textures);
 		plate->addChannel(code->get_key());
+		plate->addChannel(counter);
+		lock->addChannel(plate);
 		loader->add_node(plate, x + 3, y + 2);
 
 		//Right end plate
-		plate = new PressureSwitch(textures, 4);
+		plate = new PressureSwitch(textures);
 		plate->addChannel(code->get_key());
+		plate->addChannel(counter);
+		lock->addChannel(plate);
 		loader->add_node(plate, x + 9, y + 2);
 
 		//Left mid plate
-		plate = new PressureSwitch(textures, 4);
+		plate = new PressureSwitch(textures);
 		plate->addChannel(code->get_key());
+		plate->addChannel(counter);
+		lock->addChannel(plate);
 		loader->add_node(plate, x + 5, y + 2);
 
 		//Right mid plate
-		plate = new PressureSwitch(textures, 4);
+		plate = new PressureSwitch(textures);
 		plate->addChannel(code->get_key());
+		plate->addChannel(counter);
+		lock->addChannel(plate);
 		loader->add_node(plate, x + 7, y + 2);
 
 		//End door
@@ -159,27 +178,33 @@ private:
 		loader->add_node(launcher4, x + 7, y);
 
 		//Pressure plate
-		PressureSwitch *plate = new PressureSwitch(textures, 4);
+		PressureSwitch *plate = new PressureSwitch(textures);
 		plate->addChannel(launcher1);
 		loader->add_node(plate, x + 9, y + 2);
 
 		//Timer 1
-		LogicTimer *timer1 = new LogicTimer(0.7);
+		LogicTimer *timer1 = new LogicTimer(LOGIC, 0.7);
 		timer1->addChannel(launcher4);
 		plate->addChannel(timer1);
 		loader->add_node(timer1, x, y);
 
 		//Timer 2
-		LogicTimer *timer2 = new LogicTimer(0.7);
+		LogicTimer *timer2 = new LogicTimer(LOGIC, 0.7);
 		timer2->addChannel(launcher2);
 		timer1->addChannel(timer2);
 		loader->add_node(timer2, x, y);
 
 		//Timer 3
-		LogicTimer *timer3 = new LogicTimer(0.7);
+		LogicTimer *timer3 = new LogicTimer(LOGIC, 0.7);
 		timer3->addChannel(launcher3);
 		timer2->addChannel(timer3);
 		loader->add_node(timer3, x, y);
+
+		//Timer 4
+		LogicTimer *timer4 = new LogicTimer(LOGIC, 0.7);
+		timer4->addChannel(plate);
+		timer3->addChannel(timer4);
+		loader->add_node(timer4, x, y);
 
 		//Torch 1
 		AreaSwitch *torch = new AreaSwitch(false, FIREBALL, sf::Vector2i(17, 17));

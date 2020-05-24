@@ -11,7 +11,7 @@
 class AreaSwitch : public Node, public LogicSender {
 public:
 	//Area constructors
-	AreaSwitch(bool hidden=true, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(FEATURE, size, hidden){
+	AreaSwitch(bool hidden=true, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(SWITCH, size, hidden){
 		collideWith(detecting);
 
 		//Set base texture
@@ -26,15 +26,10 @@ public:
 	}
 };
 
-class PressureSwitch : public Node, public LogicSender {
-private:
-	int delay;
-	int nextTime = 0;
-
+class PressureSwitch : public Node, public LogicSender, public LogicReciever {
 public:
 	//Area constructors
-	PressureSwitch(Textures &textures, int delay, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(FEATURE, size) {
-		this->delay = delay;
+	PressureSwitch(Textures &textures, CollisionLayer detecting=PLAYER, sf::Vector2i size=sf::Vector2i(12, 12)) : Node(FEATURE, size) {
 		collideWith(detecting);
 
 		//Set base texture
@@ -44,15 +39,14 @@ public:
 
 	//Activate on collision
 	void collide(Node *object, double time) {
-		if(nextTime <= time)
+		if(!isHidden()) {
 			send();
-
-		nextTime = time + delay;
+			setHidden(true);
+		}
 	}
 
-	//Deactivate on update
-	void update(double time) {
-		setHidden(nextTime > time);
+	void activate() {
+		setHidden(false);
 	}
 };
 

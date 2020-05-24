@@ -6,7 +6,7 @@
  * Launch fireball in specific direction
  */
 
-class FireLauncher : public Node {
+class FireLauncher : public Node, public LogicReciever {
 private:
 	double angle = PI/2;
 	int delay = 0;

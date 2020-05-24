@@ -124,14 +124,13 @@ void UpdateList::draw(sf::RenderWindow &window) {
 }
 
 //Seperate rendering thread
-void renderingThread(std::string title, sf::VideoMode mode) {
+void UpdateList::renderingThread(std::string title, sf::VideoMode mode) {
 	sf::RenderWindow window(mode, title);
 
 	std::cout << "Thread starting\n";
 
     //Run rendering loop
 	while(window.isOpen()) {
-		//std::cout << "Draw\n";
 		//Check event updates
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -150,21 +149,29 @@ void renderingThread(std::string title, sf::VideoMode mode) {
 	running = false;
 }
 
-void startEngine(std::string title, sf::VideoMode mode) {
+void UpdateList::startEngine(std::string title, sf::VideoMode mode) {
 	//Set frame rate manager
 	sf::Clock clock;
 	double nextFrame = 0;
-	int count = 0;
 
-	std::thread rendering(renderingThread, title, mode);
+	std::thread rendering(UpdateList::renderingThread, title, mode);
 
 	std::cout << "Starting\n";
+
+	//Initial update
+	for(Node *layer : screen) {
+		Node *source = layer;
+
+		while(source != NULL) {
+			source->update(0);
+			source = source->getNext();
+		}
+	}
 
     //Run main window
 	while (running) {
 		//Manage frame rate
 		if(clock.getElapsedTime().asSeconds() >= nextFrame) {
-			std::cout << "Update " << ++count << "\n";
 			//Next update time
 			nextFrame = clock.getElapsedTime().asSeconds() + .01;
 

@@ -15,10 +15,6 @@ public:
 		send();
 	}
 
-	UseAmount is_singleton() {
-		return MULTI;
-	}
-
 	//Clear value and return
 	bool is_activated() {
 		if(activated) {
@@ -62,9 +58,5 @@ public:
 			for(i = 3; i >= 0; i--)
 				keys[i].is_activated();
 		}
-	}
-
-	UseAmount is_singleton() {
-		return MULTI;
 	}
 };

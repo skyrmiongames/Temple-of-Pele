@@ -9,6 +9,7 @@
 enum CollisionLayer {
 	MAP,
 	LOGIC,
+	SWITCH,
 	FEATURE,
 	ENDSCREEN,
 	KEY,
@@ -28,10 +29,4 @@ enum OrthagonalDirection {
 	Southwest,
 	West,
 	Northwest
-};
-
-enum UseAmount {
-	MULTI,
-	SINGLE,
-	DELETE
 };

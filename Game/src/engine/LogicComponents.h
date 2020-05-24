@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Node.h"
+
 #include <vector>
 
 /*
@@ -10,7 +12,8 @@
 enum RecivingAction {
 	NONE,
 	UNLINK,
-	REMOVE
+	SETDELETE,
+	DELETE
 };
 
 class LogicReciever {
@@ -49,7 +52,9 @@ class LogicSender {
 				removing = true;
 
 				//Check for full delete
-				if((deleting)->getRecivingAction() == REMOVE)
+				if(deleting->getRecivingAction() == SETDELETE)
+					((Node*)deleting)->setDelete();
+				else if(deleting->getRecivingAction() == DELETE)
 					delete deleting;
 			}
 		}
@@ -60,3 +65,5 @@ class LogicSender {
 		channels.clear();
 	}
 };
+
+class LogicDevice : public LogicSender, public LogicReciever {};

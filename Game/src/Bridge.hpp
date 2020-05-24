@@ -8,7 +8,7 @@
  * Activatable bridge to go over lava
  */
 
-class Bridge : public Node, public LogicSender {
+class Bridge : public Node, public LogicDevice {
 private:
 	//Bridge current state
 	int vertical_shown = 0;
@@ -36,6 +36,8 @@ public:
 				break;
 		}
 	}
+
+	RecivingAction getRecivingAction() { return UNLINK; };
 
 	//Start closing animation
 	void activate() {

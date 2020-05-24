@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <bitset>
 #include <stdexcept>
-#include "LogicComponents.h"
 
 #define MAXLAYER 16
 #define LAYERERROR "Used collision layer > 16"
@@ -14,7 +13,7 @@
  * Sprite with collision
  */
 
-class Node : public sf::Sprite, public LogicReciever {
+class Node : public sf::Sprite {
 private:
 	//Visible system variables
 	sf::Vector2i size;

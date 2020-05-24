@@ -1,4 +1,5 @@
 #include "engine/TileMap.hpp"
+#include "engine/LogicComponents.h"
 #include "textures.h"
 #pragma once
 
@@ -36,7 +37,7 @@ public:
 		light->setOrigin(8, 8);
 	}
 
-	void activate() {
+	void display() {
 		//Load text map file
 		if(win)
 			GridMaker::build_grid("resources/maps/win_text.txt");

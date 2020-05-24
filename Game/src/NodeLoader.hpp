@@ -1,4 +1,5 @@
 #include "engine/UpdateList.h"
+#include "engine/LogicComponents.h"
 #include "enums.h"
 
 /*
@@ -26,9 +27,7 @@ public:
 	}
 
 	//One use only
-	UseAmount is_singleton() {
-		return DELETE;
-	}
+	RecivingAction getRecivingAction() { return DELETE; };
 
 	//Full delete
 	~NodeLoader() {

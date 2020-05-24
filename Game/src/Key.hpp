@@ -10,14 +10,4 @@ public:
 	Key(Textures &textures) : Node(KEY) {
 		setTexture(textures.key);
 	}
-
-	//One use thing
-	UseAmount is_singleton() {
-		return SINGLE;
-	}
-
-	//Delete key when picked up
-	void activate() {
-		setDelete();
-	}
 };

@@ -48,7 +48,7 @@ int main() {
 	spawner.spawn(textures);
 
 	//Run game engine
-	startEngine("Temple of Pele", sf::VideoMode(1200, 800));
+	UpdateList::startEngine("Temple of Pele", sf::VideoMode(1200, 800));
 	std::cout << "Done\n";
 	return 0;
 }

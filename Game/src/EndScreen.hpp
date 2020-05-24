@@ -1,4 +1,5 @@
-#include "TileMap.hpp"
+#include "engine/TileMap.hpp"
+#include "textures.h"
 #pragma once
 
 /*
@@ -25,13 +26,13 @@ private:
     }
 
 public:
-	EndScreen(bool win) : Node(ENDSCREEN) {
+	EndScreen(Textures &textures, bool win) : Node(ENDSCREEN) {
 		this->win = win;
 
 		//Build sprite for light effect
 		light = new sf::Sprite();
 		light->setRotation(-90);
-		light->setTexture(textures->exitLight);
+		light->setTexture(textures.exitLight);
 		light->setOrigin(8, 8);
 	}
 

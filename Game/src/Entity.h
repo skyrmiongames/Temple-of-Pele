@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Node.h"
+#include "engine/Node.h"
 #include "enums.h"
-#include "GridMaker.h"
+#include "engine/GridMaker.h"
+#include "textures.h"
 
 #include <math.h>
-
 
 class Entity : public Node {
 
@@ -17,9 +17,8 @@ public:
 		int _attack_power = 20,
 		double _speed = 1.0,
 		bool _invulnerable = false
-	) : Node(_layer, _size), health(_health), max_health(_health), attack_power(_attack_power), speed(_speed), invulnerable(_invulnerable) 
+	) : Node(_layer, _size, false), health(_health), max_health(_health), attack_power(_attack_power), speed(_speed), invulnerable(_invulnerable)
 	{
-		
 	}
 
 	~Entity() {}
@@ -27,16 +26,16 @@ public:
 	int modify_health(int modifier) {
 		if (!invulnerable || modifier > 0) set_health(get_health() + modifier);
 
-		if (is_dead() && get_layer() != PLAYER) {
-			set_delete();
+		if (is_dead() && getLayer() != PLAYER) {
+			setDelete();
 		}
 
 		return get_health();
 	}
 
-	void set_health(int _health, bool updateMax = false) { 
+	void set_health(int _health, bool updateMax = false) {
 		if (updateMax) max_health = _health;
-		health = _health <= max_health ? _health : max_health; 
+		health = _health <= max_health ? _health : max_health;
 	}
 
 	int get_health() { return health; }
@@ -66,10 +65,13 @@ public:
 
 	// virtual void update() {};
 
+	static sf::Vector2f playerPos;
+
 protected:
 	int health;
 	int max_health;
 	int attack_power;
 	double speed;
 	bool invulnerable;
+	Textures textures;
 };

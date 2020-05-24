@@ -20,14 +20,17 @@ private:
     }
 
 public:
-	AnimatedTileMap() : Node(-1, false) {
-        
+	AnimatedTileMap() : Node(0) {
+
     }
 
 	//Build tilemap list
-	bool load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, int frames) {
+	bool load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height, int frames) {
 		maxFrames = frames - 1;
-		int tileCount = GridMaker::WIDTH * GridMaker::HEIGHT;
+		int tileCount = width * height;
+
+		setSize(sf::Vector2i(tileSize.x * width, tileSize.y * height));
+		setOrigin(0,0);
 
 		//Copy tile index list
 		int* indexes = new int[tileCount];
@@ -43,20 +46,20 @@ public:
 
 			//Load tilemap
 			TileMap *map = new TileMap();
-		    if (!map->load(tileset, tileSize, indexes, GridMaker::WIDTH, GridMaker::HEIGHT))
+		    if (!map->load(tileset, tileSize, indexes, width, height))
 		        return false;
 
 		    //Add tilemap to list
 		    tilemaps.push_back(*map);
 		}
-		delete indexes;
+		//delete indexes;
 		return true;
 	}
 
 	//Start animation
 	void start(double delay, double time=0) {
-		this.delay = delay;
-		this.lastTime = time;
+		this->delay = delay;
+		this->lastTime = time;
 	}
 
 	//Update timer

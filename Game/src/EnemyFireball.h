@@ -2,7 +2,7 @@
 
 #include "Enemy.h"
 #include "Fireball.h"
-#include "UpdateList.h"
+#include "engine/UpdateList.h"
 
 class FireEnemy : public Enemy // Aside from shooting fireballs this enemy acts identically to the basic enemy
 {
@@ -15,14 +15,14 @@ public:
 	void update(double time)
 	{
 		float playerAngle = angleTo(getPosition(), playerPos);
-		
+
 		if (getPosition().x < playerPos.x)
 		{
-			setTexture(textures->FireEnemyRightGif);
+			setTexture(textures.FireEnemyRightGif);
 		}
 		else
 		{
-			setTexture(textures->FireEnemyLeftGif);
+			setTexture(textures.FireEnemyLeftGif);
 		}
 
 		animateEnemy(time);
@@ -36,10 +36,10 @@ public:
 		if (nextTime > 0 && time >= nextTime)
 		{
 			nextTime = time + 5;
-			UpdateList::add_node(new Fireball(getPosition(), 400, .07));
+			UpdateList::addNode(new Fireball(getPosition(), 400, .07));
 		}
 
-		if (nextTime == -1) 
+		if (nextTime == -1)
 		{
 			nextTime = time + 5;
 		}

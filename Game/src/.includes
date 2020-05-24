@@ -1,0 +1,2 @@
+linkargs=-lsfml-graphics -lsfml-window -lsfml-system -lX11
+files=*.cpp engine/*.cpp

@@ -1,4 +1,5 @@
-#include "UpdateList.h"
+#include "engine/UpdateList.h"
+#include "enums.h"
 
 /*
  * Created by Stuart Irwin on 4/17/2019.
@@ -21,7 +22,7 @@ public:
 	//Add content nodes
 	void activate() {
 		for(Node *next : contents)
-			UpdateList::add_node(next);
+			UpdateList::addNode(next);
 	}
 
 	//One use only

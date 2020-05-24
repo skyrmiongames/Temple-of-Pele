@@ -1,12 +1,11 @@
 #include "Player.h"
 
-Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2)
-{
+Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2) {
 	//sf::IntRect playerRectangle(0,0 10, 16);
-	this->setTexture(textures->playerIdleDown);
-	this->healthSprite.setTexture(textures->healthSpriteTexture);
+	this->setTexture(textures.playerIdleDown);
+	this->healthSprite.setTexture(textures.healthSpriteTexture);
 	this->healthSprite.setTextureRect(sf::IntRect (0, 0, 25, 7));
-	this->keyIcon.setTexture(textures->key);
+	this->keyIcon.setTexture(textures.key);
 	keyIcon.setPosition(-10, 10);
 	this->hasKey = false;
 	curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
@@ -14,14 +13,14 @@ Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2)
 	// vertical knife constructor
 	knifeV = Node(SWORD, sf::Vector2i(4, 11));
 	knifeV.setPosition(-10,10);
-	knifeV.setTexture(textures->knife);
-	UpdateList::add_node(&knifeV);
+	knifeV.setTexture(textures.knife);
+	UpdateList::addNode(&knifeV);
 
 	// horizontal knife constructor
 	knifeH = Node(SWORD, sf::Vector2i(11, 4));
 	knifeH.setPosition(-10, 10);
-	knifeH.setTexture(textures->knife);
-	UpdateList::add_node(&knifeH);
+	knifeH.setTexture(textures.knife);
+	UpdateList::addNode(&knifeH);
 
 	// time members
 	lastAniTime = 0.0;
@@ -31,13 +30,19 @@ Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2)
 	curMoveFrame = 0;
 
 	// setting player view size
-	viewPlayer.setSize(sf::Vector2f(300, 200)); 
+	viewPlayer.setSize(sf::Vector2f(300, 200));
 	viewPlayer.setCenter(sf::Vector2f(150, 100));
+
+	// set collision layers
+	collideWith(KEY);
+	collideWith(ENEMY);
+	collideWith(FIREBALL);
+	collideWith(ENDSCREEN);
 }
 
 Player::~Player()
 {
-	
+
 }
 
 void Player::eightWayMovement(double time)
@@ -66,6 +71,8 @@ void Player::eightWayMovement(double time)
 
 	if(direction.x != 0 || direction.y != 0)
 		move(std::atan2(direction.y, direction.x), 0.1, false);
+
+	Entity::playerPos = getPosition();
 }
 
 void Player::updateFrameTime(double time, int curFrame, int maxMoveFrames)
@@ -92,7 +99,7 @@ void Player::animatePlayer(double time)
 		{
 			maxMoveFrames = 4;
 			updateFrameTime(time, curMoveFrame, maxMoveFrames);
-			this->setTexture(textures->playerMoveUp);
+			this->setTexture(textures.playerMoveUp);
 			switch (curMoveFrame)
 			{
 			case 0:
@@ -113,7 +120,7 @@ void Player::animatePlayer(double time)
 		{
 			maxMoveFrames = 4;
 			updateFrameTime(time, curMoveFrame, maxMoveFrames);
-			this->setTexture(textures->playerMoveDown);
+			this->setTexture(textures.playerMoveDown);
 			switch (curMoveFrame)
 			{
 			case 0:
@@ -134,7 +141,7 @@ void Player::animatePlayer(double time)
 		{
 			maxMoveFrames = 5;
 			updateFrameTime(time, curMoveFrame, maxMoveFrames);
-			this->setTexture(textures->playerMoveLeft);
+			this->setTexture(textures.playerMoveLeft);
 			switch (curMoveFrame)
 			{
 			case 0:
@@ -158,7 +165,7 @@ void Player::animatePlayer(double time)
 		{
 			maxMoveFrames = 5;
 			updateFrameTime(time, curMoveFrame, maxMoveFrames);
-			this->setTexture(textures->playerMoveRight);
+			this->setTexture(textures.playerMoveRight);
 			switch (curMoveFrame)
 			{
 			case 0:
@@ -175,7 +182,7 @@ void Player::animatePlayer(double time)
 				break;
 			case 4:
 				this->setTextureRect(sf::IntRect(10, 16, 10, 16));
-				break; 
+				break;
 			}
 		}
 	}
@@ -184,19 +191,19 @@ void Player::animatePlayer(double time)
 		this->setTextureRect(sf::IntRect(0, 0, 10, 16));
 		if (curDirection == 0) // down
 		{
-			this->setTexture(textures->playerIdleDown);
+			this->setTexture(textures.playerIdleDown);
 		}
 		else if (curDirection == 1) // up
 		{
-			this->setTexture(textures->playerIdleUp);
+			this->setTexture(textures.playerIdleUp);
 		}
-		else if (curDirection == 2) // right 
+		else if (curDirection == 2) // right
 		{
-			this->setTexture(textures->playerIdleRight);
+			this->setTexture(textures.playerIdleRight);
 		}
 		else if (curDirection == 3) // left
 		{
-			this->setTexture(textures->playerIdleLeft);
+			this->setTexture(textures.playerIdleLeft);
 		}
 	}
 }
@@ -256,7 +263,7 @@ bool Player::takeDamage(double time)
 	modify_health(-20);
 	if (GridMaker::check_tile(getPosition()) == EMPTY)
 	{
-		switch (curDirection) // push back for when getting injured. 
+		switch (curDirection) // push back for when getting injured.
 		{
 		case 0: setPosition(getPosition().x, getPosition().y - 1);
 			break; // up
@@ -301,8 +308,8 @@ void Player::updateHealth(double time)
 void Player::die()
 {
 	endGame = true;
-	EndScreen *object = new EndScreen(false);
-	UpdateList::add_node(object);
+	EndScreen *object = new EndScreen(textures, false);
+	UpdateList::addNode(object);
 
 	viewPlayer.setSize(sf::Vector2f(600, 400));
 	setPosition(2000, 80);
@@ -361,24 +368,25 @@ void Player::update(double time)
 		eightWayMovement(time);
 		updateHealth(time);
 		updateKey();
+		animatePlayer(time);
 	}
 }
 
-void Player::collide(Node *object , double time) 
+void Player::collide(Node *object , double time)
 {
 	//Pickup key object
-	if(object->get_layer() == KEY && hasKey == false) {
+	if(object->getLayer() == KEY && hasKey == false) {
 		hasKey = true;
 		object->activate();
 	}
 
-	if (object->get_layer() == ENEMY || object->get_layer() == FIREBALL)
+	if (object->getLayer() == ENEMY || object->getLayer() == FIREBALL)
 	{
 		takeDamage(time);
 	}
 
 	//Show full end screen
-	if(object->get_layer() == ENDSCREEN) {
+	if(object->getLayer() == ENDSCREEN) {
 		viewPlayer.setSize(sf::Vector2f(600, 400));
 		endGame = true;
 		setPosition(2000,80);
@@ -387,7 +395,7 @@ void Player::collide(Node *object , double time)
 }
 
 bool Player::getKey()
-{	
+{
 	//Use key if available
 	if(hasKey) {
 		hasKey = false;

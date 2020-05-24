@@ -34,7 +34,7 @@ int* GridMaker::index_grid(bool animated) {
 	for(int y = 0; y < HEIGHT; y++)
 		for(int x = 0; x < WIDTH; x++) {
 			//Get tile texture index
-			indexes[x + y * WIDTH] = animated ? 
+			indexes[x + y * WIDTH] = animated ?
 				animated_index_tile(tiles[y][x]) : index_tile(tiles[y][x]);
 		}
 

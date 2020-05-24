@@ -1,4 +1,4 @@
-#include "LogicComponents.h"
+#include "engine/LogicComponents.h"
 
 /*
  * Created by Stuart Irwin on 4/23/2019.
@@ -39,7 +39,7 @@ public:
 	//Get next key to link to
 	LogicReciever *get_key() {
 		i--;
-		keys[(-i) - 1].add_channel(this);
+		keys[(-i) - 1].addChannel(this);
 		return &(keys[(-i) - 1]);
 	}
 

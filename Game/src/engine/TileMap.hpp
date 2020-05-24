@@ -8,8 +8,7 @@
 
 class TileMap : public Node {
 public:
-    TileMap() : Node(-1, false) {
-        
+    TileMap() : Node(0) {
     }
 
     bool load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height)
@@ -22,10 +21,12 @@ public:
         m_vertices.setPrimitiveType(sf::Quads);
         m_vertices.resize(width * height * 4);
 
+        setSize(sf::Vector2i(tileSize.x * width, tileSize.y * height));
+        setOrigin(0, 0);
+
         // populate the vertex array, with one quad per tile
         for (unsigned int i = 0; i < width; ++i)
-            for (unsigned int j = 0; j < height; ++j)
-            {
+            for (unsigned int j = 0; j < height; ++j) {
                 // get the current tile number
                 int tileNumber = tiles[i + j * width];
 
@@ -56,8 +57,7 @@ public:
 
 private:
 
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
-    {
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
         // apply the transform
         states.transform *= getTransform();
 

@@ -6,16 +6,17 @@
  */
 
 //Static variables
-Node (*UpdateList::screen)[MAXLAYER];
+Node *(UpdateList::screen)[MAXLAYER];
 std::vector<Node *> UpdateList::deleted;
 
 //Add node to update cycle
-void UpdateList::addNode(unsigned char layer, Node *next) {
+void UpdateList::addNode(Node *next) {
+	unsigned char layer = next->getLayer();
 	if(layer >= MAXLAYER)
-		throw new invalid_argument(LAYERERROR);
+		throw new std::invalid_argument(LAYERERROR);
 	if(screen[layer] == NULL)
 		screen[layer] = next;
-	else 
+	else
 		screen[layer]->addNode(next);
 }
 
@@ -29,31 +30,29 @@ void UpdateList::update(double time) {
 		if(source != NULL && source->isDeleted()) {
 			deleted.push_back(source);
 			source = source->getNext();
-			screen[layer] = source
+			screen[layer] = source;
 		}
 
 		//For each node in layer order
 		while(source != NULL) {
-			if(!source->isHidden()) {
-
-				//Check each selected collision layer
-				int collisionLayer = 0;
-				for(int i = 0; i < source->getCollisionLayer().count; i++) {
-					while(!source->getCollisionLayer(collisionLayer))
-						collisionLayer++;
-
-					//Check collision box of each node
-					for(Node *other : screen[collisionLayer]) {
-						if(other != source && source->check_collision(other)) {
-							source->collide(other, time);
-						}
-					}
+			//Check each selected collision layer
+			int collisionLayer = 0;
+			for(int i = 0; i < (int)source->getCollisionLayers().count(); i++) {
+				while(!source->getCollisionLayer(collisionLayer))
 					collisionLayer++;
-				}
 
-				//Update each object
-				source->update(time);
+				//Check collision box of each node
+				Node *other = screen[collisionLayer];
+				while(other != NULL) {
+					if(other != source && source->checkCollision(other))
+						source->collide(other, time);
+					other = other->getNext();
+				}
+				collisionLayer++;
 			}
+
+			//Update each object
+			source->update(time);
 
 			//Check next node for deletion
 			if(source->getNext() != NULL && source->getNext()->isDeleted()) {
@@ -69,13 +68,13 @@ void UpdateList::update(double time) {
 //Thread safe draw nodes in list
 void UpdateList::draw(sf::RenderWindow &window) {
 	//Loop through list to delete
-	std::vector<Node *>::iterator it = deleting->begin();
-	while(it != list->end()) {
+	std::vector<Node *>::iterator it = deleted.begin();
+	while(it != deleted.end()) {
 		Node *node = *it;
 		it++;
 		delete node;
 	}
-	deleting->clear();
+	deleted.clear();
 
 
 	//Render each node in order
@@ -83,8 +82,9 @@ void UpdateList::draw(sf::RenderWindow &window) {
 		Node *source = layer;
 
 		while(source != NULL) {
-			if(!source->isHidden())
+			if(!source->isHidden()) {
 				window.draw(*source);
+			}
 			source = source->getNext();
 		}
 	}

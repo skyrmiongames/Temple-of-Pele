@@ -6,13 +6,15 @@
  */
 
 //Base constructor
-Node::Node(sf::Vector2i size) {
+Node::Node(unsigned char layer, sf::Vector2i size, bool hidden) {
 	setSize(size);
+	this->hidden = hidden;
+	setLayer(layer);
 }
 
-//Get node type variable
-int Node::getType() {
-	return type;
+//Get node layer variable
+int Node::getLayer() {
+	return layer;
 }
 
 //Get collision box size
@@ -30,13 +32,15 @@ bool Node::isHidden() {
 	return hidden || deleted;
 }
 
-//Set node type variable
-void Node::setType(int type) {
-	this->type = type;
+//Set node layer variable
+void Node::setLayer(unsigned char layer) {
+	if(layer >= MAXLAYER)
+		throw new std::invalid_argument(LAYERERROR);
+	this->layer = layer;
 }
 
 //Set collision box size
-Node::setSize(sf::Vector2i size) {
+void Node::setSize(sf::Vector2i size) {
 	this->size = size;
 	setOrigin(size.x / 2, size.y / 2);
 }
@@ -52,22 +56,22 @@ void Node::setParent(Node *parent) {
 }
 
 //Get full collision bitset
-bitset<MAXLAYER> Node::getCollisionLayer() {
+std::bitset<MAXLAYER> Node::getCollisionLayers() {
 	return collisionLayers;
 }
 
 //Check if node collides with layer
 bool Node::getCollisionLayer(unsigned char layer) {
 	if(layer >= MAXLAYER)
-		throw new invalid_argument(LAYERERROR);
+		throw new std::invalid_argument(LAYERERROR);
 	return collisionLayers[layer];
 }
 
 //Set if node collides with layer
-void Node::setCollisionLayer(unsigned char layer, bool collides) {
+void Node::collideWith(unsigned char layer) {
 	if(layer >= MAXLAYER)
-		throw new invalid_argument(LAYERERROR);
-	collisionLayers[layer] = collides;
+		throw new std::invalid_argument(LAYERERROR);
+	collisionLayers[layer] = true;
 }
 
 //Check collision box against other node
@@ -85,9 +89,9 @@ bool Node::checkCollision(Node *other) {
 	sf::Vector2i otherSize = other->getSize() / 2;
 
 	//Check all cordinates
-	return thisPos.x - thisSize.x <= otherPos.x + otherSize.x && 
+	return thisPos.x - thisSize.x <= otherPos.x + otherSize.x &&
 		thisPos.x + thisSize.x >= otherPos.x - otherSize.x &&
-		thisPos.y - thisSize.y <= otherPos.y + otherSize.y && 
+		thisPos.y - thisSize.y <= otherPos.y + otherSize.y &&
 		thisPos.y + thisSize.y >= otherPos.y - otherSize.y;
 }
 

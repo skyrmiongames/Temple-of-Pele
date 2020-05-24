@@ -1,6 +1,7 @@
-#include "Node.h"
-#include "GridMaker.h"
+#include "engine/Node.h"
+#include "engine/GridMaker.h"
 #include "enums.h"
+#include "textures.h"
 
 /*
  * Created by Stuart Irwin on 4/20/2019.
@@ -16,9 +17,9 @@ private:
 
 public:
 	//Build bridge
-	Bridge(OrthagonalDirection direction) : Node(SWITCH, sf::Vector2i(16, 16)) {
+	Bridge(Textures &textures, OrthagonalDirection direction) : Node(SWITCH, sf::Vector2i(16, 16)) {
 		//Configure bridge properties
-		setTexture(textures->bridge);
+		setTexture(textures.bridge);
 
 		//Rotate door properly
 		switch(direction) {

@@ -7,7 +7,7 @@
  */
 
 enum CollisionLayer {
-	SOLID,
+	MAP,
 	PLAYER,
 	SWORD,
 	ENEMY,
@@ -16,13 +16,8 @@ enum CollisionLayer {
 	KEY,
 	TORCH,
 	SWITCH,
+	LOGIC,
 	ENDSCREEN
-};
-
-enum TileType {
-	WALL,
-	GROUND,
-	EMPTY
 };
 
 enum OrthagonalDirection {

@@ -2,10 +2,10 @@
 
 #include "Entity.h"
 #include "EndScreen.hpp"
-#include "UpdateList.h"
+#include "engine/UpdateList.h"
 
 /*
-Player functions created by Benjamin Hoover 
+Player functions created by Benjamin Hoover
 with exception of getKey(), collide() and die() made by Stuart Irwin
 */
 
@@ -68,12 +68,12 @@ private:
 	Node knifeH;
 
 	sf::View viewPlayer;
-	
-	bool hasKey;
+
+	bool hasKey = false;
 
 	// determines which way the player is facing, 0 = down, 1 = up, 2 = right, 3 = left
 	int curDirection;
-	
+
 	// current movment frame of player
 	int curMoveFrame = 0;
 	// time that the curMoveFrame member was changed
@@ -81,7 +81,7 @@ private:
 
 	// time the player was damaged
 	double lastDamageTime;
-	
+
 	// turns true if player dies, called in die()
-	bool endGame;
+	bool endGame = false;
 };

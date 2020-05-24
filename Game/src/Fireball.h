@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Enemy.h"
-#include "textures.h"
-#include "Node.h" // for access to playerPos
+#include "engine/Node.h" // for access to playerPos
 
 class Fireball : public Enemy {
 public:
@@ -19,8 +18,11 @@ public:
 		curFrame = 1;
 		maxFrame = 4;
 		lastTime = 0.0;
-		setTexture(textures->Fireball);
+		setTexture(textures.Fireball);
 		setRotation(-90);
+
+		collideWith(SWORD);
+		collideWith(PLAYER);
 	}
 	~Fireball() {}
 
@@ -60,15 +62,12 @@ public:
 
 	void update(double time) {
 		if(!move(angle, speed, true))
-			set_delete();
+			setDelete();
 		animateFireball(time);
 	}
 
 	void collide(Node* object) {
-		if (object->get_layer() == SWORD || object->get_layer() == PLAYER)
-		{
-			set_delete();
-		} //allow the player to block fireballs
+		setDelete();
 	};
 
 private:

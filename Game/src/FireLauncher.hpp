@@ -1,5 +1,5 @@
 #include "Fireball.h"
-#include "UpdateList.h"
+#include "engine/UpdateList.h"
 
 /*
  * Created by Stuart Irwin on 4/23/2019.
@@ -14,9 +14,9 @@ private:
 
 public:
 	//Fireball launcher
-	FireLauncher(OrthagonalDirection direction, int delay=0) : Node(SWITCH, sf::Vector2i(16, 16)) {
+	FireLauncher(Textures &textures, OrthagonalDirection direction, int delay=0) : Node(SWITCH, sf::Vector2i(16, 16)) {
 		//Configure tile properties
-		setTexture(textures->spitter);
+		setTexture(textures.spitter);
 		this->delay = delay;
 
 		//Rotate door properly
@@ -48,6 +48,6 @@ public:
 	//Launch fireball in direction
 	void activate() {
 		Fireball *launched = new Fireball(getPosition(), angle);
-		UpdateList::add_node(launched);
+		UpdateList::addNode(launched);
 	}
 };

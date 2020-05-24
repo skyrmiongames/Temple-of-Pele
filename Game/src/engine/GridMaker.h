@@ -6,12 +6,17 @@
 
 #include <fstream>
 #include <string>
-#include "enums.h"
 
 /*
  * Created by Stuart Irwin on 4/15/2019.
  * Generates and stores main tilemap
  */
+
+enum TileType {
+	WALL,
+	GROUND,
+	EMPTY
+};
 
 class GridMaker {
 public:
@@ -23,7 +28,7 @@ public:
 	static int* index_grid(bool animated=false);
 	static int index_tile(char c);
 	static int animated_index_tile(char c);
-	
+
 	//Retrieve tile properties
 	static char get_tile(sf::Vector2f position);
 	static TileType check_tile(sf::Vector2f position);

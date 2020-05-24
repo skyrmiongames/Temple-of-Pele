@@ -1,4 +1,4 @@
-#include "LogicComponents.h"
+#include "engine/LogicComponents.h"
 
 /*
  * Created by Stuart Irwin on 4/19/2019.
@@ -13,7 +13,7 @@ private:
 
 public:
 	//Set up base timer
-	LogicTimer(double delay, bool single=false) {
+	LogicTimer(double delay, bool single=false) : Node(LOGIC) {
 		this->delay = delay;
 		this->single = single;
 	}
@@ -37,7 +37,7 @@ public:
 			nextTime = 0;
 			send();
 			if(single)
-				set_delete();
+				setDelete();
 		}
 	}
 };

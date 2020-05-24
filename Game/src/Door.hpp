@@ -1,6 +1,6 @@
-#include "Node.h"
+#include "engine/Node.h"
 #include "Player.h"
-#include "GridMaker.h"
+#include "engine/GridMaker.h"
 
 /*
  * Created by Stuart Irwin on 4/17/2019.
@@ -19,14 +19,15 @@ private:
 
 public:
 	//Build door
-	Door(bool closing=false, bool vertical=false, bool locked=false) : Node(SOLID, sf::Vector2i(16, 16)) {
+	Door(Textures &textures, bool closing=false, bool vertical=false, bool locked=false) : Node(MAP, sf::Vector2i(16, 16)) {
 		//Set variables
 		this->horizontal_shown = closing ? 16 : 0;
 		this->state = closing ? -1 : -2;
 		this->vertical_shown = locked ? 16 : 0;
 
 		//Configure door properties
-		setTexture(textures->doors);
+		setTexture(textures.doors);
+		collideWith(PLAYER);
 
 		//Rotate door properly
 		if(vertical) {
@@ -48,7 +49,7 @@ public:
 
 	//Start to open locked door
 	void collide(Node *object) {
-		if(vertical_shown == 16 && object->get_layer() == PLAYER) {
+		if(vertical_shown == 16) {
 			Player *player = (Player *) object;
 			if(player->getKey())
 				state = 2;
@@ -77,7 +78,7 @@ public:
 				horizontal_shown++;
 			} else if(horizontal_shown == 16) {
 				GridMaker::set_tile(getPosition(), '.');
-				set_delete();
+				setDelete();
 			}
 		}
 

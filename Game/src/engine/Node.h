@@ -14,41 +14,39 @@
  * Sprite with collision
  */
 
-class Node : public sf::Sprite {
+class Node : public sf::Sprite, public LogicReciever {
 private:
 	//Visible system variables
 	sf::Vector2i size;
 	bool hidden = false;
 	Node *parent = NULL;
 	std::bitset<MAXLAYER> collisionLayers;
+	unsigned char layer;
 
 	//Background system variables
 	bool deleted = false;
 	Node *next = NULL;
 
-	//Extra variable for general use
-	int type;
-
 public:
 	//Node constructors
-	Node(int type = 0, bool hidden = false, sf::Vector2i size = sf::Vector2i(16, 16));
+	Node(unsigned char layer = 0, sf::Vector2i size = sf::Vector2i(16, 16), bool hidden = false);
 
 	//General getters
-	int getType();
+	int getLayer();
 	sf::Vector2i getSize();
 	bool isHidden();
 	Node *getParent();
 
 	//General setters
-	void setType(int type);
+	void setLayer(unsigned char layer);
 	void setSize(sf::Vector2i size);
 	void setHidden(bool hidden);
 	void setParent(Node *parent);
 
 	//Collision system
-	bitset<MAXLAYER> getCollisionLayer();
+	std::bitset<MAXLAYER> getCollisionLayers();
 	bool getCollisionLayer(unsigned char layer);
-	void setCollisionLayer(unsigned char layer, bool collides);
+	void collideWith(unsigned char layer);
 	bool checkCollision(Node *other);
 
 	//Linked list functions

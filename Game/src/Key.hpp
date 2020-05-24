@@ -1,4 +1,4 @@
-#include "Node.h"
+#include "engine/Node.h"
 
 /*
  * Created by Stuart Irwin on 4/19/2019.
@@ -7,8 +7,8 @@
 
 class Key : public Node {
 public:
-	Key() : Node(KEY) {
-		setTexture(textures->key);
+	Key(Textures &textures) : Node(KEY) {
+		setTexture(textures.key);
 	}
 
 	//One use thing
@@ -18,6 +18,6 @@ public:
 
 	//Delete key when picked up
 	void activate() {
-		set_delete();
+		setDelete();
 	}
 };

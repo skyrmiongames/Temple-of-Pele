@@ -13,12 +13,12 @@
 
 class UpdateList {
 private:
-	static Node (*screen)[MAXLAYER];
+	static Node *(screen)[MAXLAYER];
 	static std::vector<Node *> deleted;
 
 public:
 	//Manage node lists
-	static void addNode(unsigned char layer, Node *next);
+	static void addNode(Node *next);
 
 	//Update all nodes in list
 	static void update(double time);

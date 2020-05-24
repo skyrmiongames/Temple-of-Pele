@@ -12,7 +12,6 @@ std::vector<Node *> UpdateList::deleted;
 Node *UpdateList::camera = NULL;
 sf::View UpdateList::viewPlayer;
 bool running = true;
-int count = 0;
 
 //Add node to update cycle
 void UpdateList::addNode(Node *next) {
@@ -155,6 +154,7 @@ void startEngine(std::string title, sf::VideoMode mode) {
 	//Set frame rate manager
 	sf::Clock clock;
 	double nextFrame = 0;
+	int count = 0;
 
 	std::thread rendering(renderingThread, title, mode);
 

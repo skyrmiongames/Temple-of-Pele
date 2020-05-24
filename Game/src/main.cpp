@@ -2,20 +2,20 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-#include <X11/Xlib.h>
-
 //Game headers
 #include "FullSpawner.hpp"
 #include "engine/GridMaker.h"
 #include "engine/AnimatedTileMap.hpp"
 
+#include <X11/Xlib.h>
+
 sf::Vector2f Entity::playerPos;
 
 int main() {
+	XInitThreads();
+
 	//Set texture loader
 	Textures textures;
-
-	XInitThreads();
 
 	//Load base tile map
 	GridMaker::build_grid("resources/maps/full_map.txt");

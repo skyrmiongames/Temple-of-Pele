@@ -238,7 +238,7 @@ bool Player::takeDamage(double time)
 	this->invulnerable = true;
 	isInvulnerable = updateTakeDamageTime(time);
 	modify_health(-20);
-	if (GridMaker::check_tile(getPosition()) == EMPTY)
+	if (Entity::mazeIndex->getTile(getPosition()) == EMPTY)
 	{
 		switch (curDirection) // push back for when getting injured.
 		{
@@ -257,11 +257,11 @@ bool Player::takeDamage(double time)
 
 void Player::updateHealth(double time)
 {
-	if (GridMaker::check_tile(getPosition()) == EMPTY)
+	if (Entity::mazeIndex->getTile(getPosition()) == EMPTY)
 	{
 		takeDamage(time);
 	}
-	
+
 	if (this->health > 40)
 	{
 		healthSprite.setTextureRect(sf::IntRect(0, 0, 25, 7));

@@ -5,98 +5,127 @@
  * Generates and stores main tilemap
  */
 
-//Static variables
-char GridMaker::tiles[HEIGHT][WIDTH];
-int GridMaker::indexes[HEIGHT * WIDTH];
-
 //Convert file to char[][]
-void GridMaker::build_grid(std::string file) {
-	//Get map file
+GridMaker::GridMaker(std::string file, unsigned int _width, unsigned int _height)
+: height(_height), width(_width) {
+	//Build array
+	this->tiles = new char*[height];
+	for(unsigned int i = 0; i < height; i++)
+		tiles[i] = new char[width];
+	reload(file);
+}
+
+void GridMaker::reload(std::string file) {
+	//Set reading variables
+	unsigned int i = 0;
+	std::string line;
 	std::ifstream mapFile(file);
 
-	//Set line variables
-	int i = 0;
-	std::string line;
-
 	//Read file by line
-	while(std::getline(mapFile, line)) {
+	while(std::getline(mapFile, line) && i < height) {
 		//Copy string
-		for(int j = 0; line[j] != '\0'; j++)
+		unsigned int j = 0;
+		while(line[j] != '\0' && line[j] != '\n' && j < width) {
 			tiles[i][j] = line[j];
+			++j;
+		}
 
+		//Blank out rest of line
+		while(j < width)
+			tiles[i][j++] = ' ';
+		i++;
+	}
+	mapFile.close();
+
+	//Blank out rest of grid
+	while(i < height) {
+		unsigned int j = 0;
+		while(j < width)
+			tiles[i][j++] = ' ';
 		i++;
 	}
 }
 
+GridMaker::~GridMaker() {
+
+}
+
+//Set tile value
+void GridMaker::setTile(unsigned int x, unsigned int y, char value) {
+	if(inBounds(x, y))
+		tiles[y][x] = value;
+}
+
+//Get tile value
+char GridMaker::getTile(unsigned int x, unsigned int y) {
+	if(inBounds(x, y))
+		return tiles[y][x];
+	else return ' ';
+}
+
+//Get size of grid
+sf::Vector2i GridMaker::getSize() const {
+	return sf::Vector2i(width, height);
+}
+
+//Check cords vs grid size
+bool GridMaker::inBounds(unsigned int x, unsigned int y) const {
+	return x < width && y < height;
+}
+
+//Get value of tile
+int Indexer::getTile(char c) {
+	auto tile = indexes.find(c);
+	if(tile != indexes.end())
+		return tile->second;
+	return fallback;
+}
+
+//Get tile char from grid
+int Indexer::getTile(sf::Vector2f position) {
+	unsigned int x = position.x / scale.x;
+	unsigned int y = position.y / scale.y;
+	if(grid->inBounds(x, y))
+		return getTile(grid->getTile(x, y));
+	return getTile(' ');
+}
+
+//Set tile in grid
+void Indexer::setTile(sf::Vector2f position, int value) {
+	unsigned int x = position.x / scale.x;
+	unsigned int y = position.y / scale.y;
+	if(grid->inBounds(x, y))
+		grid->setTile(x, y, value);
+}
+
 //Convert char[][] to int[][]
-int* GridMaker::index_grid(bool animated) {
+int* Indexer::indexGrid() {
+	const unsigned int width = grid->getSize().x;
+	const unsigned int height = grid->getSize().y;
+	int* indexes = new int[width * height];
 	//Loop through tiles
-	for(int y = 0; y < HEIGHT; y++)
-		for(int x = 0; x < WIDTH; x++) {
+	for(unsigned int y = 0; y < height; y++)
+		for(unsigned int x = 0; x < width; x++) {
 			//Get tile texture index
-			indexes[x + y * WIDTH] = animated ?
-				animated_index_tile(tiles[y][x]) : index_tile(tiles[y][x]);
+			indexes[x + y * width] = getTile(grid->getTile(x, y));
 		}
 
 	return indexes;
 }
 
-//Get integer index of tile texture
-int GridMaker::index_tile(char c) {
-	switch(c) {
-		case '#': case '@':
-			return 0;
-		case',':
-			return 4;
-		case '*':
-			return 2;
-		case '+':
-			return 3;
-		case ' ': case '\0': case '~': case '=':
-			return -1;
-		default:
-			return 1;
-	}
+//Run function on every square in grid
+void Indexer::mapGrid(std::function<void(char, sf::Vector2f)> func) {
+	const unsigned int width = grid->getSize().x;
+	const unsigned int height = grid->getSize().y;
+	//Loop through tiles
+	for(unsigned int y = 0; y < height; y++)
+		for(unsigned int x = 0; x < width; x++) {
+			sf::Vector2f pos = sf::Vector2f(x * scale.x, y * scale.y);
+			func(grid->getTile(x, y), pos);
+		}
 }
 
-//Get animated index of tile texture
-int GridMaker::animated_index_tile(char c) {
-	switch(c) {
-		case '~': case '=':
-			return 1;
-		case '+':
-			return 0;
-		default:
-			return -1;
-	}
-}
-
-//Get tile char from grid
-char GridMaker::get_tile(sf::Vector2f position) {
-	int x = position.x / 16;
-	int y = position.y / 16;
-
-	return tiles[y][x];
-}
-
-//Get tile phase from grid
-TileType GridMaker::check_tile(sf::Vector2f position) {
-	char c = get_tile(position);
-
-	switch(c) {
-		case '#': case '+': case '@':
-			return WALL;
-		case ' ': case '\0': case '~': case '=':
-			return EMPTY;
-		default:
-			return GROUND;
-	}
-}
-
-//Set tile properties
-void GridMaker::set_tile(sf::Vector2f position, char value) {
-	int x = position.x / 16;
-	int y = position.y / 16;
-
-	tiles[y][x] = value;
+//Get size of grid
+sf::Vector2i Indexer::getSize() {
+	return grid->getSize();
 }

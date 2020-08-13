@@ -1,5 +1,7 @@
 #include "UpdateList.h"
 
+#define FRAME_DELAY sf::milliseconds(30)
+
 /*
  * Created by Stuart Irwin on 4/15/2019.
  * Manages layers of nodes through update cycle
@@ -7,9 +9,10 @@
 
 //Static variables
 Node *(UpdateList::screen)[MAXLAYER];
-std::bitset<MAXLAYER> UpdateList::nonCheckedLayers;
+std::bitset<MAXLAYER> UpdateList::alwaysLoadedLayers;
 std::vector<Node *> UpdateList::deleted;
 Node *UpdateList::camera = NULL;
+Node *UpdateList::pointer = NULL;
 sf::View UpdateList::viewPlayer;
 bool running = true;
 
@@ -24,20 +27,37 @@ void UpdateList::addNode(Node *next) {
 		screen[layer]->addNode(next);
 }
 
+//Remove all nodes in layer
+void UpdateList::clearLayer(unsigned char layer) {
+	if(layer >= MAXLAYER)
+		throw new std::invalid_argument(LAYERERROR);
+
+	Node *source = screen[layer];
+	while(source != NULL) {
+		source->setDelete();
+		source = source->getNext();;
+	}
+}
+
 //Set camera to follow node
-void UpdateList::setCamera(Node *follow, sf::Vector2f size) {
+Node *UpdateList::setCamera(Node *follow, sf::Vector2f size) {
 	if(camera != NULL) {
 		camera->setSize(sf::Vector2i(size.x,size.y));
 		camera->setParent(follow);
 	} else
 		camera = new Node(0, sf::Vector2i(size.x,size.y), true, follow);
 	viewPlayer.setSize(size);
+	return camera;
 }
 
-void UpdateList::nonCheckedLayer(unsigned char layer) {
+void UpdateList::setPointer(Node *follow) {
+	pointer = follow;
+}
+
+void UpdateList::alwaysLoadLayer(unsigned char layer) {
 	if(layer >= MAXLAYER)
 		throw new std::invalid_argument(LAYERERROR);
-	nonCheckedLayers[layer] = true;
+	alwaysLoadedLayers[layer] = true;
 }
 
 //Update all nodes in list
@@ -55,7 +75,7 @@ void UpdateList::update(double time) {
 
 		//For each node in layer order
 		while(source != NULL) {
-			if(nonCheckedLayers[layer] || source->checkCollision(camera)) {
+			if(alwaysLoadedLayers[layer] || source->checkCollision(camera)) {
 				//Check each selected collision layer
 				int collisionLayer = 0;
 				for(int i = 0; i < (int)source->getCollisionLayers().count(); i++) {
@@ -99,15 +119,16 @@ void UpdateList::draw(sf::RenderWindow &window) {
 	deleted.clear();
 
 	//Render each node in order
-	for(Node *layer : screen) {
-		Node *source = layer;
+	for(int layer = 0; layer < MAXLAYER; layer++) {
+		Node *source = screen[layer];
 
 		while(source != NULL) {
-			if(!source->isHidden()) {
+			if(!source->isHidden() &&
+				(alwaysLoadedLayers[layer] || source->checkCollision(camera))) {
 				//Check for parent node
 				if(source->getParent() != NULL) {
 					sf::Transform translation;
-					translation.translate(source->getParent()->getPosition());
+					translation.translate(source->getParent()->getGPosition());
 					window.draw(*source, translation);
 				} else
 					window.draw(*source);
@@ -115,33 +136,52 @@ void UpdateList::draw(sf::RenderWindow &window) {
 			source = source->getNext();
 		}
 	}
-
-	//Set camera position
-	if(camera != NULL) {
-		viewPlayer.setCenter(camera->getGPosition());
-		window.setView(viewPlayer);
-	}
 }
 
 //Seperate rendering thread
 void UpdateList::renderingThread(std::string title, sf::VideoMode mode) {
-	sf::RenderWindow window(mode, title);
+	//Set frame rate manager
+	sf::Clock clock;
+	sf::Time nextFrame = clock.getElapsedTime();
 
 	std::cout << "Thread starting\n";
+	sf::RenderWindow window(mode, title);
 
     //Run rendering loop
 	while(window.isOpen()) {
 		//Check event updates
 		sf::Event event;
-		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed)
+		while(window.pollEvent(event)) {
+			if(event.type == sf::Event::Closed)
 				window.close();
 		}
 
-		//Update window
-		window.clear();
-		UpdateList::draw(window);
-		window.display();
+		sf::Time time = clock.getElapsedTime();
+		if(time >= nextFrame) {
+			//Next update time
+			nextFrame = time + FRAME_DELAY;
+
+			//Set pointer position
+			if(pointer != NULL) {
+				sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+				pointer->setPosition(mousePos);
+			}
+
+			//Update window
+			window.clear();
+			UpdateList::draw(window);
+
+			//Set camera position
+			if(camera != NULL) {
+				viewPlayer.setCenter(camera->getGPosition());
+				window.setView(viewPlayer);
+			}
+
+			window.display();
+		}
+		time = clock.getElapsedTime();
+		std::this_thread::sleep_for(
+			std::chrono::microseconds((nextFrame - time).asMicroseconds()));
 	}
 
 	std::cout << "Thread ending\n";
@@ -152,9 +192,9 @@ void UpdateList::renderingThread(std::string title, sf::VideoMode mode) {
 void UpdateList::startEngine(std::string title, sf::VideoMode mode) {
 	//Set frame rate manager
 	sf::Clock clock;
-	double nextFrame = 0;
 
 	std::thread rendering(UpdateList::renderingThread, title, mode);
+	sf::Time nextFrame = clock.getElapsedTime() + FRAME_DELAY;
 
 	std::cout << "Starting\n";
 
@@ -171,13 +211,17 @@ void UpdateList::startEngine(std::string title, sf::VideoMode mode) {
     //Run main window
 	while (running) {
 		//Manage frame rate
-		if(clock.getElapsedTime().asSeconds() >= nextFrame) {
+		sf::Time time = clock.getElapsedTime();
+		if(time >= nextFrame) {
 			//Next update time
-			nextFrame = clock.getElapsedTime().asSeconds() + .01;
+			nextFrame = time + FRAME_DELAY;
 
 			//Update nodes and sprites
-			UpdateList::update(clock.getElapsedTime().asSeconds());
+			UpdateList::update(time.asSeconds());
 		}
+		time = clock.getElapsedTime();
+		std::this_thread::sleep_for(
+			std::chrono::microseconds((nextFrame - time).asMicroseconds()));
 	}
 
 	rendering.join();

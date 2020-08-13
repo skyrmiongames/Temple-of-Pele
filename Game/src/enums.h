@@ -6,6 +6,12 @@
  * enums for tiles and collision
  */
 
+enum TileType {
+	WALL,
+	EMPTY,
+	FLOOR
+};
+
 enum CollisionLayer {
 	MAP,
 	LOGIC,

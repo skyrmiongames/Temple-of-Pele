@@ -1,4 +1,4 @@
-#include "engine/LogicComponents.h"
+#include "LogicComponents.h"
 
 /*
  * Created by Stuart Irwin on 4/23/2019.
@@ -58,5 +58,32 @@ public:
 			for(i = 3; i >= 0; i--)
 				keys[i].is_activated();
 		}
+	}
+};
+
+class LockableGate : public LogicDevice {
+private:
+	bool locked;
+public:
+	void lock() {
+		locked = true;
+	}
+
+	void activate() {
+		if(!locked)
+			send();
+	}
+};
+
+class LockableGatePassthrough : public LogicReciever {
+private:
+	LockableGate *gate;
+public:
+	LockableGatePassthrough(LockableGate *gate) {
+		this->gate = gate;
+	}
+
+	void activate() {
+		gate->lock();
 	}
 };

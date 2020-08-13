@@ -57,30 +57,3 @@ public:
 		}
 	}
 };
-
-class LockableGate : public LogicDevice {
-private:
-	bool locked;
-public:
-	void lock() {
-		locked = true;
-	}
-
-	void activate() {
-		if(!locked)
-			send();
-	}
-};
-
-class LockableGatePassthrough : public LogicReciever {
-private:
-	LockableGate *gate;
-public:
-	LockableGatePassthrough(LockableGate *gate) {
-		this->gate = gate;
-	}
-
-	void activate() {
-		gate->lock();
-	}
-};

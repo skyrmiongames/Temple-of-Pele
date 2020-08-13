@@ -31,7 +31,7 @@ Node *Node::getParent() {
 //Get global position
 sf::Vector2f Node::getGPosition() {
 	if(parent != NULL)
-		return getPosition() + parent->getPosition();
+		return getPosition() + parent->getGPosition();
 	return getPosition();
 }
 
@@ -84,7 +84,7 @@ void Node::collideWith(unsigned char layer) {
 
 //Check collision box against other node
 bool Node::checkCollision(Node *other) {
-	if(other == NULL)
+	if(other == NULL || other->isDeleted())
 		return false;
 
 	//Get self box

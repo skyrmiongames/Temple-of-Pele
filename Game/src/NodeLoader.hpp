@@ -1,6 +1,5 @@
 #include "engine/UpdateList.h"
-#include "engine/LogicComponents.h"
-#include "enums.h"
+#include "LogicComponents.h"
 
 /*
  * Created by Stuart Irwin on 4/17/2019.

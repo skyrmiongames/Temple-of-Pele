@@ -9,33 +9,52 @@
 
 /*
  * Created by Stuart Irwin on 4/15/2019.
- * Generates and stores main tilemap
+ * Generates and stores tiles for maps
  */
-
-enum TileType {
-	WALL,
-	GROUND,
-	EMPTY
-};
 
 class GridMaker {
 public:
-	static const int WIDTH = 70;
-	static const int HEIGHT= 33;
-
 	//Build and convert grid
-	static void build_grid(std::string file);
-	static int* index_grid(bool animated=false);
-	static int index_tile(char c);
-	static int animated_index_tile(char c);
+	GridMaker(std::string file, const unsigned int width, const unsigned int height);
+	~GridMaker();
+	void reload(std::string file);
 
-	//Retrieve tile properties
-	static char get_tile(sf::Vector2f position);
-	static TileType check_tile(sf::Vector2f position);
+	//Set or get tiles
+	void setTile(unsigned int x, unsigned int y, char value);
+	char getTile(unsigned int x, unsigned int y);
 
-	//Set tile properties
-	static void set_tile(sf::Vector2f position, char value);
+	//Check grid size
+	sf::Vector2i getSize() const;
+	bool inBounds(unsigned int x, unsigned int y) const;
+
 private:
-	static char tiles[HEIGHT][WIDTH];
-	static int indexes[HEIGHT * WIDTH];
+	const unsigned int height;
+	const unsigned int width;
+	char **tiles;
+};
+
+class Indexer {
+private:
+	GridMaker *grid;
+	const std::map<char, int> indexes;
+	const int fallback;
+	const sf::Vector2i scale;
+
+public:
+	Indexer(GridMaker *new_grid, std::map<char, int> new_indexes, int new_fallback,
+		int scaleX = 1, int scaleY = 1)
+		: grid(new_grid), indexes(new_indexes), fallback(new_fallback),
+			scale(sf::Vector2i(scaleX, scaleY)) {
+
+	}
+
+	//Index use functions
+	int getTile(char c);
+	int getTile(sf::Vector2f position);
+	void setTile(sf::Vector2f position, int value);
+	int* indexGrid();
+	void mapGrid(std::function<void(char, sf::Vector2f)> func);
+
+	//Check grid size
+	sf::Vector2i getSize();
 };

@@ -46,7 +46,7 @@ public:
 
 	bool move(
 		float angle = 0.0,
-		float distance = 1,
+		float distance = 2.2,
 		bool allowVoid = false
 	) {
 
@@ -54,7 +54,7 @@ public:
 		float yOffset = - sin(angle) * distance;
 
 		sf::Vector2f target(getPosition().x + xOffset, getPosition().y + yOffset);
-		TileType targetType = GridMaker::check_tile(target);
+		int targetType = mazeIndex->getTile(target);
 
 		if (targetType != WALL && (!allowVoid ? targetType != EMPTY : true)) {
 			setPosition(sf::Vector2f(target.x, target.y));
@@ -66,6 +66,7 @@ public:
 	// virtual void update() {};
 
 	static sf::Vector2f playerPos;
+	static Indexer *mazeIndex;
 
 protected:
 	int health;

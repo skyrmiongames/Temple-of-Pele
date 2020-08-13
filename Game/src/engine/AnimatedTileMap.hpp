@@ -9,51 +9,38 @@
 class AnimatedTileMap : public Node {
 private:
 	std::vector<TileMap> tilemaps;
-	int frame = 0;
+	int numTiles = 2;
 	int maxFrames;
+	int frame = 0;
 	double lastTime = 0;
 	double delay = -1;
 
 	//Draw selected tilemap
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
-		target.draw(tilemaps[frame]);
+		states.transform *= getTransform();
+		target.draw(tilemaps[frame], states);
     }
 
 public:
-	AnimatedTileMap() : Node(0) {
-
-    }
-
-	//Build tilemap list
-	bool load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height, int frames) {
+	AnimatedTileMap(const std::string& tileset, int tileX, int tileY, Indexer indexes, int frames, unsigned char layer = 0) : Node(layer) {
 		maxFrames = frames - 1;
-		int tileCount = width * height;
-
-		setSize(sf::Vector2i(tileSize.x * width, tileSize.y * height));
-		setOrigin(0,0);
-
-		//Copy tile index list
-		int* indexes = new int[tileCount];
-		for(int i = 0; i < tileCount; i++)
-			indexes[i] = tiles[i];
+		int width = indexes.getSize().x;
+        int height = indexes.getSize().y;
+		setSize(sf::Vector2i(tileX * width, tileY * height));
+		setOrigin(0, 0);
 
 		//Build each frame
 		for(int i = 0; i < frames; i++) {
-			//Set next frame in tiles
-			for(int j = 0; j < tileCount; j++)
-				if(indexes[j] != -1)
-					indexes[j] += 2;
-
-			//Load tilemap
-			TileMap *map = new TileMap();
-		    if (!map->load(tileset, tileSize, indexes, width, height))
-		        return false;
-
-		    //Add tilemap to list
+			//Load new tilemap
+			TileMap *map = new TileMap(tileset, tileX, tileY, indexes, layer, i * numTiles);
 		    tilemaps.push_back(*map);
 		}
-		//delete indexes;
-		return true;
+    }
+
+	//Reload all tilemaps
+	void reload() {
+		for(int i = 0; i <= maxFrames; i++)
+			tilemaps[i].reload(i * numTiles);
 	}
 
 	//Start animation
@@ -64,7 +51,6 @@ public:
 
 	//Update timer
 	void update(double time) {
-
 		//Every half second
 		if(delay > 0 && time - lastTime >= 0.5) {
 			lastTime = time;

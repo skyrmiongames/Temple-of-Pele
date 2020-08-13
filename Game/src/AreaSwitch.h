@@ -1,4 +1,4 @@
-#include "engine/LogicComponents.h"
+#include "LogicComponents.h"
 #include "engine/Node.h"
 #include "enums.h"
 #include "textures.h"

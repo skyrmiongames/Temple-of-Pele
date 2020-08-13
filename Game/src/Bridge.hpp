@@ -55,7 +55,7 @@ public:
 
 			//Set solid ground
 			if(vertical_shown == 16) {
-				GridMaker::set_tile(getPosition(), '.');
+				Entity::mazeIndex->setTile(getPosition(), '.');
 				send();
 			}
 		}

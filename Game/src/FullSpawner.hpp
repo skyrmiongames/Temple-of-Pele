@@ -7,7 +7,7 @@
 #include "Enemy.h"
 #include "EnemyFireball.h"
 #include "LogicCode.hpp"
-#include "engine/LogicGates.hpp"
+#include "LogicGates.hpp"
 #include "FireLauncher.hpp"
 
 /*

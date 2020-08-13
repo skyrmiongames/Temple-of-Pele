@@ -26,7 +26,7 @@ public:
 		}
 
 		animateEnemy(time);
-		move(playerAngle, 0.05, false);
+		move(playerAngle, 0.1, false);
 		fireballTimer(time);
 	}
 

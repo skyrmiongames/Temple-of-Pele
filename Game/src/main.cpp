@@ -10,33 +10,29 @@
 #include <X11/Xlib.h>
 
 sf::Vector2f Entity::playerPos;
+Indexer *Entity::mazeIndex;
 
 int main() {
 	XInitThreads();
 
+	//Load base tile map
+	GridMaker grid("resources/maps/full_map.txt", 70, 33);
+	TileMap map("resources/tiles/TileMap_Enviro.png", 16, 16, Indexer(&grid, displayIndex, 1));
+	AnimatedTileMap aniMap("resources/tiles/TileMap_Gif.png", 16, 16, Indexer(&grid, animatedIndex, -1), 12);
+	Entity::mazeIndex = new Indexer(&grid, collisionIndex, FLOOR, 16, 16);
+
 	//Set texture loader
 	Textures textures;
-
-	//Load base tile map
-	GridMaker::build_grid("resources/maps/full_map.txt");
-	TileMap map;
-    if (!map.load("resources/tiles/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT))
-        return -1;
-
-    //Load animated tile map
-	AnimatedTileMap aniMap;
-    if (!aniMap.load("resources/tiles/TileMap_Gif.png", sf::Vector2u(16, 16), GridMaker::index_grid(true), GridMaker::WIDTH, GridMaker::HEIGHT, 12))
-        return -1;
 
     //Link tilemaps
     UpdateList::addNode(&map);
     UpdateList::addNode(&aniMap);
 
     //Set layers
-    UpdateList::nonCheckedLayer(MAP);
-    UpdateList::nonCheckedLayer(LOGIC);
-    UpdateList::nonCheckedLayer(GUI);
-    UpdateList::nonCheckedLayer(PLAYER);
+    UpdateList::alwaysLoadLayer(MAP);
+    UpdateList::alwaysLoadLayer(LOGIC);
+    UpdateList::alwaysLoadLayer(GUI);
+    UpdateList::alwaysLoadLayer(PLAYER);
 
     //Set up player
     Player player;

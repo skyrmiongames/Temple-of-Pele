@@ -1,6 +1,6 @@
 #include "engine/Node.h"
 #include "engine/GridMaker.h"
-#include "engine/LogicComponents.h"
+#include "LogicComponents.h"
 #include "Player.h"
 
 /*
@@ -60,7 +60,7 @@ public:
 		//Finalize door position
 		if(state < 0) {
 			state += 2;
-			GridMaker::set_tile(getPosition(), '#');
+			Entity::mazeIndex->setTile(getPosition(), '#');
 		}
 
 		if(state == 1) {
@@ -76,7 +76,7 @@ public:
 				nextTime = time += 0.05;
 				horizontal_shown++;
 			} else if(horizontal_shown == 16) {
-				GridMaker::set_tile(getPosition(), '.');
+				Entity::mazeIndex->setTile(getPosition(), '.');
 				setDelete();
 			}
 		}

@@ -3,8 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 //Game headers
-#include "FullSpawner.hpp"
-#include "engine/GridMaker.h"
+#include "NodeLoader.hpp"
+#include "Player.h"
 #include "engine/AnimatedTileMap.hpp"
 
 #include <X11/Xlib.h>
@@ -20,9 +20,6 @@ int main() {
 	TileMap map("resources/tiles/TileMap_Enviro.png", 16, 16, Indexer(&grid, displayIndex, 1));
 	AnimatedTileMap aniMap("resources/tiles/TileMap_Gif.png", 16, 16, Indexer(&grid, animatedIndex, -1), 12);
 	Entity::mazeIndex = new Indexer(&grid, collisionIndex, FLOOR, 16, 16);
-
-	//Set texture loader
-	Textures textures;
 
     //Link tilemaps
     UpdateList::addNode(&map);
@@ -40,8 +37,8 @@ int main() {
 	UpdateList::addNode(&player);
 
 	//Set up selected room nodes
-	FullSpawner spawner;
-	spawner.spawn(textures);
+	Textures textures;
+	spawn(textures);
 
 	//Run game engine
 	UpdateList::startEngine("Temple of Pele", sf::VideoMode(1200, 800));

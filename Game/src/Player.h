@@ -59,7 +59,7 @@ private:
 	Node knifeV;
 	Node knifeH;
 
-	bool hasKey = true;
+	bool hasKey = false;
 
 	// determines which way the player is facing, 0 = down, 1 = up, 2 = right, 3 = left
 	int curDirection;

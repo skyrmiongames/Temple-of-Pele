@@ -1,5 +1,6 @@
 #include "engine/UpdateList.h"
 #include "LogicComponents.h"
+#include "textures.h"
 
 /*
  * Created by Stuart Irwin on 4/17/2019.
@@ -33,3 +34,5 @@ public:
 		contents.clear();
 	}
 };
+
+void spawn(Textures &textures);

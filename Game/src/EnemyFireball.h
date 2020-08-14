@@ -7,44 +7,31 @@
 class FireEnemy : public Enemy // Aside from shooting fireballs this enemy acts identically to the basic enemy
 {
 public:
-	FireEnemy() : Enemy()
-	{
+	FireEnemy() : Enemy() {
 	};
 	~FireEnemy() {};
 
-	void update(double time)
-	{
+	void update(double time) {
 		float playerAngle = angleTo(getPosition(), playerPos);
 
 		if (getPosition().x < playerPos.x)
-		{
 			setTexture(textures.FireEnemyRightGif);
-		}
 		else
-		{
 			setTexture(textures.FireEnemyLeftGif);
-		}
 
 		animateEnemy(time);
-		move(playerAngle, 0.1, false);
+		move(time, playerAngle, 16, false);
 		fireballTimer(time);
 	}
 
 	// times fireball spawning
-	void fireballTimer(double time)
-	{
-		if (nextTime > 0 && time >= nextTime)
-		{
-			nextTime = time + 5;
-			UpdateList::addNode(new Fireball(getPosition(), 400, .7));
-		}
-
-		if (nextTime == -1)
-		{
-			nextTime = time + 5;
+	void fireballTimer(double time) {
+		if((nextTime -= time) <= 0) {
+			nextTime = 4;
+			UpdateList::addNode(new Fireball(getPosition(), 400));
 		}
 	};
 
 private:
-	int nextTime = -1;
+	double nextTime = 4;
 };

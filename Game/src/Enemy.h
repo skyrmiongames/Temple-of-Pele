@@ -12,7 +12,6 @@ public:
 	) : Entity(_layer, _size) {
 		maxFrames = 6;
 		curFrame = 1;
-		lastTime = 0.0;
 		collideWith(SWORD);
 	}
 	~Enemy() {}
@@ -20,17 +19,13 @@ public:
 	void update(double time) {
 		float playerAngle = angleTo(getPosition(), playerPos);
 
-		if (getPosition().x < playerPos.x)
-		{
+		if(getPosition().x < playerPos.x)
 			setTexture(textures.EnemyRightGif);
-		}
 		else
-		{
 			setTexture(textures.EnemyLeftGif);
-		}
 
 		animateEnemy(time);
-		move(playerAngle, 0.1);
+		move(time, playerAngle, 16);
 	}
 
 	void collide(Node *object) {
@@ -62,21 +57,17 @@ public:
 		}
 	};
 
-	void animateTime(double time)
-	{
-		if (time - lastTime >= 0.1)
-		{
-			lastTime = time;
+	void animateTime(double time) {
+		if((nextTime -= time) <= 0) {
+			nextTime = 0.1;
 			curFrame++;
-			if (curFrame == 6)
-			{
+			if(curFrame == 6)
 				curFrame = 1;
-			}
 		}
 	}
 
 private:
 	int maxFrames;
 	int curFrame;
-	double lastTime;
+	double nextTime = 0;
 };

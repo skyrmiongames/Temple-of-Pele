@@ -48,8 +48,8 @@ public:
 	void update(double time) {
 		if(closing && vertical_shown < 16) {
 			//Closing animation
-			if(time >= nextTime) {
-				nextTime = time += 0.08;
+			if((nextTime -= time) <= 0) {
+				nextTime = 0.08;
 				vertical_shown++;
 			}
 

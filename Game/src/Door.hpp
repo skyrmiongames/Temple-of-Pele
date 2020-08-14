@@ -65,15 +65,15 @@ public:
 
 		if(state == 1) {
 			//Closing animation
-			if(horizontal_shown > 0 && time >= nextTime) {
-				nextTime = time += 0.05;
+			if(horizontal_shown > 0 && (nextTime -= time) <= 0) {
+				nextTime = 0.05;
 				horizontal_shown--;
 			} else if(horizontal_shown == 0)
 				state = 0;
 		} else if(state == 2) {
 			//Opening animation
-			if(horizontal_shown < 16 && time >= nextTime) {
-				nextTime = time += 0.05;
+			if(horizontal_shown < 16 && (nextTime -= time) <= 0) {
+				nextTime = 0.05;
 				horizontal_shown++;
 			} else if(horizontal_shown == 16) {
 				Entity::mazeIndex->setTile(getPosition(), '.');

@@ -16,7 +16,6 @@ Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2) {
 	keyIcon.setPosition(0, -24);
 	keyIcon.setTexture(textures.key);
 	UpdateList::addNode(&keyIcon);
-	hasKey = false;
 
 	// vertical knife constructor
 	knifeV = Node(SWORD, sf::Vector2i(4, 11), false);
@@ -29,10 +28,6 @@ Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2) {
 	knifeH.setPosition(-10, 10);
 	knifeH.setTexture(textures.knife);
 	UpdateList::addNode(&knifeH);
-
-	// time members
-	lastAniTime = 0.0;
-	lastDamageTime = 0.0;
 
 	// current movment frame
 	curMoveFrame = 0;
@@ -78,21 +73,19 @@ void Player::eightWayMovement(double time)
 	}
 
 	if(direction.x != 0 || direction.y != 0)
-		move(std::atan2(direction.y, direction.x));
+		move(time, std::atan2(direction.y, direction.x));
 
 	Entity::playerPos = getPosition();
 }
 
 void Player::updateFrameTime(double time, int curFrame, int maxMoveFrames)
 {
-	if (time - lastAniTime >= 0.1)
+	if((nextAniTime -= time) <= 0)
 	{
-		lastAniTime = time;
+		nextAniTime = 0.1;
 		curMoveFrame++;
-		if (curFrame == maxMoveFrames)
-		{
+		if(curFrame == maxMoveFrames)
 			curMoveFrame = 0;
-		}
 	}
 }
 
@@ -219,9 +212,9 @@ void Player::animatePlayer(double time)
 bool Player::updateTakeDamageTime(double time)
 {
 	bool isInvulnerable = true;
-	if (time - lastDamageTime >= 1)
+	if ((nextDamageTime -= time) <= 0)
 	{
-		lastDamageTime = time;
+		nextDamageTime = 1;
 		this->invulnerable = false;
 	}
 	return isInvulnerable;
@@ -229,7 +222,7 @@ bool Player::updateTakeDamageTime(double time)
 
 void Player::setLastDamageTime(double newDamageTime)
 {
-	this->lastDamageTime = newDamageTime;
+	nextDamageTime = 1;
 }
 
 bool Player::takeDamage(double time)

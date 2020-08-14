@@ -10,6 +10,7 @@ private:
 	double nextTime = 0;
 	double delay;
 	bool single;
+	bool running = false;
 
 public:
 	//Set up base timer
@@ -20,7 +21,8 @@ public:
 
 	//Start new timer
 	void activate() {
-		nextTime = -1;
+		running = true;
+		nextTime = delay;
 	}
 
 	RecivingAction getRecivingAction() { return single ? SETDELETE : NONE; };
@@ -28,11 +30,9 @@ public:
 	//Wait for end of timer
 	void update(double time) {
 		//Set timer
-		if(nextTime == -1)
-			nextTime = time + delay;
-		else if(nextTime > 0 && time >= nextTime) {
+		if(running && (nextTime -= time) <= 0) {
 			//Finish timer
-			nextTime = 0;
+			running = false;
 			send();
 			if(single)
 				setDelete();

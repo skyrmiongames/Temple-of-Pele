@@ -9,8 +9,8 @@
 class FireLauncher : public Node, public LogicReciever {
 private:
 	double angle = PI/2;
-	int delay = 0;
-	int nextTime = 0;
+	int delay;
+	double nextTime = 0;
 
 public:
 	//Fireball launcher
@@ -39,9 +39,9 @@ public:
 	}
 
 	void update(double time) {
-		if(delay > 0 && time >= nextTime) {
+		if(delay > 1 && (nextTime -= time) <= 0) {
 			activate();
-			nextTime = time + delay;
+			nextTime = delay;
 		}
 	}
 

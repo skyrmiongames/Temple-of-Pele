@@ -59,18 +59,15 @@ private:
 	Node knifeV;
 	Node knifeH;
 
-	bool hasKey = false;
+	bool hasKey = true;
 
 	// determines which way the player is facing, 0 = down, 1 = up, 2 = right, 3 = left
 	int curDirection;
-
-	// current movment frame of player
 	int curMoveFrame = 0;
-	// time that the curMoveFrame member was changed
-	double lastAniTime;
 
-	// time the player was damaged
-	double lastDamageTime;
+	// timing
+	double nextAniTime = 0;
+	double nextDamageTime = 0;
 
 	// turns true if player dies, called in die()
 	bool endGame = false;

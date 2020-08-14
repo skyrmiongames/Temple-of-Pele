@@ -8,7 +8,7 @@ public:
 	Fireball(
 		sf::Vector2f _location,
 		float _angle = 400, // using Conway's constant for an interesting value that will probably never occur
-		float _speed = 2.5
+		float _speed = 60
 
 	) : Enemy(FIREBALL, sf::Vector2i(10, 10)) {
 		setPosition(_location);
@@ -17,7 +17,6 @@ public:
 
 		curFrame = 1;
 		maxFrame = 4;
-		lastTime = 0.0;
 		setTexture(textures.Fireball);
 		setRotation(-90);
 
@@ -29,20 +28,16 @@ public:
 
 	// times fireball animation
 	void timeFireBall(double time) {
-		if (time - lastTime >= .2)
-		{
+		if((nextTime -= time) <= 0) {
 			curFrame++;
-			lastTime = time;
-			if (curFrame == maxFrame)
-			{
+			nextTime = 0.2;
+			if(curFrame == maxFrame)
 				curFrame = 1;
-			}
 		}
 	};
 
 	// animates fireball
-	void animateFireball(double time)
-	{
+	void animateFireball(double time) {
 		timeFireBall(time);
 		switch (curFrame)
 		{
@@ -62,7 +57,7 @@ public:
 	};
 
 	void update(double time) {
-		if(!move(angle, speed, true))
+		if(!move(time, angle, speed, true))
 			setDelete();
 		animateFireball(time);
 	}
@@ -76,5 +71,5 @@ private:
 	float speed;
 	int curFrame;
 	int maxFrame;
-	double lastTime;
+	double nextTime = 0;
 };

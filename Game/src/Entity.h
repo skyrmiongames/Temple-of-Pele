@@ -45,13 +45,14 @@ public:
 	int get_attack() { return attack_power; }
 
 	bool move(
+		double time,
 		float angle = 0.0,
-		float distance = 2.2,
+		float distance = 56,
 		bool allowVoid = false
 	) {
 
-		float xOffset = cos(angle) * distance;
-		float yOffset = - sin(angle) * distance;
+		float xOffset = cos(angle) * distance * time;
+		float yOffset = -sin(angle) * distance * time;
 
 		sf::Vector2f target(getPosition().x + xOffset, getPosition().y + yOffset);
 		int targetType = mazeIndex->getTile(target);

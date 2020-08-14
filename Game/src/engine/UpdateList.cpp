@@ -1,6 +1,6 @@
 #include "UpdateList.h"
 
-#define FRAME_DELAY sf::milliseconds(30)
+#define FRAME_DELAY sf::milliseconds(15)
 
 /*
  * Created by Stuart Irwin on 4/15/2019.
@@ -194,7 +194,7 @@ void UpdateList::startEngine(std::string title, sf::VideoMode mode) {
 	sf::Clock clock;
 
 	std::thread rendering(UpdateList::renderingThread, title, mode);
-	sf::Time nextFrame = clock.getElapsedTime() + FRAME_DELAY;
+	sf::Time nextFrame = clock.getElapsedTime() + sf::milliseconds(FRAME_DELAY.asMilliseconds() / 2);
 
 	std::cout << "Starting\n";
 
@@ -209,15 +209,18 @@ void UpdateList::startEngine(std::string title, sf::VideoMode mode) {
 	}
 
     //Run main window
+    sf::Time lastTime = clock.getElapsedTime();
 	while (running) {
 		//Manage frame rate
 		sf::Time time = clock.getElapsedTime();
 		if(time >= nextFrame) {
 			//Next update time
+			double delta = (time - lastTime).asSeconds();
+			lastTime = time;
 			nextFrame = time + FRAME_DELAY;
 
 			//Update nodes and sprites
-			UpdateList::update(time.asSeconds());
+			UpdateList::update(delta);
 		}
 		time = clock.getElapsedTime();
 		std::this_thread::sleep_for(

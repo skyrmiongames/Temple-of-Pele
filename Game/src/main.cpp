@@ -15,7 +15,7 @@ Indexer *Entity::mazeIndex;
 int main() {
 	XInitThreads();
 
-	//Load base tile map
+	//Load base tile maps
 	GridMaker grid("resources/maps/full_map.txt", 70, 33);
 	TileMap map("resources/tiles/TileMap_Enviro.png", 16, 16, Indexer(&grid, displayIndex, 1));
 	AnimatedTileMap aniMap("resources/tiles/TileMap_Gif.png", 16, 16, Indexer(&grid, animatedIndex, -1), 12);

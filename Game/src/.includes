@@ -1,7 +1,6 @@
-builder=make
-linker=""
-cleaner=""
+#num=1
+#builder1=make
 
-linkargs=-lsfml-graphics -lsfml-window -lsfml-system -lX11
+buildargs2=-lsfml-graphics -lsfml-window -lsfml-system -lX11
 files=*.cpp engine/*.cpp
 testdir=../

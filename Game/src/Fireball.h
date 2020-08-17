@@ -1,15 +1,14 @@
 #pragma once
 
 #include "Enemy.h"
-#include "textures.h"
-#include "Node.h" // for access to playerPos
+#include "engine/Node.h" // for access to playerPos
 
 class Fireball : public Enemy {
 public:
 	Fireball(
 		sf::Vector2f _location,
 		float _angle = 400, // using Conway's constant for an interesting value that will probably never occur
-		float _speed = 0.1
+		float _speed = 60
 
 	) : Enemy(FIREBALL, sf::Vector2i(10, 10)) {
 		setPosition(_location);
@@ -18,28 +17,27 @@ public:
 
 		curFrame = 1;
 		maxFrame = 4;
-		lastTime = 0.0;
-		setTexture(textures->Fireball);
+		setTexture(textures.Fireball);
 		setRotation(-90);
+
+		collideWith(SWORD);
+		collideWith(PLAYER);
+		collideWith(SWITCH);
 	}
 	~Fireball() {}
 
 	// times fireball animation
 	void timeFireBall(double time) {
-		if (time - lastTime >= .2)
-		{
+		if((nextTime -= time) <= 0) {
 			curFrame++;
-			lastTime = time; 
-			if (curFrame == maxFrame)
-			{
+			nextTime = 0.2;
+			if(curFrame == maxFrame)
 				curFrame = 1;
-			}
 		}
 	};
 
 	// animates fireball
-	void animateFireball(double time)
-	{
+	void animateFireball(double time) {
 		timeFireBall(time);
 		switch (curFrame)
 		{
@@ -59,16 +57,13 @@ public:
 	};
 
 	void update(double time) {
-		if(!move(angle, speed, true))
-			set_delete();
+		if(!move(time, angle, speed, true))
+			setDelete();
 		animateFireball(time);
 	}
 
 	void collide(Node* object) {
-		if (object->get_layer() == SWORD || object->get_layer() == PLAYER)
-		{
-			set_delete();
-		} //allow the player to block fireballs
+		setDelete();
 	};
 
 private:
@@ -76,5 +71,5 @@ private:
 	float speed;
 	int curFrame;
 	int maxFrame;
-	double lastTime;
+	double nextTime = 0;
 };

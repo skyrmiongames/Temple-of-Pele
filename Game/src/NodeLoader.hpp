@@ -1,4 +1,6 @@
-#include "UpdateList.h"
+#include "engine/UpdateList.h"
+#include "LogicComponents.h"
+#include "textures.h"
 
 /*
  * Created by Stuart Irwin on 4/17/2019.
@@ -21,16 +23,16 @@ public:
 	//Add content nodes
 	void activate() {
 		for(Node *next : contents)
-			UpdateList::add_node(next);
+			UpdateList::addNode(next);
 	}
 
 	//One use only
-	UseAmount is_singleton() {
-		return DELETE;
-	}
+	RecivingAction getRecivingAction() { return DELETE; };
 
 	//Full delete
 	~NodeLoader() {
 		contents.clear();
 	}
 };
+
+void spawn(Textures &textures);

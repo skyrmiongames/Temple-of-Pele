@@ -1,13 +1,14 @@
-#include "Node.h"
-#include "GridMaker.h"
+#include "engine/Node.h"
+#include "engine/GridMaker.h"
 #include "enums.h"
+#include "textures.h"
 
 /*
  * Created by Stuart Irwin on 4/20/2019.
  * Activatable bridge to go over lava
  */
 
-class Bridge : public Node, public LogicSender {
+class Bridge : public Node, public LogicDevice {
 private:
 	//Bridge current state
 	int vertical_shown = 0;
@@ -16,9 +17,9 @@ private:
 
 public:
 	//Build bridge
-	Bridge(OrthagonalDirection direction) : Node(SWITCH, sf::Vector2i(16, 16)) {
+	Bridge(Textures &textures, OrthagonalDirection direction) : Node(FEATURE, sf::Vector2i(16, 16)) {
 		//Configure bridge properties
-		setTexture(textures->bridge);
+		setTexture(textures.bridge);
 
 		//Rotate door properly
 		switch(direction) {
@@ -36,6 +37,8 @@ public:
 		}
 	}
 
+	RecivingAction getRecivingAction() { return UNLINK; };
+
 	//Start closing animation
 	void activate() {
 		closing = true;
@@ -45,14 +48,14 @@ public:
 	void update(double time) {
 		if(closing && vertical_shown < 16) {
 			//Closing animation
-			if(time >= nextTime) {
-				nextTime = time += 0.08;
+			if((nextTime -= time) <= 0) {
+				nextTime = 0.08;
 				vertical_shown++;
 			}
 
 			//Set solid ground
 			if(vertical_shown == 16) {
-				GridMaker::set_tile(getPosition(), '.');
+				Entity::mazeIndex->setTile(getPosition(), '.');
 				send();
 			}
 		}

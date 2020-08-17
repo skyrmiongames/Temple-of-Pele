@@ -1,0 +1,6 @@
+#num=1
+#builder1=make
+
+buildargs2=-lsfml-graphics -lsfml-window -lsfml-system -lX11
+files=*.cpp engine/*.cpp
+testdir=../

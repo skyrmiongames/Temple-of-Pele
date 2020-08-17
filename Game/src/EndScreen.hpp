@@ -1,4 +1,7 @@
-#include "TileMap.hpp"
+#include "engine/TileMap.hpp"
+#include "LogicComponents.h"
+#include "indexes.h"
+#include "textures.h"
 #pragma once
 
 /*
@@ -9,15 +12,15 @@
 class EndScreen : public Node {
 private:
 	sf::Sprite *light;
-	TileMap map;
+	TileMap *map;
 	bool win;
 	bool active = false;
 
 	//Draw selected tilemap
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
-		if(active) {
+		if(active && map != NULL) {
 			//Draw end text map
-			target.draw(map);
+			target.draw(*map);
 		} else {
 			light->setPosition(getPosition());
 			target.draw(*light);
@@ -25,26 +28,25 @@ private:
     }
 
 public:
-	EndScreen(bool win) : Node(ENDSCREEN) {
+	EndScreen(Textures &textures, bool win) : Node(ENDSCREEN) {
 		this->win = win;
 
 		//Build sprite for light effect
 		light = new sf::Sprite();
 		light->setRotation(-90);
-		light->setTexture(textures->exitLight);
+		light->setTexture(textures.exitLight);
 		light->setOrigin(8, 8);
 	}
 
-	void activate() {
+	void display() {
 		//Load text map file
-		if(win)
-			GridMaker::build_grid("resources/maps/win_text.txt");
-		else
-			GridMaker::build_grid("resources/maps/lose_text.txt");
+		GridMaker grid("resources/maps/win_text.txt", 42, 19);
+		if(!win)
+			grid.reload("resources/maps/lose_text.txt");
 
 		//Build tilemap
-		map.load("resources/tiles/TileMap_Enviro.png", sf::Vector2u(16, 16), GridMaker::index_grid(), GridMaker::WIDTH, GridMaker::HEIGHT);
-		map.setPosition(1715, 0);
+		map = new TileMap("resources/tiles/TileMap_Enviro.png", 16, 16, Indexer(&grid, displayIndex, 1));
+		map->setPosition(1715, 0);
 		setPosition(2000, 0);
 		setRotation(0);
 

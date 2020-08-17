@@ -2,10 +2,10 @@
 
 #include "Entity.h"
 #include "EndScreen.hpp"
-#include "UpdateList.h"
+#include "engine/UpdateList.h"
 
 /*
-Player functions created by Benjamin Hoover 
+Player functions created by Benjamin Hoover
 with exception of getKey(), collide() and die() made by Stuart Irwin
 */
 
@@ -33,11 +33,6 @@ public:
 	// ends game when health is zero
 	void die();
 
-	// Draws additional sprites, healthSprite, keyIcon
-	void drawGUI(sf::RenderWindow &window);
-	// Draws game window around player
-	void drawView(sf::RenderWindow &window);
-
 	// Updates healthSprite and calls takeDamage
 	void updateHealth(double time);
 	// Activates invicibility frames on timer
@@ -50,9 +45,6 @@ public:
 	// moves sword sprite to player, used against enemies.
 	void attack();
 
-	// updates keyIcon's position based on hasKey
-	void updateKey();
-
 	// determines if player hasKey member is true or false
 	bool getKey();
 	// setter for if hasKey member
@@ -60,28 +52,23 @@ public:
 
 private:
 	// Player GUI
-	sf::Sprite healthSprite;
-	sf::Sprite keyIcon;
+	Node healthSprite;
+	Node keyIcon;
 
 	// vertical and horizontal orientations of knife node for more precise hitboxes
 	Node knifeV;
 	Node knifeH;
 
-	sf::View viewPlayer;
-	
-	bool hasKey;
+	bool hasKey = false;
 
 	// determines which way the player is facing, 0 = down, 1 = up, 2 = right, 3 = left
 	int curDirection;
-	
-	// current movment frame of player
 	int curMoveFrame = 0;
-	// time that the curMoveFrame member was changed
-	double lastAniTime;
 
-	// time the player was damaged
-	double lastDamageTime;
-	
+	// timing
+	double nextAniTime = 0;
+	double nextDamageTime = 0;
+
 	// turns true if player dies, called in die()
-	bool endGame;
+	bool endGame = false;
 };

@@ -1,22 +1,22 @@
 #include "Fireball.h"
-#include "UpdateList.h"
+#include "engine/UpdateList.h"
 
 /*
  * Created by Stuart Irwin on 4/23/2019.
  * Launch fireball in specific direction
  */
 
-class FireLauncher : public Node {
+class FireLauncher : public Node, public LogicReciever {
 private:
 	double angle = PI/2;
-	int delay = 0;
-	int nextTime = 0;
+	int delay;
+	double nextTime = 0;
 
 public:
 	//Fireball launcher
-	FireLauncher(OrthagonalDirection direction, int delay=0) : Node(SWITCH, sf::Vector2i(16, 16)) {
+	FireLauncher(Textures &textures, OrthagonalDirection direction, int delay=0) : Node(FEATURE, sf::Vector2i(16, 16)) {
 		//Configure tile properties
-		setTexture(textures->spitter);
+		setTexture(textures.spitter);
 		this->delay = delay;
 
 		//Rotate door properly
@@ -39,15 +39,15 @@ public:
 	}
 
 	void update(double time) {
-		if(delay > 0 && time >= nextTime) {
+		if(delay > 1 && (nextTime -= time) <= 0) {
 			activate();
-			nextTime = time + delay;
+			nextTime = delay;
 		}
 	}
 
 	//Launch fireball in direction
 	void activate() {
 		Fireball *launched = new Fireball(getPosition(), angle);
-		UpdateList::add_node(launched);
+		UpdateList::addNode(launched);
 	}
 };

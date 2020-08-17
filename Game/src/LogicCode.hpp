@@ -15,10 +15,6 @@ public:
 		send();
 	}
 
-	UseAmount is_singleton() {
-		return MULTI;
-	}
-
 	//Clear value and return
 	bool is_activated() {
 		if(activated) {
@@ -39,7 +35,7 @@ public:
 	//Get next key to link to
 	LogicReciever *get_key() {
 		i--;
-		keys[(-i) - 1].add_channel(this);
+		keys[(-i) - 1].addChannel(this);
 		return &(keys[(-i) - 1]);
 	}
 
@@ -63,8 +59,31 @@ public:
 				keys[i].is_activated();
 		}
 	}
+};
 
-	UseAmount is_singleton() {
-		return MULTI;
+class LockableGate : public LogicDevice {
+private:
+	bool locked;
+public:
+	void lock() {
+		locked = true;
+	}
+
+	void activate() {
+		if(!locked)
+			send();
+	}
+};
+
+class LockableGatePassthrough : public LogicReciever {
+private:
+	LockableGate *gate;
+public:
+	LockableGatePassthrough(LockableGate *gate) {
+		this->gate = gate;
+	}
+
+	void activate() {
+		gate->lock();
 	}
 };

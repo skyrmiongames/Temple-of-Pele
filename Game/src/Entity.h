@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Node.h"
+#include "engine/Node.h"
 #include "enums.h"
-#include "GridMaker.h"
+#include "engine/GridMaker.h"
+#include "textures.h"
 
 #include <math.h>
-
 
 class Entity : public Node {
 
@@ -17,9 +17,8 @@ public:
 		int _attack_power = 20,
 		double _speed = 1.0,
 		bool _invulnerable = false
-	) : Node(_layer, _size), health(_health), max_health(_health), attack_power(_attack_power), speed(_speed), invulnerable(_invulnerable) 
+	) : Node(_layer, _size, false), health(_health), max_health(_health), attack_power(_attack_power), speed(_speed), invulnerable(_invulnerable)
 	{
-		
 	}
 
 	~Entity() {}
@@ -27,16 +26,16 @@ public:
 	int modify_health(int modifier) {
 		if (!invulnerable || modifier > 0) set_health(get_health() + modifier);
 
-		if (is_dead() && get_layer() != PLAYER) {
-			set_delete();
+		if (is_dead() && getLayer() != PLAYER) {
+			setDelete();
 		}
 
 		return get_health();
 	}
 
-	void set_health(int _health, bool updateMax = false) { 
+	void set_health(int _health, bool updateMax = false) {
 		if (updateMax) max_health = _health;
-		health = _health <= max_health ? _health : max_health; 
+		health = _health <= max_health ? _health : max_health;
 	}
 
 	int get_health() { return health; }
@@ -46,16 +45,17 @@ public:
 	int get_attack() { return attack_power; }
 
 	bool move(
+		double time,
 		float angle = 0.0,
-		float distance = 0.1,
-		bool allowVoid = true
+		float distance = 56,
+		bool allowVoid = false
 	) {
 
-		float xOffset = cos(angle) * distance;
-		float yOffset = - sin(angle) * distance;
+		float xOffset = cos(angle) * distance * time;
+		float yOffset = -sin(angle) * distance * time;
 
 		sf::Vector2f target(getPosition().x + xOffset, getPosition().y + yOffset);
-		TileType targetType = GridMaker::check_tile(target);
+		int targetType = mazeIndex->getTile(target);
 
 		if (targetType != WALL && (!allowVoid ? targetType != EMPTY : true)) {
 			setPosition(sf::Vector2f(target.x, target.y));
@@ -66,10 +66,14 @@ public:
 
 	// virtual void update() {};
 
+	static sf::Vector2f playerPos;
+	static Indexer *mazeIndex;
+
 protected:
 	int health;
 	int max_health;
 	int attack_power;
 	double speed;
 	bool invulnerable;
+	Textures textures;
 };

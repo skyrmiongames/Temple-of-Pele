@@ -12,32 +12,24 @@ public:
 	) : Entity(_layer, _size) {
 		maxFrames = 6;
 		curFrame = 1;
-		lastTime = 0.0;
+		collideWith(SWORD);
 	}
 	~Enemy() {}
 
 	void update(double time) {
 		float playerAngle = angleTo(getPosition(), playerPos);
-		
-		if (getPosition().x < playerPos.x)
-		{
-			setTexture(textures->EnemyRightGif);
-		}
+
+		if(getPosition().x < playerPos.x)
+			setTexture(textures.EnemyRightGif);
 		else
-		{
-			setTexture(textures->EnemyLeftGif);
-		}
+			setTexture(textures.EnemyLeftGif);
 
 		animateEnemy(time);
-		//std::cout << playerAngle << std::endl;
-		move(playerAngle, 0.005, false);
+		move(time, playerAngle, 16);
 	}
 
 	void collide(Node *object) {
-		if (object->get_layer() == SWORD)
-		{
-			set_delete();
-		}
+		setDelete();
 	};
 
 	void animateEnemy(double time) {
@@ -64,22 +56,18 @@ public:
 			break;
 		}
 	};
-	
-	void animateTime(double time)
-	{
-		if (time - lastTime >= 0.1)
-		{
-			lastTime = time;
+
+	void animateTime(double time) {
+		if((nextTime -= time) <= 0) {
+			nextTime = 0.1;
 			curFrame++;
-			if (curFrame == 6)
-			{
+			if(curFrame == 6)
 				curFrame = 1;
-			}
 		}
 	}
 
 private:
 	int maxFrames;
 	int curFrame;
-	double lastTime;
+	double nextTime = 0;
 };

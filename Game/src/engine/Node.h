@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <bitset>
 #include <stdexcept>
+#include <math.h>
 
 #define MAXLAYER 16
 #define LAYERERROR "Used collision layer > 16"
@@ -38,7 +39,10 @@ public:
 	sf::Vector2i getSize();
 	bool isHidden();
 	Node *getParent();
+
+	//Special getters
 	sf::Vector2f getGPosition();
+	sf::Vector2f getShiftedPosition(double time, sf::Vector2f dir, int distance);
 
 	//General setters
 	void setLayer(unsigned char layer);

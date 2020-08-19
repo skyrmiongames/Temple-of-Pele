@@ -12,23 +12,23 @@ public:
 	~FireEnemy() {};
 
 	void update(double time) {
-		float playerAngle = angleTo(getPosition(), playerPos);
-
 		if (getPosition().x < playerPos.x)
 			setTexture(textures.FireEnemyRightGif);
 		else
 			setTexture(textures.FireEnemyLeftGif);
 
 		animateEnemy(time);
-		move(time, playerAngle, 16, false);
-		fireballTimer(time);
+
+		sf::Vector2f dir = playerPos - getGPosition();
+		move(time, dir, 16, false);
+		fireballTimer(time, dir);
 	}
 
 	// times fireball spawning
-	void fireballTimer(double time) {
+	void fireballTimer(double time, sf::Vector2f dir) {
 		if((nextTime -= time) <= 0) {
 			nextTime = 4;
-			UpdateList::addNode(new Fireball(getPosition(), 400));
+			UpdateList::addNode(new Fireball(getGPosition(), dir));
 		}
 	};
 

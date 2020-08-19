@@ -53,12 +53,12 @@ void Player::eightWayMovement(double time)
 	sf::Vector2i direction;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) // up
 	{
-		direction.y++;
+		direction.y--;
 		this->curDirection = 1;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
 	{
-		direction.y--;
+		direction.y++;
 		this->curDirection = 0;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left
@@ -73,7 +73,7 @@ void Player::eightWayMovement(double time)
 	}
 
 	if(direction.x != 0 || direction.y != 0)
-		move(time, std::atan2(direction.y, direction.x));
+		move(time, sf::Vector2f(direction.x, direction.y));
 
 	Entity::playerPos = getPosition();
 }

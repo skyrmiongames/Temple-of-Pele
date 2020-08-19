@@ -46,15 +46,11 @@ public:
 
 	bool move(
 		double time,
-		float angle = 0.0,
+		sf::Vector2f dir,
 		float distance = 56,
 		bool allowVoid = false
 	) {
-
-		float xOffset = cos(angle) * distance * time;
-		float yOffset = -sin(angle) * distance * time;
-
-		sf::Vector2f target(getPosition().x + xOffset, getPosition().y + yOffset);
+		sf::Vector2f target = getShiftedPosition(time, dir, distance);
 		int targetType = mazeIndex->getTile(target);
 
 		if (targetType != WALL && (!allowVoid ? targetType != EMPTY : true)) {

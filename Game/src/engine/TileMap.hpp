@@ -66,7 +66,7 @@ public:
                 // get a pointer to the current tile's quad
                 sf::Vertex* quad = &m_vertices[(i + j * width) * 4];
 
-                if(tileNumber != -1) {
+                if(tileNumber - offset != -1) {
                     // define its 4 texture coordinates
                     quad[(0 + rotations) % 4].texCoords = sf::Vector2f(tu * tileX, tv * tileY);
                     quad[(1 + rotations) % 4].texCoords = sf::Vector2f((tu + 1) * tileX, tv * tileY);

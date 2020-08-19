@@ -12,7 +12,7 @@ private:
 	int numTiles = 2;
 	int maxFrames;
 	int frame = 0;
-	double lastTime = 0;
+	double nextTime = 0;
 	double delay = -1;
 
 	//Draw selected tilemap
@@ -22,12 +22,15 @@ private:
     }
 
 public:
-	AnimatedTileMap(const std::string& tileset, int tileX, int tileY, Indexer indexes, int frames, unsigned char layer = 0) : Node(layer) {
+	AnimatedTileMap(const std::string& tileset, int tileX, int tileY, Indexer indexes, int frames, double delay, unsigned char layer = 0) : Node(layer) {
 		maxFrames = frames - 1;
 		int width = indexes.getSize().x;
         int height = indexes.getSize().y;
 		setSize(sf::Vector2i(tileX * width, tileY * height));
 		setOrigin(0, 0);
+
+		this->delay = delay;
+		this->nextTime = delay;
 
 		//Build each frame
 		for(int i = 0; i < frames; i++) {
@@ -43,17 +46,11 @@ public:
 			tilemaps[i].reload(i * numTiles);
 	}
 
-	//Start animation
-	void start(double delay, double time=0) {
-		this->delay = delay;
-		this->lastTime = time;
-	}
-
 	//Update timer
 	void update(double time) {
 		//Every half second
-		if(delay > 0 && time - lastTime >= 0.5) {
-			lastTime = time;
+		if((nextTime -= time) <= 0) {
+			nextTime = delay;
 			frame++;
 
 			//Reset to start frame

@@ -8,7 +8,7 @@
 
 class FireLauncher : public Node, public LogicReciever {
 private:
-	double angle = PI/2;
+	sf::Vector2f dir = sf::Vector2f(0, -1);
 	int delay;
 	double nextTime = 0;
 
@@ -23,15 +23,15 @@ public:
 		switch(direction) {
 			case East:
 				setRotation(90);
-				angle = 0;
+				dir = sf::Vector2f(1, 0);
 				break;
 			case South:
 				setRotation(180);
-				angle = 3*PI/2;
+				dir = sf::Vector2f(0, 1);
 				break;
 			case West:
 				setRotation(-90);
-				angle = PI;
+				dir = sf::Vector2f(-1, 0);
 				break;
 			default:
 				break;
@@ -47,7 +47,7 @@ public:
 
 	//Launch fireball in direction
 	void activate() {
-		Fireball *launched = new Fireball(getPosition(), angle);
+		Fireball *launched = new Fireball(getPosition(), dir);
 		UpdateList::addNode(launched);
 	}
 };

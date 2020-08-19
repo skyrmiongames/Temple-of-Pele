@@ -17,15 +17,13 @@ public:
 	~Enemy() {}
 
 	void update(double time) {
-		float playerAngle = angleTo(getPosition(), playerPos);
-
-		if(getPosition().x < playerPos.x)
+		if(getGPosition().x < playerPos.x)
 			setTexture(textures.EnemyRightGif);
 		else
 			setTexture(textures.EnemyLeftGif);
 
 		animateEnemy(time);
-		move(time, playerAngle, 16);
+		move(time, playerPos - getGPosition(), 16);
 	}
 
 	void collide(Node *object) {

@@ -7,13 +7,13 @@ class Fireball : public Enemy {
 public:
 	Fireball(
 		sf::Vector2f _location,
-		float _angle = 400, // using Conway's constant for an interesting value that will probably never occur
+		sf::Vector2f _direction,
 		float _speed = 60
 
 	) : Enemy(FIREBALL, sf::Vector2i(10, 10)) {
 		setPosition(_location);
-		angle = _angle == 400 ? angleTo(_location, playerPos): _angle;
 		speed = _speed;
+		direction = _direction;
 
 		curFrame = 1;
 		maxFrame = 4;
@@ -57,7 +57,7 @@ public:
 	};
 
 	void update(double time) {
-		if(!move(time, angle, speed, true))
+		if(!move(time, direction, speed, true))
 			setDelete();
 		animateFireball(time);
 	}
@@ -67,7 +67,7 @@ public:
 	};
 
 private:
-	float angle;
+	sf::Vector2f direction;
 	float speed;
 	int curFrame;
 	int maxFrame;

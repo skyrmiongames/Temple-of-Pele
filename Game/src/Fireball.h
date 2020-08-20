@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Enemy.h"
-#include "Skyrmion/Node.h" // for access to playerPos
 
 class Fireball : public Enemy {
 public:

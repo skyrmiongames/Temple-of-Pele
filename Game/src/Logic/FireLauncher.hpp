@@ -1,5 +1,5 @@
-#include "Fireball.h"
-#include "Skyrmion/UpdateList.h"
+#include "../Skyrmion/UpdateList.h"
+#include "../Fireball.h"
 
 /*
  * Created by Stuart Irwin on 4/23/2019.

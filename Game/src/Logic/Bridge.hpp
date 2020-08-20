@@ -1,7 +1,7 @@
-#include "Skyrmion/Node.h"
-#include "Skyrmion/GridMaker.h"
-#include "enums.h"
-#include "textures.h"
+#include "../Skyrmion/Node.h"
+#include "../Skyrmion/GridMaker.h"
+#include "../enums.h"
+#include "../textures.h"
 
 /*
  * Created by Stuart Irwin on 4/20/2019.

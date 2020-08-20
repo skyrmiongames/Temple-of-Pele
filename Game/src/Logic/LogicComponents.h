@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Skyrmion/Node.h"
+#include "../Skyrmion/Node.h"
 
 #include <vector>
 

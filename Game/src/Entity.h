@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Skyrmion/Node.h"
-#include "enums.h"
 #include "Skyrmion/GridMaker.h"
+#include "enums.h"
 #include "textures.h"
 
 #include <math.h>

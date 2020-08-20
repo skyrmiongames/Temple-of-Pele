@@ -1,7 +1,7 @@
-#include "Skyrmion/Node.h"
-#include "Skyrmion/GridMaker.h"
+#include "../Skyrmion/Node.h"
+#include "../Skyrmion/GridMaker.h"
 #include "LogicComponents.h"
-#include "Player.h"
+#include "../Player.h"
 
 /*
  * Created by Stuart Irwin on 4/17/2019.

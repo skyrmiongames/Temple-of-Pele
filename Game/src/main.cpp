@@ -3,9 +3,9 @@
 #include <SFML/Graphics.hpp>
 
 //Game headers
+#include "Skyrmion/AnimatedTileMap.hpp"
 #include "NodeLoader.hpp"
 #include "Player.h"
-#include "Skyrmion/AnimatedTileMap.hpp"
 
 #include <X11/Xlib.h>
 

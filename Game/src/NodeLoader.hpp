@@ -1,5 +1,5 @@
 #include "Skyrmion/UpdateList.h"
-#include "LogicComponents.h"
+#include "Logic/LogicComponents.h"
 #include "textures.h"
 
 /*

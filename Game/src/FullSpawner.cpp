@@ -1,14 +1,15 @@
+#include "Logic/Door.hpp"
+#include "Logic/AreaSwitch.h"
+#include "Logic/LogicCode.hpp"
+#include "Logic/LogicGates.hpp"
+#include "Logic/Bridge.hpp"
+#include "Logic/FireLauncher.hpp"
+
 #include "NodeLoader.hpp"
-#include "Door.hpp"
-#include "AreaSwitch.h"
 #include "Key.hpp"
-#include "Bridge.hpp"
 #include "EndScreen.hpp"
 #include "Enemy.h"
 #include "EnemyFireball.h"
-#include "LogicCode.hpp"
-#include "LogicGates.hpp"
-#include "FireLauncher.hpp"
 
 /*
  * Created by Stuart Irwin on 4/22/2019.

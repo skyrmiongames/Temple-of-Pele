@@ -1,5 +1,5 @@
-#include "engine/Node.h"
-#include "engine/GridMaker.h"
+#include "Skyrmion/Node.h"
+#include "Skyrmion/GridMaker.h"
 #include "LogicComponents.h"
 #include "Player.h"
 

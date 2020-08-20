@@ -1,0 +1,3 @@
+[submodule "Skyrmion"]
+	path = Game/src/Skyrmion
+	url = https://github.com/stuin/Skyrmion.git

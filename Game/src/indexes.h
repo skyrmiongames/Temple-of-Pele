@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/GridMaker.h"
+#include "Skyrmion/GridMaker.h"
 #include "enums.h"
 
 static const std::map<char, int> displayIndex = {

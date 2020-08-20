@@ -2,7 +2,7 @@
 
 #include "Enemy.h"
 #include "Fireball.h"
-#include "engine/UpdateList.h"
+#include "Skyrmion/UpdateList.h"
 
 class FireEnemy : public Enemy // Aside from shooting fireballs this enemy acts identically to the basic enemy
 {

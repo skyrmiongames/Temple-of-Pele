@@ -1,5 +1,5 @@
 #include "LogicComponents.h"
-#include "engine/Node.h"
+#include "Skyrmion/Node.h"
 #include "enums.h"
 #include "textures.h"
 

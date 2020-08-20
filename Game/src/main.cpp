@@ -5,7 +5,7 @@
 //Game headers
 #include "NodeLoader.hpp"
 #include "Player.h"
-#include "engine/AnimatedTileMap.hpp"
+#include "Skyrmion/AnimatedTileMap.hpp"
 
 #include <X11/Xlib.h>
 

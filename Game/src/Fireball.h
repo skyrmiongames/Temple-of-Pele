@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Enemy.h"
-#include "engine/Node.h" // for access to playerPos
+#include "Skyrmion/Node.h" // for access to playerPos
 
 class Fireball : public Enemy {
 public:

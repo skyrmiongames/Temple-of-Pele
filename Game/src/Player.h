@@ -37,10 +37,6 @@ public:
 	void updateHealth(double time);
 	// Activates invicibility frames on timer
 	bool takeDamage(double time);
-	// Timer for invicibility frames, called in takeDamage
-	bool updateTakeDamageTime(double time);
-	// setter for last damage time
-	void setLastDamageTime(double newDamageTime);
 
 	// moves sword sprite to player, used against enemies.
 	void attack();

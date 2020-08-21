@@ -7,7 +7,6 @@
 
 #include "NodeLoader.hpp"
 #include "Key.hpp"
-#include "EndScreen.hpp"
 #include "Enemy.h"
 #include "EnemyFireball.h"
 
@@ -29,7 +28,7 @@ void trapRoom(Textures &textures, NodeLoader *loader, int x, int y) {
 
 	//Already closed door
 	Door *door1 = new Door(textures, false, true);
-	loader->add_node(door1, x - 1, y + 2);
+	loader->add_node(door1, x - 3, y + 2);
 
 	//Dramatic closing door
 	Door *door2 = new Door(textures, true, true);
@@ -51,7 +50,7 @@ void trapRoom(Textures &textures, NodeLoader *loader, int x, int y) {
 
 	//Basic key
 	Key *key = new Key(textures);
-	loader->add_node(key, x - 3, y + 2);
+	loader->add_node(key, x - 5, y + 2);
 }
 
 //Lower right room (origin at top)
@@ -333,10 +332,6 @@ void endRoom(Textures &textures, NodeLoader *loader, int x, int y) {
 	//Locked door
 	Door *door = new Door(textures, false, false, true);
 	loader->add_node(door, x, y - 6);
-
-	//Game exit
-	EndScreen *end = new EndScreen(textures, true);
-	loader->add_node(end, x + 8, y - 7);
 }
 
 void spawn(Textures &textures) {

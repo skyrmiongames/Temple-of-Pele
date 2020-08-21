@@ -33,9 +33,6 @@ Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2) {
 	curMoveFrame = 0;
 	curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
 
-	// setting player view size
-	UpdateList::setCamera(this, sf::Vector2f(300, 200));
-
 	// set collision layers
 	collideWith(KEY);
 	collideWith(ENEMY);
@@ -209,29 +206,15 @@ void Player::animatePlayer(double time)
 	}
 }
 
-bool Player::updateTakeDamageTime(double time)
-{
-	bool isInvulnerable = true;
-	if ((nextDamageTime -= time) <= 0)
-	{
-		nextDamageTime = 1;
-		this->invulnerable = false;
-	}
-	return isInvulnerable;
-}
-
-void Player::setLastDamageTime(double newDamageTime)
-{
-	nextDamageTime = 1;
-}
-
 bool Player::takeDamage(double time)
 {
-	bool isInvulnerable = false;
-	this->invulnerable = true;
-	isInvulnerable = updateTakeDamageTime(time);
 	modify_health(-20);
-	return isInvulnerable;
+	if(!invulnerable) {
+		nextDamageTime = 1;
+		invulnerable = true;
+		return true;
+	}
+	return false;
 }
 
 void Player::updateHealth(double time)
@@ -256,13 +239,7 @@ void Player::updateHealth(double time)
 }
 void Player::die()
 {
-	endGame = true;
-	EndScreen *object = new EndScreen(textures, false);
-	UpdateList::addNode(object);
-
-	UpdateList::setCamera(this, sf::Vector2f(600, 400));
-	setPosition(2000, 80);
-	object->display();
+	collideWith(DEATH);
 }
 
 void Player::attack()
@@ -318,6 +295,9 @@ void Player::update(double time)
 		updateHealth(time);
 		keyIcon.setHidden(!hasKey);
 		animatePlayer(time);
+
+		if(invulnerable && (nextDamageTime -= time) <= 0)
+			invulnerable = false;
 	}
 }
 
@@ -329,10 +309,11 @@ void Player::collide(Node *object , double time)
 	}
 
 	//Show full end screen
-	if(object->getLayer() == ENDSCREEN) {
+	if(object->getLayer() == ENDSCREEN || object->getLayer() == DEATH) {
 		UpdateList::setCamera(this, sf::Vector2f(600, 400));
 		endGame = true;
-		setPosition(2000,80);
+		setPosition(285,80);
+		//setPosition(2000,80);
 		((EndScreen*)object)->display();
 	}
 

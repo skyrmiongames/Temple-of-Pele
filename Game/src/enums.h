@@ -6,19 +6,26 @@
  * enums for tiles and collision
  */
 
+enum TileType {
+	AIR,
+	LAVA,
+	SOLID
+};
+
 enum CollisionLayer {
 	MAP,
 	LOGIC,
 	SWITCH,
 	FEATURE,
-	ENDSCREEN,
 	KEY,
-	LIGHTING,
 	GUI,
 	ENEMY,
 	SWORD,
-	PLAYER,
 	FIREBALL,
+	ENDSCREEN,
+	DEATH,
+	PLAYER,
+	LIGHTING
 };
 
 enum OrthagonalDirection {

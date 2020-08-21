@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Skyrmion/Node.h"
-#include "Skyrmion/GridMaker.h"
+#include "Skyrmion/LightMap.hpp"
 #include "enums.h"
 #include "textures.h"
 
@@ -53,7 +52,7 @@ public:
 		sf::Vector2f target = getShiftedPosition(time, dir, distance);
 		int targetType = mazeIndex->getTile(target);
 
-		if (targetType != WALL && (!allowVoid ? targetType != EMPTY : true)) {
+		if (targetType == AIR || (allowVoid && targetType == LIGHT)) {
 			setPosition(sf::Vector2f(target.x, target.y));
 			return true;
 		}

@@ -22,10 +22,10 @@ static const std::map<char, int> animatedIndex = {
 };
 
 static const std::map<char, int> collisionIndex = {
-	{'#', WALL},
-	{'+', WALL},
-	{'@', WALL},
-	{' ', EMPTY},
-	{'~', EMPTY},
-	{'=', EMPTY}
+	{'=', LIGHT},
+	{'+', LIGHT},
+	{'~', LIGHT},
+	{'#', SOLID},
+	{'@', SOLID},
+	{' ', SOLID}
 };

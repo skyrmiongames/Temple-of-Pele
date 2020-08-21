@@ -231,30 +231,11 @@ bool Player::takeDamage(double time)
 	this->invulnerable = true;
 	isInvulnerable = updateTakeDamageTime(time);
 	modify_health(-20);
-	if (Entity::mazeIndex->getTile(getPosition()) == EMPTY)
-	{
-		switch (curDirection) // push back for when getting injured.
-		{
-		case 0: setPosition(getPosition().x, getPosition().y - 1);
-			break; // up
-		case 1: setPosition(getPosition().x, getPosition().y + 1);
-			break; // down
-		case 2: setPosition(getPosition().x - 1, getPosition().y);
-			break; // right
-		case 3: setPosition(getPosition().x + 1, getPosition().y);
-			break; // left
-		}
-	}
 	return isInvulnerable;
 }
 
 void Player::updateHealth(double time)
 {
-	if (Entity::mazeIndex->getTile(getPosition()) == EMPTY)
-	{
-		takeDamage(time);
-	}
-
 	if (this->health > 40)
 	{
 		healthSprite.setTextureRect(sf::IntRect(0, 0, 25, 7));

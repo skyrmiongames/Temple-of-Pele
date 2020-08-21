@@ -23,6 +23,9 @@ public:
 		//Send and delete
 		send();
 		setDelete();
+
+		if(object->getLayer() == FIREBALL)
+			object->setDelete();
 	}
 };
 

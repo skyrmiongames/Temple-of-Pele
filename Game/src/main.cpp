@@ -19,15 +19,20 @@ int main() {
 	GridMaker grid("resources/maps/full_map.txt", 70, 33);
 	TileMap map("resources/tiles/TileMap_Enviro.png", 16, 16, Indexer(&grid, displayIndex, 1));
 	AnimatedTileMap aniMap("resources/tiles/TileMap_Gif.png", 16, 16, Indexer(&grid, animatedIndex, -1), 12, 0.3);
-	Entity::mazeIndex = new Indexer(&grid, collisionIndex, FLOOR, 16, 16);
+	Entity::mazeIndex = new Indexer(&grid, collisionIndex, AIR, 16, 16);
+
+	//Create test Light map
+	LightMap lighting(16, 16, *Entity::mazeIndex, LIGHTING);
 
     //Link tilemaps
     UpdateList::addNode(&map);
     UpdateList::addNode(&aniMap);
+    UpdateList::addNode(&lighting);
 
     //Set layers
     UpdateList::alwaysLoadLayer(MAP);
     UpdateList::alwaysLoadLayer(LOGIC);
+    UpdateList::alwaysLoadLayer(LIGHTING);
     UpdateList::alwaysLoadLayer(GUI);
     UpdateList::alwaysLoadLayer(PLAYER);
 

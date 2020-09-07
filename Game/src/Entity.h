@@ -2,6 +2,7 @@
 
 #include "Skyrmion/Node.h"
 #include "Skyrmion/GridMaker.h"
+#include "Skyrmion/LightMap.hpp"
 #include "enums.h"
 #include "textures.h"
 
@@ -64,6 +65,7 @@ public:
 
 	static sf::Vector2f playerPos;
 	static Indexer *mazeIndex;
+	static LightMap *lighting;
 
 protected:
 	int health;

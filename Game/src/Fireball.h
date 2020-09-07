@@ -56,9 +56,18 @@ public:
 	};
 
 	void update(double time) {
+		//Entity::lighting->removeSource(getGPosition().x / 16, getGPosition().y / 16);
 		if(!move(time, direction, speed, true))
 			setDelete();
-		animateFireball(time);
+		if(!isDeleted()) {
+			animateFireball(time);
+
+			//Update lighting location
+			unsigned int x = getGPosition().x / 16;
+			unsigned int y = getGPosition().y / 16;
+			Entity::lighting->addSource(x, y, 0.6);
+			Entity::lighting->reload();
+		}
 	}
 
 	void collide(Node* object) {

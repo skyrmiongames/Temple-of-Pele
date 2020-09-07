@@ -12,6 +12,7 @@
 
 sf::Vector2f Entity::playerPos;
 Indexer *Entity::mazeIndex;
+LightMap *Entity::lighting;
 
 int main() {
 	XInitThreads();
@@ -24,8 +25,10 @@ int main() {
 
 	//Create test Light map
 	LightMap lighting(16, 16, 69, 33, LIGHTING);
+	LightMap fireballLighting(16, 16, 69, 33, LIGHTING);
 	Indexer mazeIndex = *Entity::mazeIndex;
-	mazeIndex.mapGrid([&lighting, &mazeIndex](char c, sf::Vector2f pos) {
+	Entity::lighting = &fireballLighting;
+	mazeIndex.mapGrid([&lighting, &fireballLighting, &mazeIndex](char c, sf::Vector2f pos) {
 		unsigned int x = pos.x / 16;
 		unsigned int y = pos.y / 16;
 		if(c == '+')
@@ -36,16 +39,20 @@ int main() {
 			int type = mazeIndex.getTile(c);
 			if(type == LAVA)
 				lighting.addSource(x, y, 1.0);
-			else if(type == SOLID)
+			else if(type == SOLID) {
 				lighting.addSolid(x, y);
+				fireballLighting.addSolid(x, y);
+			}
 		}
 	});
 	lighting.reload();
+	fireballLighting.reload();
 
     //Link tilemaps
     UpdateList::addNode(&map);
     UpdateList::addNode(&aniMap);
     UpdateList::addNode(&lighting);
+    //UpdateList::addNode(&fireballLighting);
 
     //Set layers
     UpdateList::alwaysLoadLayer(MAP);

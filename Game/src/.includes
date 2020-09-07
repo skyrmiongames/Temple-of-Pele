@@ -1,6 +1,3 @@
-#num=1
-#builder1=make
-
-buildargs2=-lsfml-graphics -lsfml-window -lsfml-system -lX11
+buildargs3=-lsfml-graphics -lsfml-window -lsfml-system -lX11
 files=*.cpp Skyrmion/*.cpp
 testdir=../

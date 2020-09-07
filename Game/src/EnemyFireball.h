@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Skyrmion/UpdateList.h"
+#include "Skyrmion/LightMap.hpp"
 #include "Enemy.h"
 #include "Fireball.h"
 

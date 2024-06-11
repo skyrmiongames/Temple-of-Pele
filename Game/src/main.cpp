@@ -4,62 +4,46 @@
 
 //Game headers
 #include "Skyrmion/AnimatedTileMap.hpp"
-#include "Skyrmion/LightMap.hpp"
+#include "Skyrmion/LightMap.h"
 #include "NodeLoader.hpp"
 #include "Player.h"
-
-#include <X11/Xlib.h>
 
 sf::Vector2f Entity::playerPos;
 Indexer *Entity::mazeIndex;
 LightMap *Entity::lighting;
 
 int main() {
-	XInitThreads();
+	//Load settings file
+	Settings::loadSettings("resources/settings.json");
+	Textures textures;
 
 	//Load base tile maps
-	GridMaker grid("resources/maps/full_map.txt", 69, 33);
-	TileMap map("resources/tiles/TileMap_Enviro.png", 16, 16, Indexer(&grid, displayIndex, 1));
-	AnimatedTileMap aniMap("resources/tiles/TileMap_Gif.png", 16, 16, Indexer(&grid, animatedIndex, -1), 12, 0.3);
-	Entity::mazeIndex = new Indexer(&grid, collisionIndex, AIR, 16, 16);
+	GridMaker grid("resources/maps/full_map.txt");
+	TileMap map(&textures.environment, 16, 16, new Indexer(&grid, displayIndex, 1), MAP);
+	AnimatedTileMap aniMap(&textures.animated, 16, 16, new Indexer(&grid, animatedIndex, -1), 12, 0.3, MAP);
+	Entity::mazeIndex = new Indexer(&grid, collisionIndex, 1, 16, 16);
 
 	//Create test Light map
-	LightMap lighting(16, 16, 69, 33, LIGHTING);
-	LightMap fireballLighting(16, 16, 69, 33, LIGHTING);
-	Indexer mazeIndex = *Entity::mazeIndex;
+	Indexer lightMap(&grid, lightIndex, 0, 2, 2);
+	LightMap staticLighting(8, 8, 0.2, 0.05, lightMap, LIGHTING, true);
+	LightMap fireballLighting(8, 8, 0, 0.05, lightMap, LIGHTING, false);
 	Entity::lighting = &fireballLighting;
-	mazeIndex.mapGrid([&lighting, &fireballLighting, &mazeIndex](char c, sf::Vector2f pos) {
-		unsigned int x = pos.x / 16;
-		unsigned int y = pos.y / 16;
-		if(c == '+')
-			lighting.addSource(x, y, 1.0);
-		else if(c == '>')
-			lighting.addSource(x, y, 1.0);
-		else {
-			int type = mazeIndex.getTile(c);
-			if(type == LAVA)
-				lighting.addSource(x, y, 1.0);
-			else if(type == SOLID) {
-				lighting.addSolid(x, y);
-				fireballLighting.addSolid(x, y);
-			}
-		}
-	});
-	lighting.reload();
-	fireballLighting.reload();
+	LightMapCollection lighting(8, 8, lightMap, LIGHTING);
+	lighting.addLightMap(&staticLighting);
+	lighting.addLightMap(&fireballLighting);
+	UpdateList::addNode(&lighting);
 
     //Link tilemaps
     UpdateList::addNode(&map);
     UpdateList::addNode(&aniMap);
-    UpdateList::addNode(&lighting);
-    //UpdateList::addNode(&fireballLighting);
 
     //Set layers
-    UpdateList::alwaysLoadLayer(MAP);
-    UpdateList::alwaysLoadLayer(LOGIC);
-    UpdateList::alwaysLoadLayer(GUI);
-    UpdateList::alwaysLoadLayer(PLAYER);
-    UpdateList::alwaysLoadLayer(LIGHTING);
+    UpdateList::staticLayer(MAP);
+    UpdateList::staticLayer(LOGIC);
+    UpdateList::staticLayer(GUI);
+    UpdateList::staticLayer(FIREBALL);
+    UpdateList::staticLayer(PLAYER);
+    UpdateList::staticLayer(LIGHTING);
 
     //Set up player
     Player player;
@@ -68,19 +52,18 @@ int main() {
 	UpdateList::addNode(&player);
 
 	//Game exit
-	EndScreen winScreen(&lighting, true);
+	EndScreen winScreen(true);
 	winScreen.setPosition(69, 2);
 	UpdateList::addNode(&winScreen);
-	EndScreen loseScreen(&lighting, false);
+	EndScreen loseScreen(false);
 	loseScreen.setParent(&player);
 	UpdateList::addNode(&loseScreen);
 
-	//Set up selected room nodes
-	Textures textures;
+	//Spawn all enemies and rooms
 	spawn(textures);
 
 	//Run game engine
-	UpdateList::startEngine("Temple of Pele", sf::VideoMode(1200, 800));
+	UpdateList::startEngine("Temple of Pele");
 	std::cout << "Done\n";
 	return 0;
 }

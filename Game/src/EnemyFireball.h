@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Skyrmion/UpdateList.h"
-#include "Skyrmion/LightMap.hpp"
 #include "Enemy.h"
 #include "Fireball.h"
 
@@ -21,7 +20,7 @@ public:
 		animateEnemy(time);
 
 		sf::Vector2f dir = playerPos - getGPosition();
-		move(time, dir, 16, false);
+		move(dir, mazeIndex, 16*time, 0);
 		fireballTimer(time, dir);
 	}
 

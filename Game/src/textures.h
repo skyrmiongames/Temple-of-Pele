@@ -40,6 +40,10 @@ public:
 	sf::Texture spitter;
 	sf::Texture brazier;
 
+	//Tilemaps
+	sf::Texture environment;
+	sf::Texture animated;
+
 	Textures()
 	{
 		//Player animations
@@ -71,5 +75,9 @@ public:
 		bridge.loadFromFile("resources/tiles/Bridge.png");
 		spitter.loadFromFile("resources/tiles/Spitter.png");
 		brazier.loadFromFile("resources/tiles/Brazier_base.png");
+
+		//Tile maps
+		environment.loadFromFile("resources/tiles/TileMap_Enviro.png");
+		animated.loadFromFile("resources/tiles/TileMap_Gif.png");
 	}
 };

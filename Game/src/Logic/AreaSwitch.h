@@ -24,8 +24,10 @@ public:
 		send();
 		setDelete();
 
-		if(object->getLayer() == FIREBALL)
+		if(object->getLayer() == FIREBALL) {
+			Entity::lighting->addSource(getGPosition(), 1);
 			object->setDelete();
+		}
 	}
 };
 

@@ -2,7 +2,7 @@
 
 #include "Skyrmion/Node.h"
 #include "Skyrmion/GridMaker.h"
-#include "Skyrmion/LightMap.hpp"
+#include "Skyrmion/LightMap.h"
 #include "enums.h"
 #include "textures.h"
 
@@ -16,9 +16,8 @@ public:
 		sf::Vector2i _size = sf::Vector2i(10, 16),
 		int _health = 60,
 		int _attack_power = 20,
-		double _speed = 1.0,
 		bool _invulnerable = false
-	) : Node(_layer, _size, false), health(_health), max_health(_health), attack_power(_attack_power), speed(_speed), invulnerable(_invulnerable)
+	) : Node(_layer, _size, false, NULL), health(_health), max_health(_health), attack_power(_attack_power), invulnerable(_invulnerable)
 	{
 	}
 
@@ -45,22 +44,6 @@ public:
 
 	int get_attack() { return attack_power; }
 
-	bool move(
-		double time,
-		sf::Vector2f dir,
-		float distance = 56,
-		bool allowVoid = false
-	) {
-		sf::Vector2f target = getShiftedPosition(time, dir, distance);
-		int targetType = mazeIndex->getTile(target);
-
-		if (targetType == AIR || (allowVoid && targetType == LAVA)) {
-			setPosition(sf::Vector2f(target.x, target.y));
-			return true;
-		}
-		return false;
-	}
-
 	// virtual void update() {};
 
 	static sf::Vector2f playerPos;
@@ -71,7 +54,6 @@ protected:
 	int health;
 	int max_health;
 	int attack_power;
-	double speed;
 	bool invulnerable;
 	Textures textures;
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Skyrmion/UpdateList.h"
+#include "Skyrmion/InputHandler.h"
 #include "Entity.h"
 #include "EndScreen.hpp"
 
@@ -23,6 +24,8 @@ public:
 	void animatePlayer(double time);
 	// Timer for players movement animation, called in animate player
 	void updateFrameTime(double time, int curFrame, int maxFrames);
+	// Update lighting around player
+	void updateLighting();
 
 	// vitual function definition, calls eightWayMovement, updateHealth, updateKey, and attack
 	void update(double time);
@@ -60,6 +63,9 @@ private:
 	// determines which way the player is facing, 0 = down, 1 = up, 2 = right, 3 = left
 	int curDirection;
 	int curMoveFrame = 0;
+	DirectionHandler input;
+
+	int lightIndex;
 
 	// timing
 	double nextAniTime = 0;

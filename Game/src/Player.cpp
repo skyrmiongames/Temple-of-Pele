@@ -1,6 +1,7 @@
 #include "Player.h"
 
-Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2) {
+Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false), 
+input("/movement", LOGIC, this) {
 	//sf::IntRect playerRectangle(0,0 10, 16);
 	this->setTexture(textures.playerIdleDown);
 
@@ -29,6 +30,8 @@ Player::Player() : Entity(PLAYER, sf::Vector2i(10, 16), 60, 0, false, 1.2) {
 	knifeH.setTexture(textures.knife);
 	UpdateList::addNode(&knifeH);
 
+	lightIndex = Entity::lighting->addSource(getGPosition(), 0.5);
+
 	// current movment frame
 	curMoveFrame = 0;
 	curDirection = 0; // 0 is down, 1 is up, 2 is right, 3 is left
@@ -47,30 +50,17 @@ Player::~Player()
 
 void Player::eightWayMovement(double time)
 {
-	sf::Vector2i direction;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) // up
-	{
-		direction.y--;
-		this->curDirection = 1;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) // down
-	{
-		direction.y++;
-		this->curDirection = 0;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) // left
-	{
-		direction.x--;
-		this->curDirection = 3;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) // right
-	{
-		direction.x++;
-		this->curDirection = 2;
-	}
+	sf::Vector2f direction = input.getDirection();
+	move(direction, mazeIndex, time * 40);
 
-	if(direction.x != 0 || direction.y != 0)
-		move(time, sf::Vector2f(direction.x, direction.y));
+	if (direction.y < 0) // up
+		this->curDirection = 1;
+	if (direction.y > 0) // down
+		this->curDirection = 0;
+	if (direction.x < 0) // left
+		this->curDirection = 3;
+	if (direction.x > 0) // right
+		this->curDirection = 2;
 
 	Entity::playerPos = getPosition();
 }
@@ -81,17 +71,23 @@ void Player::updateFrameTime(double time, int curFrame, int maxMoveFrames)
 	{
 		nextAniTime = 0.1;
 		curMoveFrame++;
-		if(curFrame == maxMoveFrames)
+		if(curFrame >= maxMoveFrames)
 			curMoveFrame = 0;
 	}
+}
+
+void Player::updateLighting()
+{
+	Entity::lighting->moveSource(lightIndex, getGPosition());
+	Entity::lighting->reload();
 }
 
 void Player::animatePlayer(double time)
 {
 	int maxMoveFrames = 0;
+	sf::Vector2f direction = input.getDirection();
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)
-		|| sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (direction != sf::Vector2f(0,0))
 	{
 		if (curDirection == 1) //up
 		{
@@ -292,6 +288,7 @@ void Player::update(double time)
 	if(!endGame) {
 		attack();
 		eightWayMovement(time);
+		updateLighting();
 		updateHealth(time);
 		keyIcon.setHidden(!hasKey);
 		animatePlayer(time);
@@ -314,7 +311,7 @@ void Player::collide(Node *object , double time)
 		endGame = true;
 		setPosition(285,80);
 		//setPosition(2000,80);
-		((EndScreen*)object)->display();
+		((EndScreen*)object)->display(&textures);
 	}
 
 	//Pickup key object

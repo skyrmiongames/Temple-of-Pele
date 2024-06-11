@@ -6,12 +6,6 @@
  * enums for tiles and collision
  */
 
-enum TileType {
-	AIR,
-	LAVA,
-	SOLID
-};
-
 enum CollisionLayer {
 	MAP,
 	LOGIC,

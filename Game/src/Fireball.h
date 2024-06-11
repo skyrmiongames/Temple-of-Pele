@@ -4,6 +4,8 @@
 
 class Fireball : public Enemy {
 public:
+	int lightIndex;
+
 	Fireball(
 		sf::Vector2f _location,
 		sf::Vector2f _direction,
@@ -18,6 +20,8 @@ public:
 		maxFrame = 4;
 		setTexture(textures.Fireball);
 		setRotation(-90);
+
+		lightIndex = Entity::lighting->addSource(getGPosition(), 0.6);
 
 		collideWith(SWORD);
 		collideWith(PLAYER);
@@ -56,17 +60,16 @@ public:
 	};
 
 	void update(double time) {
-		//Entity::lighting->removeSource(getGPosition().x / 16, getGPosition().y / 16);
-		if(!move(time, direction, speed, true))
+		move(direction, speed*time);
+		if(mazeIndex->getTile(getGPosition()) < -1) {
+			Entity::lighting->deleteSource(lightIndex);
 			setDelete();
+		}
 		if(!isDeleted()) {
 			animateFireball(time);
 
 			//Update lighting location
-			unsigned int x = getGPosition().x / 16;
-			unsigned int y = getGPosition().y / 16;
-			Entity::lighting->addSource(x, y, 0.6);
-			Entity::lighting->reload();
+			Entity::lighting->moveSource(lightIndex, getGPosition());
 		}
 	}
 

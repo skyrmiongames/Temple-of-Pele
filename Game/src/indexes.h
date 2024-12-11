@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Skyrmion/GridMaker.h"
+#include "Skyrmion/tiling/GridMaker.h"
 #include "enums.h"
 
-static const std::map<char, int> displayIndex = {
+static const std::map<int, int> displayIndex = {
 	{'#', 0},
 	{'@', 0},
 	{',', 4},
@@ -15,7 +15,7 @@ static const std::map<char, int> displayIndex = {
 	{'=', -1}
 };
 
-static const std::map<char, int> animatedIndex = {
+static const std::map<int, int> animatedIndex = {
 	{'~', 1},
 	{'=', 1},
 	{'+', 0},
@@ -23,23 +23,32 @@ static const std::map<char, int> animatedIndex = {
 	{' ', -1}
 };
 
-static const std::map<char, int> collisionIndex = {
-	{'=', -1},
-	{'~', -1},
-	{'#', -2},
-	{'@', -2},
-	{'+', -2},
-	{'%', -2},
-	{' ', -2}
+static const std::map<int, int> collisionIndex = {
+	{'=', FULL},
+	{'~', FULL},
+	{'#', FULL},
+	{'@', FULL},
+	{'+', FULL},
+	{'%', FULL},
+	{' ', FULL}
 };
 
-static const std::map<char, int> lightIndex = {
+static const std::map<int, int> fireballCollisionIndex = {
+	{'=', EMPTY},
+	{'~', EMPTY},
+	{'#', FULL},
+	{'@', FULL},
+	{'+', FULL},
+	{'%', FULL},
+	{' ', FULL}
+};
+
+static const std::map<int, int> lightIndex = {
 	{'=', 70},
 	{'~', 70},
 	{'+', 100},
 	{'>', 100},
 	{'#', -100},
 	{'@', -100},
-	{'+', -100},
 	{' ', -100}
 };

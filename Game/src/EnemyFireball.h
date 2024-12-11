@@ -20,7 +20,7 @@ public:
 		animateEnemy(time);
 
 		sf::Vector2f dir = playerPos - getGPosition();
-		move(dir, mazeIndex, 16*time, 0);
+		setGPosition(topDownMovement(this, dir, mazeIndex, 16*time));
 		fireballTimer(time, dir);
 	}
 

@@ -13,6 +13,7 @@ x64
 Debug
 Release
 *.o
+*/vgcore.*
 
 # Logs
 *.log

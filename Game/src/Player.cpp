@@ -50,8 +50,8 @@ Player::~Player()
 
 void Player::eightWayMovement(double time)
 {
-	sf::Vector2f direction = input.getDirection();
-	move(direction, mazeIndex, time * 40);
+	sf::Vector2f direction = input.getMovement(time*40);
+	setPosition(topDownMovement(getPosition(), direction, getSize(), mazeIndex));
 
 	if (direction.y < 0) // up
 		this->curDirection = 1;

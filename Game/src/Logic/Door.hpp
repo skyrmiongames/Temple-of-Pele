@@ -1,5 +1,5 @@
 #include "../Skyrmion/Node.h"
-#include "../Skyrmion/GridMaker.h"
+#include "../Skyrmion/tiling/GridMaker.h"
 #include "LogicComponents.h"
 #include "../Player.h"
 

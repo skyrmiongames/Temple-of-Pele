@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Skyrmion/UpdateList.h"
-#include "Skyrmion/InputHandler.h"
+#include "Skyrmion/input/InputHandler.h"
+#include "Skyrmion/input/MovementSystems.h"
 #include "Entity.h"
 #include "EndScreen.hpp"
 

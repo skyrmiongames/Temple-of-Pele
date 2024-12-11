@@ -60,8 +60,10 @@ public:
 	};
 
 	void update(double time) {
-		move(direction, speed*time);
-		if(mazeIndex->getTile(getGPosition()) < -1) {
+		setPosition(getPosition()+vectorLength(direction, speed*time));
+
+
+		if(mazeFireballIndex->getTile(getGPosition()) != EMPTY) {
 			Entity::lighting->deleteSource(lightIndex);
 			setDelete();
 		}

@@ -1,5 +1,5 @@
-#include "Skyrmion/TileMap.hpp"
-#include "Skyrmion/LightMap.h"
+#include "Skyrmion/tiling/TileMap.hpp"
+#include "Skyrmion/tiling/LightMap.h"
 #include "indexes.h"
 #include "textures.h"
 #pragma once
@@ -33,7 +33,7 @@ public:
 			grid.reload("resources/maps/lose_text.txt");
 
 		//Build tilemap
-		map = new TileMap(&textures->environment, 16, 16, new Indexer(&grid, displayIndex, 1), getLayer(), 0);
+		map = new TileMap(&textures->environment, 16, 16, new MapIndexer(&grid, displayIndex, 1), getLayer(), 0);
 		map->setPosition(0, 0);
 		//setPosition(2000, 0);
 		setRotation(0);

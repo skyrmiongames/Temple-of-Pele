@@ -3,13 +3,14 @@
 #include <SFML/Graphics.hpp>
 
 //Game headers
-#include "Skyrmion/AnimatedTileMap.hpp"
-#include "Skyrmion/LightMap.h"
+#include "Skyrmion/tiling/TileMap.hpp"
+#include "Skyrmion/tiling/LightMap.h"
 #include "NodeLoader.hpp"
 #include "Player.h"
 
 sf::Vector2f Entity::playerPos;
-Indexer *Entity::mazeIndex;
+MapIndexer *Entity::mazeIndex;
+MapIndexer *Entity::mazeFireballIndex;
 LightMap *Entity::lighting;
 
 int main() {
@@ -19,19 +20,20 @@ int main() {
 
 	//Load base tile maps
 	GridMaker grid("resources/maps/full_map.txt");
-	TileMap map(&textures.environment, 16, 16, new Indexer(&grid, displayIndex, 1), MAP);
-	AnimatedTileMap aniMap(&textures.animated, 16, 16, new Indexer(&grid, animatedIndex, -1), 12, 0.3, MAP);
-	Entity::mazeIndex = new Indexer(&grid, collisionIndex, 1, 16, 16);
+	TileMap map(&textures.environment, 16, 16, new MapIndexer(&grid, displayIndex, 1), MAP);
+	AnimatedTileMap aniMap(&textures.animated, 16, 16, new MapIndexer(&grid, animatedIndex, -1), 12, 0.3, MAP);
+	Entity::mazeIndex = new MapIndexer(&grid, collisionIndex, EMPTY, 16, 16);
+	Entity::mazeFireballIndex = new MapIndexer(&grid, fireballCollisionIndex, EMPTY, 16, 16);
 
 	//Create test Light map
-	Indexer lightMap(&grid, lightIndex, 0, 2, 2);
-	LightMap staticLighting(8, 8, 0.2, 0.05, lightMap, LIGHTING, true);
-	LightMap fireballLighting(8, 8, 0, 0.05, lightMap, LIGHTING, false);
-	Entity::lighting = &fireballLighting;
-	LightMapCollection lighting(8, 8, lightMap, LIGHTING);
+	MapIndexer lightMap(&grid, lightIndex, 0, 2, 2);
+	LightMapCollection lighting(16, 16, &lightMap, LIGHTING);
+	LightMap staticLighting(16, 16, 0.2, 0.2, &lightMap, LIGHTING, true);
+	LightMap fireballLighting(16, 16, 0.2, 0.2, &lightMap, LIGHTING, false);
 	lighting.addLightMap(&staticLighting);
 	lighting.addLightMap(&fireballLighting);
 	UpdateList::addNode(&lighting);
+	Entity::lighting = &fireballLighting;
 
     //Link tilemaps
     UpdateList::addNode(&map);

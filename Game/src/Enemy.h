@@ -23,7 +23,7 @@ public:
 			setTexture(textures.EnemyLeftGif);
 
 		animateEnemy(time);
-		move(playerPos - getGPosition(), mazeIndex, time*16);
+		setGPosition(topDownMovement(this, playerPos - getGPosition(), mazeIndex, time*16));
 	}
 
 	void collide(Node *object) {

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Skyrmion/Node.h"
-#include "Skyrmion/GridMaker.h"
-#include "Skyrmion/LightMap.h"
+#include "Skyrmion/tiling/GridMaker.h"
+#include "Skyrmion/tiling/LightMap.h"
 #include "enums.h"
 #include "textures.h"
 
@@ -47,7 +47,8 @@ public:
 	// virtual void update() {};
 
 	static sf::Vector2f playerPos;
-	static Indexer *mazeIndex;
+	static MapIndexer *mazeIndex;
+	static MapIndexer *mazeFireballIndex;
 	static LightMap *lighting;
 
 protected:

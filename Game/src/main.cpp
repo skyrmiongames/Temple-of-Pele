@@ -5,6 +5,7 @@
 //Game headers
 #include "Skyrmion/tiling/TileMap.hpp"
 #include "Skyrmion/tiling/LightMap.h"
+#include "Skyrmion/tiling/TileFilters.hpp"
 #include "NodeLoader.hpp"
 #include "Player.h"
 
@@ -22,6 +23,9 @@ int main() {
 	GridMaker grid("resources/maps/full_map.txt");
 	TileMap map(&textures.environment, 16, 16, new MapIndexer(&grid, displayIndex, 1), MAP);
 	AnimatedTileMap aniMap(&textures.animated, 16, 16, new MapIndexer(&grid, animatedIndex, -1), 12, 0.3, MAP);
+	TileMap quadMap(&textures.environment, 16, 16,
+		new QuadIndexer(new MapIndexer(&grid, quadPreprocessIndex, -1), quadIndex, -1), MAP);
+	quadMap.setPosition(8,8);
 	Entity::mazeIndex = new MapIndexer(&grid, collisionIndex, EMPTY, 16, 16);
 	Entity::mazeFireballIndex = new MapIndexer(&grid, fireballCollisionIndex, EMPTY, 16, 16);
 
@@ -38,6 +42,7 @@ int main() {
     //Link tilemaps
     UpdateList::addNode(&map);
     UpdateList::addNode(&aniMap);
+    UpdateList::addNode(&quadMap);
 
     //Set layers
     UpdateList::staticLayer(MAP);
